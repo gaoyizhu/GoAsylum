@@ -216,7 +216,9 @@ export default function Game() {
         lastMove={lastMove}
         disabled={!isPlayerTurn || isAIThinking}
         boardSize={parseInt(boardSize.split('x')[0])}
-        showColors={gameType === 'mono' ? showColors : true}
+        showColors={gameType === 'mono' || gameType === 'amnesia' ? showColors : true}
+        amnesiaMode={gameType === 'amnesia'}
+        moveHistory={gameState.moveHistory}
       />
     );
   };
@@ -311,7 +313,17 @@ export default function Game() {
                 {(t.game as any).showColors || '显示黑白'}
               </Button>
             )}
-            {gameType !== 'mono' && (
+            {/* 失忆症特有：回忆过去按钮 */}
+            {gameType === 'amnesia' && (
+              <Button
+                variant={showColors ? "default" : "outline"}
+                onClick={() => setShowColors(!showColors)}
+                className={showColors ? "bg-primary text-primary-foreground" : "text-foreground"}
+              >
+                {(t.game as any).recallPast || '回忆过去'}
+              </Button>
+            )}
+            {gameType !== 'mono' && gameType !== 'amnesia' && (
               <Button
                 variant="outline"
                 onClick={handleUndo}

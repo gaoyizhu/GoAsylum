@@ -9,6 +9,8 @@ interface GoBoardProps {
   highlightedPositions?: Position[];
   disabled?: boolean;
   showColors?: boolean; // For mono mode
+  amnesiaMode?: boolean; // For amnesia mode
+  moveHistory?: any[]; // Move history for amnesia mode
 }
 
 export function GoBoard({
@@ -19,6 +21,8 @@ export function GoBoard({
   highlightedPositions = [],
   disabled = false,
   showColors = true,
+  amnesiaMode = false,
+  moveHistory = [],
 }: GoBoardProps) {
   const cellSize = 40;
   const padding = 30;
@@ -38,6 +42,42 @@ export function GoBoard({
 
   const isLastMove = (x: number, y: number) => {
     return lastMove && lastMove.x === x && lastMove.y === y;
+  };
+
+  // 失忆症模式：根据棋子手数计算渐变颜色
+  const getAmnesiaColor = (x: number, y: number, isBlack: boolean): string => {
+    if (!amnesiaMode) {
+      // 非失忆症模式，返回正常颜色
+      return isBlack ? '#000' : '#fff';
+    }
+
+    if (showColors) {
+      // "回忆过去"模式：显示真实的黑白颜色
+      return isBlack ? '#000' : '#fff';
+    }
+
+    // 默认失忆症模式：显示渐变颜色
+    // 查找该棋子的手数
+    const move = moveHistory.find((m: any) => m.position.x === x && m.position.y === y);
+    if (!move) return '#808080';
+
+    const currentMoveNumber = moveHistory.length;
+    const age = currentMoveNumber - move.moveNumber; // 棋子的"年龄"
+
+    // 最近10手棋子渐变，超过10手的显示灰色
+    if (age >= 10) {
+      return '#808080';
+    }
+
+    // 线性渐变：黑棋从 #000000 渐变到 #808080，白棋从 #FFFFFF 渐变到 #808080
+    const ratio = age / 10; // 0 到 1
+    if (isBlack) {
+      const gray = Math.round(0x00 + (0x80 - 0x00) * ratio);
+      return `#${gray.toString(16).padStart(2, '0')}${gray.toString(16).padStart(2, '0')}${gray.toString(16).padStart(2, '0')}`;
+    } else {
+      const gray = Math.round(0xFF - (0xFF - 0x80) * ratio);
+      return `#${gray.toString(16).padStart(2, '0')}${gray.toString(16).padStart(2, '0')}${gray.toString(16).padStart(2, '0')}`;
+    }
   };
 
   return (
@@ -122,9 +162,23 @@ export function GoBoard({
             const cy = padding + y * cellSize;
             const isBlack = stone === 'black';
             
-            // For mono mode, all stones appear white
-            const displayColor = showColors ? (isBlack ? '#000000' : '#FFFFFF') : '#FFFFFF';
-            const strokeColor = showColors ? (isBlack ? '#000000' : '#999999') : '#999999';
+            // 失忆症模式使用渐变颜色，一色模式使用白色，否则正常显示
+            let displayColor: string;
+            let strokeColor: string;
+            
+            if (amnesiaMode) {
+              // 失忆症模式：使用渐变颜色
+              displayColor = getAmnesiaColor(x, y, isBlack);
+              strokeColor = displayColor === '#FFFFFF' ? '#999999' : displayColor;
+            } else if (!showColors) {
+              // 一色模式：所有棋子显示为白色
+              displayColor = '#FFFFFF';
+              strokeColor = '#999999';
+            } else {
+              // 正常模式
+              displayColor = isBlack ? '#000000' : '#FFFFFF';
+              strokeColor = isBlack ? '#000000' : '#999999';
+            }
 
             return (
               <g key={`stone-${x}-${y}`}>
