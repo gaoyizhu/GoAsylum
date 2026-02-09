@@ -128,10 +128,10 @@ export function CanvasBoard({
                     {/* 八边形星星形状 */}
                     <path
                       d={(() => {
-                        // 纵向长度保持不变
-                        const verticalLength = stoneRadius * 1.8;
-                        // 横向缩减2px，并且让线条更细
-                        const horizontalLength = stoneRadius * 1.4 - 1; // 横向缩减
+                        // 纵向长度缩减1px
+                        const verticalLength = stoneRadius * 1.8 - 0.5;
+                        // 横向缩减总共3px
+                        const horizontalLength = stoneRadius * 1.4 - 1.5; // 横向缩减
                         const lineWidth = stoneRadius * 0.35; // 更瘦
                         const halfVertical = verticalLength / 2;
                         const halfHorizontal = horizontalLength / 2;
