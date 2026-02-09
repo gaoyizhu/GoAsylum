@@ -1,23 +1,301 @@
 /**
- * Game Page - 根据URL参数显示不同的游戏
+ * Game Page - 统一游戏页面，根据URL参数加载不同游戏
  */
 
-import { useRoute } from "wouter";
+import { useRoute, useLocation } from "wouter";
+import { useLanguage } from "@/lib/i18n/language-context";
+import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
+
+// 导入不同的棋盘组件
+import { LineBoard } from "@/components/LineBoard";
+import { GoBoard } from "@/components/GoBoard";
+import { TricolorBoard } from "@/components/TricolorBoard";
+
+// 导入引擎
+import * as LineEngine from "@/lib/go-game-line/engine";
+import * as Engine9x9 from "@/lib/go-game-9x9/engine";
+import * as Engine13x13 from "@/lib/go-game-13x13/engine";
+import * as ToroidEngine9x9 from "@/lib/go-game-toroid9x9/engine";
+import * as ToroidEngine13x13 from "@/lib/go-game-toroid13x13/engine";
+import * as MagneticEngine9x9 from "@/lib/go-game-magnetic9x9/engine";
+import * as MagneticEngine13x13 from "@/lib/go-game-magnetic13x13/engine";
+import * as TricolorEngine from "@/lib/go-game-tricolor13x13/engine";
+import * as CanvasEngine from "@/lib/go-game-canvas13x13/engine";
+
+import type { GameState as LineGameState } from "@/lib/go-game-line/types";
+import type { GameState as StandardGameState } from "@/lib/go-game-9x9/types";
+import type { GameState as TricolorGameState } from "@/lib/go-game-tricolor13x13/types";
 
 export default function Game() {
   const [, params] = useRoute("/game/:type/:size/:mode");
+  const [, setLocation] = useLocation();
+  const { t } = useLanguage();
   
   const gameType = params?.type || 'standard';
   const boardSize = params?.size || '9x9';
   const gameMode = params?.mode || 'pvp';
 
+  // 根据游戏类型选择引擎
+  const getEngine = () => {
+    if (gameType === 'line') return LineEngine;
+    if (gameType === 'toroid') return boardSize === '9x9' ? ToroidEngine9x9 : ToroidEngine13x13;
+    if (gameType === 'magnetic') return boardSize === '9x9' ? MagneticEngine9x9 : MagneticEngine13x13;
+    if (gameType === 'tricolor') return TricolorEngine;
+    if (gameType === 'canvas') return CanvasEngine;
+    return boardSize === '9x9' ? Engine9x9 : Engine13x13;
+  };
+
+  const engine = getEngine();
+  
+  const [gameState, setGameState] = useState<any>(() => (engine as any).createInitialGameState());
+  const [isAIThinking, setIsAIThinking] = useState(false);
+
+  const lastMove = gameState.moveHistory?.length > 0
+    ? gameState.moveHistory[gameState.moveHistory.length - 1].position
+    : null;
+
+  const isPlayerTurn = gameMode === 'pvp' 
+    ? gameState.status === 'playing'
+    : gameState.currentPlayer === 'black' && gameState.status === 'playing';
+
+  const canUndo = gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
+
+  const handlePlaceStone = (position: any) => {
+    if (!isPlayerTurn || isAIThinking) return;
+    
+    if ((engine as any).isValidMove(gameState, position)) {
+      const newState = (engine as any).makeMove(gameState, position);
+      setGameState(newState);
+
+      // AI回合
+      if (gameMode === 'ai' && gameType === 'line' && newState.status === 'playing' && newState.currentPlayer === 'white') {
+        setIsAIThinking(true);
+        setTimeout(() => {
+          const aiMove = getRandomValidMove(newState);
+          if (aiMove) {
+            setGameState((engine as any).makeMove(newState, aiMove));
+          } else {
+            setGameState((engine as any).makePass(newState));
+          }
+          setIsAIThinking(false);
+        }, 500);
+      }
+    }
+  };
+
+  const getRandomValidMove = (state: any) => {
+    const validMoves: any[] = [];
+    const size = gameType === 'line' ? 13 : (boardSize === '9x9' ? 9 : 13);
+    
+    if (gameType === 'line') {
+      for (let x = 0; x < size; x++) {
+        const pos = { x, y: 0 };
+        if ((engine as any).isValidMove(state, pos)) {
+          validMoves.push(pos);
+        }
+      }
+    } else {
+      for (let x = 0; x < size; x++) {
+        for (let y = 0; y < size; y++) {
+          const pos = { x, y };
+          if ((engine as any).isValidMove(state, pos)) {
+            validMoves.push(pos);
+          }
+        }
+      }
+    }
+    
+    return validMoves.length > 0 ? validMoves[Math.floor(Math.random() * validMoves.length)] : null;
+  };
+
+  const handlePass = () => {
+    if (!isPlayerTurn || isAIThinking) return;
+    setGameState((engine as any).makePass(gameState));
+  };
+
+  const handleUndo = () => {
+    if (!canUndo || isAIThinking) return;
+    const steps = gameMode === 'ai' ? 2 : 1;
+    setGameState((engine as any).undoMoves(gameState, steps));
+  };
+
+  const handleResign = () => {
+    if (gameState.status !== 'playing' || isAIThinking) return;
+    if ('resign' in engine) {
+      setGameState((engine as any).resign(gameState));
+    }
+  };
+
+  const handleNewGame = () => {
+    setGameState((engine as any).createInitialGameState());
+    setIsAIThinking(false);
+  };
+
+  const handleJudge = () => {
+    if (gameState.status !== 'playing' || isAIThinking) return;
+    // 判定胜负 - 使用judgeGame如果存在，否则使用resign
+    if ('judgeGame' in engine) {
+      setGameState((engine as any).judgeGame(gameState));
+    }
+  };
+
+  const handleBackHome = () => {
+    setLocation('/');
+  };
+
+  // 渲染棋盘
+  const renderBoard = () => {
+    if (gameType === 'line') {
+      return (
+        <LineBoard
+          board={gameState.board}
+          onIntersectionClick={handlePlaceStone}
+          lastMove={lastMove}
+          disabled={!isPlayerTurn || isAIThinking}
+        />
+      );
+    }
+
+    if (gameType === 'tricolor') {
+      return (
+        <TricolorBoard
+          board={gameState.board}
+          boardSize={13}
+          onIntersectionClick={handlePlaceStone}
+          lastMove={lastMove}
+          disabled={!isPlayerTurn || isAIThinking}
+        />
+      );
+    }
+
+      return (
+        <GoBoard
+          board={gameState.board}
+          onIntersectionClick={handlePlaceStone}
+          lastMove={lastMove}
+          disabled={!isPlayerTurn || isAIThinking}
+          boardSize={parseInt(boardSize.split('x')[0])}
+          showColors={gameType !== 'mono'}
+        />
+      );
+  };
+
+  // 获取当前玩家文本
+  const getCurrentPlayerText = () => {
+    if (isAIThinking) return t.game.aiThinking;
+    if (gameState.status === 'finished') {
+      if (!gameState.result) return t.game.draw;
+      const winner = gameState.result.winner;
+      if (winner === 'black') return t.game.blackWins;
+      if (winner === 'white') return t.game.whiteWins;
+      if (winner === 'red') return (t.game as any).redWins || '红棋胜';
+      return t.game.draw;
+    }
+    if (gameState.currentPlayer === 'black') return t.game.blackTurn;
+    if (gameState.currentPlayer === 'white') return t.game.whiteTurn;
+    if (gameState.currentPlayer === 'red') return (t.game as any).redTurn || '红棋回合';
+    return '';
+  };
+
   return (
-    <div className="min-h-screen bg-background flex items-center justify-center">
-      <div className="text-center">
-        <h1 className="text-2xl font-bold mb-4">游戏开发中</h1>
-        <p>游戏类型: {gameType}</p>
-        <p>棋盘大小: {boardSize}</p>
-        <p>游戏模式: {gameMode}</p>
+    <div className="min-h-screen bg-background flex flex-col">
+      {/* Top Bar */}
+      <div className="bg-card border-b border-border px-4 py-3 flex items-center justify-between">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleBackHome}
+          className="bg-black/5"
+        >
+          {t.game.backHome}
+        </Button>
+        <div className="flex flex-col items-center">
+          <div className="text-lg font-medium text-foreground">
+            {getCurrentPlayerText()}
+          </div>
+          <div className="text-sm text-muted-foreground">
+            {t.game.move?.replace('{0}', String(gameState.moveHistory?.length || 0))}
+          </div>
+        </div>
+        <div className="w-20" />
+      </div>
+
+      {/* Board */}
+      <div className="flex-1 flex items-center justify-center p-4">
+        {renderBoard()}
+      </div>
+
+      {/* Control Buttons */}
+      <div className="bg-card border-t border-border p-4">
+        <div className="max-w-md mx-auto space-y-2">
+          {/* First Row */}
+          <div className="grid grid-cols-3 gap-2">
+            <Button
+              variant="outline"
+              onClick={handleUndo}
+              disabled={!canUndo || isAIThinking}
+              className="text-foreground"
+            >
+              {t.game.undo}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handlePass}
+              disabled={!isPlayerTurn || isAIThinking}
+              className="text-foreground"
+            >
+              {t.game.pass}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleJudge}
+              disabled={gameState.status !== 'playing' || isAIThinking}
+              className="text-primary"
+            >
+              {t.game.judge}
+            </Button>
+          </div>
+
+          {/* Second Row */}
+          <div className="grid grid-cols-2 gap-2">
+            <Button
+              variant="outline"
+              onClick={handleResign}
+              disabled={gameState.status !== 'playing' || isAIThinking}
+              className="text-destructive"
+            >
+              {t.game.resign}
+            </Button>
+            <Button
+              variant="outline"
+              onClick={handleNewGame}
+              className="text-primary"
+            >
+              {t.game.newGame}
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom Info */}
+      <div className="bg-card border-t border-border px-4 py-3 flex justify-around">
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded-full bg-black" />
+          <span className="text-foreground">{t.game.black}</span>
+          <span className="text-muted-foreground text-sm">
+            {t.game.captures}: {gameState.blackCaptures || 0}
+          </span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-6 h-6 rounded-full bg-white border border-gray-400" />
+          <span className="text-foreground">
+            {gameMode === 'ai' && gameType === 'line' ? t.game.whiteAI : t.game.white}
+          </span>
+          <span className="text-muted-foreground text-sm">
+            {t.game.captures}: {gameState.whiteCaptures || 0}
+          </span>
+        </div>
       </div>
     </div>
   );
