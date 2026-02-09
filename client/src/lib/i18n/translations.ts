@@ -43,7 +43,7 @@ export const translations = {
       newGame: '新游戏',
       blackTurn: '黑方回合',
       whiteTurn: '白方回合',
-      greenTurn: '蓝方回合',
+      greenTurn: '绿方回合',
       gameOver: '游戏结束',
       aiThinking: 'AI 思考中...',
       move: '第 {0} 手',

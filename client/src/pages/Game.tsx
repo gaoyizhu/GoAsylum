@@ -257,6 +257,7 @@ export default function Game() {
     }
     if (gameState.currentPlayer === 'black') return t.game.blackTurn;
     if (gameState.currentPlayer === 'white') return t.game.whiteTurn;
+    if (gameState.currentPlayer === 'green') return t.game.greenTurn;
     if (gameState.currentPlayer === 'red') return (t.game as any).redTurn || '红棋回合';
     return '';
   };
