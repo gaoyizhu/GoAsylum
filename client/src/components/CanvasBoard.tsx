@@ -114,10 +114,10 @@ export function CanvasBoard({
                 )}
                 {shape === 'square' && (
                   <rect
-                    x={cx - stoneRadius}
-                    y={cy - stoneRadius}
-                    width={stoneRadius * 2}
-                    height={stoneRadius * 2}
+                    x={cx - stoneRadius - 0.5}
+                    y={cy - stoneRadius - 0.5}
+                    width={stoneRadius * 2 + 1}
+                    height={stoneRadius * 2 + 1}
                     fill={color}
                     stroke={showBorder ? (color === '#FFFFFF' ? '#999999' : '#000000') : 'none'}
                     strokeWidth={showBorder ? "2" : "0"}
