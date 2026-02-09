@@ -128,22 +128,27 @@ export function CanvasBoard({
                     {/* 八边形星星形状 */}
                     <path
                       d={(() => {
-                        const lineLength = stoneRadius * 1.8;
-                        const lineWidth = stoneRadius * 0.5;
-                        const halfLen = lineLength / 2;
+                        // 纵向长度保持不变
+                        const verticalLength = stoneRadius * 1.8;
+                        // 横向缩减2px，并且让线条更细
+                        const horizontalLength = stoneRadius * 1.4 - 1; // 横向缩减
+                        const lineWidth = stoneRadius * 0.35; // 更瘦
+                        const halfVertical = verticalLength / 2;
+                        const halfHorizontal = horizontalLength / 2;
                         const halfWidth = lineWidth / 2;
                         const cos45 = Math.cos(Math.PI / 4);
-                        const r1 = halfLen;
+                        const r1 = halfVertical; // 纵向半径
+                        const r1h = halfHorizontal; // 横向半径
                         const r2 = halfWidth / cos45;
                         
                         return `
                           M ${cx} ${cy - r1}
                           L ${cx + r2} ${cy - r2}
-                          L ${cx + r1} ${cy}
+                          L ${cx + r1h} ${cy}
                           L ${cx + r2} ${cy + r2}
                           L ${cx} ${cy + r1}
                           L ${cx - r2} ${cy + r2}
-                          L ${cx - r1} ${cy}
+                          L ${cx - r1h} ${cy}
                           L ${cx - r2} ${cy - r2}
                           Z
                         `;
