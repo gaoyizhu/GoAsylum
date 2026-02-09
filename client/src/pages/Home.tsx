@@ -46,9 +46,7 @@ export default function Home() {
       <div className="flex flex-col items-center justify-start w-full max-w-md gap-5 pt-2 pb-24">
         {/* Logo */}
         <div className="flex items-center mb-2 mt-0">
-          <div className="w-30 h-30 bg-primary/10 rounded-full flex items-center justify-center">
-            <span className="text-6xl">🎯</span>
-          </div>
+          <img src="/logo.png" alt="围棋疯人院" className="w-32 h-32" />
         </div>
 
         {/* Title */}
