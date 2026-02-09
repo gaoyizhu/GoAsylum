@@ -3,12 +3,18 @@
  */
 import type { Position } from '@/lib/go-game-canvas13x13/types';
 
+interface StoneInfo {
+  color: string;
+  shape: 'circle' | 'square' | 'cross';
+  showBorder: boolean;
+}
+
 interface CanvasBoardProps {
-  board: (string | null)[][];
+  board: (StoneInfo | null)[][];
   boardSize: number;
-  onIntersectionClick?: (pos: Position, color: string) => void;
+  onIntersectionClick?: (pos: Position) => void;
   disabled?: boolean;
-  selectedColor: string;
+  showGrid?: boolean;
 }
 
 export function CanvasBoard({
@@ -16,7 +22,7 @@ export function CanvasBoard({
   boardSize,
   onIntersectionClick,
   disabled = false,
-  selectedColor,
+  showGrid = true,
 }: CanvasBoardProps) {
   const cellSize = 40;
   const padding = 30;
@@ -26,7 +32,7 @@ export function CanvasBoard({
 
   const handleIntersectionClick = (x: number, y: number) => {
     if (!disabled && onIntersectionClick) {
-      onIntersectionClick({ x, y }, selectedColor);
+      onIntersectionClick({ x, y });
     }
   };
 
@@ -38,26 +44,28 @@ export function CanvasBoard({
         className="bg-[#D2B48C]"
       >
         {/* Grid lines */}
-        <g stroke="#8B4513" strokeWidth="1.5">
-          {Array.from({ length: boardSize }).map((_, i) => (
-            <line
-              key={`h-${i}`}
-              x1={padding}
-              y1={padding + i * cellSize}
-              x2={padding + (boardSize - 1) * cellSize}
-              y2={padding + i * cellSize}
-            />
-          ))}
-          {Array.from({ length: boardSize }).map((_, i) => (
-            <line
-              key={`v-${i}`}
-              x1={padding + i * cellSize}
-              y1={padding}
-              x2={padding + i * cellSize}
-              y2={padding + (boardSize - 1) * cellSize}
-            />
-          ))}
-        </g>
+        {showGrid && (
+          <g stroke="#8B4513" strokeWidth="1.5">
+            {Array.from({ length: boardSize }).map((_, i) => (
+              <line
+                key={`h-${i}`}
+                x1={padding}
+                y1={padding + i * cellSize}
+                x2={padding + (boardSize - 1) * cellSize}
+                y2={padding + i * cellSize}
+              />
+            ))}
+            {Array.from({ length: boardSize }).map((_, i) => (
+              <line
+                key={`v-${i}`}
+                x1={padding + i * cellSize}
+                y1={padding}
+                x2={padding + i * cellSize}
+                y2={padding + (boardSize - 1) * cellSize}
+              />
+            ))}
+          </g>
+        )}
 
         {/* Star points */}
         {boardSize === 13 && (
@@ -84,29 +92,80 @@ export function CanvasBoard({
 
         {/* Draw colored stones */}
         {board.map((row, y) =>
-          row.map((color, x) => {
-            if (color === null) return null;
+          row.map((stoneInfo, x) => {
+            if (stoneInfo === null) return null;
 
             const cx = padding + x * cellSize;
             const cy = padding + y * cellSize;
+            const { color, shape, showBorder } = stoneInfo;
 
             return (
               <g key={`stone-${x}-${y}`}>
-                <circle
-                  cx={cx + 2}
-                  cy={cy + 2}
-                  r={stoneRadius}
-                  fill="#000000"
-                  opacity="0.2"
-                />
-                <circle
-                  cx={cx}
-                  cy={cy}
-                  r={stoneRadius}
-                  fill={color}
-                  stroke={color === '#FFFFFF' ? '#999999' : color}
-                  strokeWidth="1.5"
-                />
+                {/* 阴影 */}
+                {shape === 'circle' && (
+                  <circle
+                    cx={cx + 2}
+                    cy={cy + 2}
+                    r={stoneRadius}
+                    fill="#000000"
+                    opacity="0.2"
+                  />
+                )}
+                {shape === 'square' && (
+                  <rect
+                    x={cx - stoneRadius + 2}
+                    y={cy - stoneRadius + 2}
+                    width={stoneRadius * 2}
+                    height={stoneRadius * 2}
+                    fill="#000000"
+                    opacity="0.2"
+                  />
+                )}
+                
+                {/* 棋子 */}
+                {shape === 'circle' && (
+                  <circle
+                    cx={cx}
+                    cy={cy}
+                    r={stoneRadius}
+                    fill={color}
+                    stroke={showBorder ? (color === '#FFFFFF' ? '#999999' : '#000000') : 'none'}
+                    strokeWidth={showBorder ? "2" : "0"}
+                  />
+                )}
+                {shape === 'square' && (
+                  <rect
+                    x={cx - stoneRadius}
+                    y={cy - stoneRadius}
+                    width={stoneRadius * 2}
+                    height={stoneRadius * 2}
+                    fill={color}
+                    stroke={showBorder ? (color === '#FFFFFF' ? '#999999' : '#000000') : 'none'}
+                    strokeWidth={showBorder ? "2" : "0"}
+                  />
+                )}
+                {shape === 'cross' && (
+                  <>
+                    <line
+                      x1={cx - stoneRadius}
+                      y1={cy - stoneRadius}
+                      x2={cx + stoneRadius}
+                      y2={cy + stoneRadius}
+                      stroke={color}
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                    />
+                    <line
+                      x1={cx + stoneRadius}
+                      y1={cy - stoneRadius}
+                      x2={cx - stoneRadius}
+                      y2={cy + stoneRadius}
+                      stroke={color}
+                      strokeWidth="6"
+                      strokeLinecap="round"
+                    />
+                  </>
+                )}
               </g>
             );
           })

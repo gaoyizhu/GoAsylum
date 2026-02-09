@@ -59,7 +59,13 @@ export default function Game() {
   });
   const [isAIThinking, setIsAIThinking] = useState(false);
   const [showColors, setShowColors] = useState(false); // 一色围棋特有：显示黑白按钮
-  const [selectedColor, setSelectedColor] = useState('#000000'); // 画布模式特有：选中的颜色
+  
+  // 画布模式特有状态
+  const [selectedColor, setSelectedColor] = useState('#000000');
+  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross'>('circle');
+  const [showBorder, setShowBorder] = useState(true);
+  const [isEraser, setIsEraser] = useState(false);
+  const [showGrid, setShowGrid] = useState(true);
 
   const lastMove = gameState.moveHistory?.length > 0
     ? gameState.moveHistory[gameState.moveHistory.length - 1].position
@@ -72,6 +78,22 @@ export default function Game() {
   const canUndo = gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
 
   const handlePlaceStone = (position: any) => {
+    // 画布模式特殊处理
+    if (gameType === 'canvas') {
+      const canvasEngine = engine as typeof CanvasEngine;
+      // 更新state中的选项，然后调用placeColor
+      const updatedState = {
+        ...gameState,
+        selectedColor,
+        selectedShape,
+        showBorder,
+        isEraser
+      };
+      const newState = canvasEngine.placeColor(updatedState, position);
+      setGameState(newState);
+      return;
+    }
+    
     if (!isPlayerTurn || isAIThinking) return;
     
     if ((engine as any).isValidMove(gameState, position)) {
@@ -185,26 +207,13 @@ export default function Game() {
     }
 
     if (gameType === 'canvas') {
-      const canvasBoard = gameState.board || (gameState as any).canvasState?.board;
       return (
         <CanvasBoard
-          board={canvasBoard}
+          board={gameState.board}
           boardSize={13}
-          onIntersectionClick={(pos, color) => {
-            // 画布模式直接设置颜色，不需要验证
-            const newBoard = canvasBoard.map((row: any[], y: number) =>
-              row.map((cell: any, x: number) =>
-                x === pos.x && y === pos.y ? color : cell
-              )
-            );
-            if (gameState.canvasState) {
-              setGameState({ ...gameState, canvasState: { ...gameState.canvasState, board: newBoard } });
-            } else {
-              setGameState({ ...gameState, board: newBoard });
-            }
-          }}
+          onIntersectionClick={handlePlaceStone}
           disabled={false}
-          selectedColor={selectedColor}
+          showGrid={showGrid}
         />
       );
     }
@@ -275,7 +284,7 @@ export default function Game() {
           {gameType === 'canvas' && (
             <div className="space-y-2">
               <div className="grid grid-cols-8 gap-1">
-                {['#000000', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#FFFFFF'].map((color) => (
+                {['#000000', '#FFFFFF', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'].map((color) => (
                   <button
                     key={color}
                     onClick={() => setSelectedColor(color)}
@@ -287,7 +296,7 @@ export default function Game() {
                 ))}
               </div>
               <div className="grid grid-cols-8 gap-1">
-                {['#FF8800', '#88FF00', '#0088FF', '#8800FF', '#FF0088', '#00FF88', '#888888', '#CCCCCC'].map((color) => (
+                {['#FFA500', '#800080', '#FFC0CB', '#00FF7F', '#8B4513', '#FFD700', '#808080', '#A52A2A'].map((color) => (
                   <button
                     key={color}
                     onClick={() => setSelectedColor(color)}
@@ -297,6 +306,52 @@ export default function Game() {
                     style={{ backgroundColor: color }}
                   />
                 ))}
+              </div>
+              
+              {/* 形状选择器 */}
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-medium">形状：</span>
+                <div className="flex gap-1">
+                  <Button
+                    variant={selectedShape === 'circle' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedShape('circle')}
+                    className="w-12 h-12 text-2xl p-0"
+                  >
+                    ●
+                  </Button>
+                  <Button
+                    variant={selectedShape === 'square' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedShape('square')}
+                    className="w-12 h-12 text-2xl p-0"
+                  >
+                    ■
+                  </Button>
+                  <Button
+                    variant={selectedShape === 'cross' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => setSelectedShape('cross')}
+                    className="w-12 h-12 text-xl p-0"
+                  >
+                    ✨
+                  </Button>
+                </div>
+                <Button
+                  variant={showBorder ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setShowBorder(!showBorder)}
+                  className="ml-auto"
+                >
+                  {showBorder ? '有边框' : '无边框'}
+                </Button>
+                <Button
+                  variant={isEraser ? 'default' : 'outline'}
+                  size="sm"
+                  onClick={() => setIsEraser(!isEraser)}
+                >
+                  橡皮擦
+                </Button>
               </div>
             </div>
           )}
@@ -323,52 +378,89 @@ export default function Game() {
                 {(t.game as any).recallPast || '回忆过去'}
               </Button>
             )}
-            {gameType !== 'mono' && gameType !== 'amnesia' && (
-              <Button
-                variant="outline"
-                onClick={handleUndo}
-                disabled={!canUndo || isAIThinking}
-                className="text-foreground"
-              >
-                {t.game.undo}
-              </Button>
+            {/* 画布模式特殊按钮 */}
+            {gameType === 'canvas' ? (
+              <>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowGrid(!showGrid)}
+                  className="text-foreground"
+                >
+                  {showGrid ? '隐藏棋盘' : '显示棋盘'}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleUndo}
+                  disabled={!canUndo}
+                  className="text-foreground"
+                >
+                  {t.game.undo}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => {
+                    if (window.confirm('确定要清空棋盘吗？所有作品将被清除。')) {
+                      const canvasEngine = engine as typeof CanvasEngine;
+                      setGameState(canvasEngine.clearCanvas(gameState));
+                    }
+                  }}
+                  className="text-destructive"
+                >
+                  清空棋盘
+                </Button>
+              </>
+            ) : (
+              <>
+                {gameType !== 'mono' && gameType !== 'amnesia' && (
+                  <Button
+                    variant="outline"
+                    onClick={handleUndo}
+                    disabled={!canUndo || isAIThinking}
+                    className="text-foreground"
+                  >
+                    {t.game.undo}
+                  </Button>
+                )}
+                <Button
+                  variant="outline"
+                  onClick={gameType === 'mono' ? handleUndo : handlePass}
+                  disabled={gameType === 'mono' ? (!canUndo || isAIThinking) : (!isPlayerTurn || isAIThinking)}
+                  className="text-foreground"
+                >
+                  {gameType === 'mono' ? t.game.undo : t.game.pass}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleJudge}
+                  disabled={gameState.status !== 'playing' || isAIThinking}
+                  className="text-primary"
+                >
+                  {gameType === 'mono' ? t.game.pass : t.game.judge}
+                </Button>
+              </>
             )}
-            <Button
-              variant="outline"
-              onClick={gameType === 'mono' ? handleUndo : handlePass}
-              disabled={gameType === 'mono' ? (!canUndo || isAIThinking) : (!isPlayerTurn || isAIThinking)}
-              className="text-foreground"
-            >
-              {gameType === 'mono' ? t.game.undo : t.game.pass}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={gameType === 'canvas' ? handleUndo : handleJudge}
-              disabled={gameType === 'canvas' ? (!canUndo || isAIThinking) : (gameState.status !== 'playing' || isAIThinking)}
-              className="text-primary"
-            >
-              {gameType === 'canvas' ? t.game.undo : (gameType === 'mono' ? t.game.pass : t.game.judge)}
-            </Button>
           </div>
 
           {/* Second Row */}
-          <div className="grid grid-cols-2 gap-2">
-            <Button
-              variant="outline"
-              onClick={handleResign}
-              disabled={gameState.status !== 'playing' || isAIThinking}
-              className="text-destructive"
-            >
-              {gameType === 'canvas' ? ((t.game as any).clearCanvas || '清空') : t.game.resign}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={handleNewGame}
-              className="text-primary"
-            >
-              {t.game.newGame}
-            </Button>
-          </div>
+          {gameType !== 'canvas' && (
+            <div className="grid grid-cols-2 gap-2">
+              <Button
+                variant="outline"
+                onClick={handleResign}
+                disabled={gameState.status !== 'playing' || isAIThinking}
+                className="text-destructive"
+              >
+                {t.game.resign}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={handleNewGame}
+                className="text-primary"
+              >
+                {t.game.newGame}
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 
