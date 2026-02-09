@@ -68,7 +68,7 @@ export function CanvasBoard({
         )}
 
         {/* Star points */}
-        {boardSize === 13 && (
+        {showGrid && boardSize === 13 && (
           <>
             {[3, 9].map(x =>
               [3, 9].map(y => (
@@ -101,27 +101,6 @@ export function CanvasBoard({
 
             return (
               <g key={`stone-${x}-${y}`}>
-                {/* 阴影 */}
-                {shape === 'circle' && (
-                  <circle
-                    cx={cx + 2}
-                    cy={cy + 2}
-                    r={stoneRadius}
-                    fill="#000000"
-                    opacity="0.2"
-                  />
-                )}
-                {shape === 'square' && (
-                  <rect
-                    x={cx - stoneRadius + 2}
-                    y={cy - stoneRadius + 2}
-                    width={stoneRadius * 2}
-                    height={stoneRadius * 2}
-                    fill="#000000"
-                    opacity="0.2"
-                  />
-                )}
-                
                 {/* 棋子 */}
                 {shape === 'circle' && (
                   <circle
