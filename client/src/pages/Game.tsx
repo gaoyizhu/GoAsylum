@@ -71,9 +71,12 @@ export default function Game() {
     ? gameState.moveHistory[gameState.moveHistory.length - 1].position
     : null;
 
-  const isPlayerTurn = gameMode === 'pvp' 
-    ? gameState.status === 'playing'
-    : gameState.currentPlayer === 'black' && gameState.status === 'playing';
+  // 三色围棋没有status字段，总是允许落子
+  const isPlayerTurn = gameType === 'tricolor'
+    ? true
+    : (gameMode === 'pvp' 
+      ? gameState.status === 'playing'
+      : gameState.currentPlayer === 'black' && gameState.status === 'playing');
 
   const canUndo = gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
 
@@ -95,6 +98,15 @@ export default function Game() {
     }
     
     if (!isPlayerTurn || isAIThinking) return;
+    
+    // 三色围棋特殊处理：没有isValidMove，直接调用makeMove并检查结果
+    if (gameType === 'tricolor') {
+      const result = (engine as any).makeMove(gameState, position.x, position.y);
+      if (result.success && result.newState) {
+        setGameState(result.newState);
+      }
+      return;
+    }
     
     if ((engine as any).isValidMove(gameState, position)) {
       const newState = (engine as any).makeMove(gameState, position);
