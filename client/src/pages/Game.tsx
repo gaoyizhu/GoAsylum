@@ -50,9 +50,11 @@ export default function Game() {
   const engine = getEngine();
   
   const [gameState, setGameState] = useState<any>(() => {
-    if (gameType === 'canvas') {
+    // 画布、磁性、三色使用createInitialState
+    if (gameType === 'canvas' || gameType === 'magnetic' || gameType === 'tricolor') {
       return (engine as any).createInitialState();
     }
+    // 其他游戏使用createInitialGameState
     return (engine as any).createInitialGameState();
   });
   const [isAIThinking, setIsAIThinking] = useState(false);
@@ -136,7 +138,8 @@ export default function Game() {
   };
 
   const handleNewGame = () => {
-    if (gameType === 'canvas') {
+    // 画布、磁性、三色使用createInitialState
+    if (gameType === 'canvas' || gameType === 'magnetic' || gameType === 'tricolor') {
       setGameState((engine as any).createInitialState());
     } else {
       setGameState((engine as any).createInitialGameState());
