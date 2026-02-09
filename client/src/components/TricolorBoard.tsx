@@ -1,25 +1,23 @@
 import React from 'react';
-import type { BoardState, Position } from '@/lib/go-game-9x9/types';
+import type { Position } from '@/lib/go-game-tricolor13x13/types';
 
-interface GoBoardProps {
-  board: BoardState;
+type PlayerColor = 'black' | 'white' | 'green';
+
+interface TricolorBoardProps {
+  board: (PlayerColor | null)[][];
   boardSize: number;
   onIntersectionClick?: (pos: Position) => void;
   lastMove?: Position | null;
-  highlightedPositions?: Position[];
   disabled?: boolean;
-  showColors?: boolean; // For mono mode
 }
 
-export function GoBoard({
+export function TricolorBoard({
   board,
   boardSize,
   onIntersectionClick,
   lastMove,
-  highlightedPositions = [],
   disabled = false,
-  showColors = true,
-}: GoBoardProps) {
+}: TricolorBoardProps) {
   const cellSize = 40;
   const padding = 30;
   const boardWidth = (boardSize - 1) * cellSize + padding * 2;
@@ -32,12 +30,24 @@ export function GoBoard({
     }
   };
 
-  const isHighlighted = (x: number, y: number) => {
-    return highlightedPositions.some(pos => pos.x === x && pos.y === y);
-  };
-
   const isLastMove = (x: number, y: number) => {
     return lastMove && lastMove.x === x && lastMove.y === y;
+  };
+
+  const getStoneColor = (color: PlayerColor) => {
+    switch (color) {
+      case 'black': return '#000000';
+      case 'white': return '#FFFFFF';
+      case 'green': return '#22C55E';
+    }
+  };
+
+  const getStrokeColor = (color: PlayerColor) => {
+    switch (color) {
+      case 'black': return '#000000';
+      case 'white': return '#999999';
+      case 'green': return '#16A34A';
+    }
   };
 
   return (
@@ -69,49 +79,24 @@ export function GoBoard({
           ))}
         </g>
 
-        {/* Star points */}
-        {boardSize === 9 && (
-          <>
-            {[2, 6].map(x =>
-              [2, 6].map(y => (
-                <circle
-                  key={`star-${x}-${y}`}
-                  cx={padding + x * cellSize}
-                  cy={padding + y * cellSize}
-                  r={3}
-                  fill="#8B4513"
-                />
-              ))
-            )}
+        {/* Star points for 13x13 */}
+        {[3, 9].map(x =>
+          [3, 9].map(y => (
             <circle
-              cx={padding + 4 * cellSize}
-              cy={padding + 4 * cellSize}
+              key={`star-${x}-${y}`}
+              cx={padding + x * cellSize}
+              cy={padding + y * cellSize}
               r={3}
               fill="#8B4513"
             />
-          </>
+          ))
         )}
-        {boardSize === 13 && (
-          <>
-            {[3, 9].map(x =>
-              [3, 9].map(y => (
-                <circle
-                  key={`star-${x}-${y}`}
-                  cx={padding + x * cellSize}
-                  cy={padding + y * cellSize}
-                  r={3}
-                  fill="#8B4513"
-                />
-              ))
-            )}
-            <circle
-              cx={padding + 6 * cellSize}
-              cy={padding + 6 * cellSize}
-              r={3}
-              fill="#8B4513"
-            />
-          </>
-        )}
+        <circle
+          cx={padding + 6 * cellSize}
+          cy={padding + 6 * cellSize}
+          r={3}
+          fill="#8B4513"
+        />
 
         {/* Draw stones */}
         {board.map((row, y) =>
@@ -120,11 +105,6 @@ export function GoBoard({
 
             const cx = padding + x * cellSize;
             const cy = padding + y * cellSize;
-            const isBlack = stone === 'black';
-            
-            // For mono mode, all stones appear white
-            const displayColor = showColors ? (isBlack ? '#000000' : '#FFFFFF') : '#FFFFFF';
-            const strokeColor = showColors ? (isBlack ? '#000000' : '#999999') : '#999999';
 
             return (
               <g key={`stone-${x}-${y}`}>
@@ -139,8 +119,8 @@ export function GoBoard({
                   cx={cx}
                   cy={cy}
                   r={stoneRadius}
-                  fill={displayColor}
-                  stroke={strokeColor}
+                  fill={getStoneColor(stone)}
+                  stroke={getStrokeColor(stone)}
                   strokeWidth="1.5"
                 />
                 {isLastMove(x, y) && (
@@ -179,19 +159,6 @@ export function GoBoard({
             );
           })
         )}
-
-        {/* Highlighted positions */}
-        {highlightedPositions.map((pos, idx) => (
-          <circle
-            key={`highlight-${idx}`}
-            cx={padding + pos.x * cellSize}
-            cy={padding + pos.y * cellSize}
-            r={stoneRadius * 0.4}
-            fill="#D4AF37"
-            opacity="0.6"
-            className="animate-pulse"
-          />
-        ))}
       </svg>
     </div>
   );

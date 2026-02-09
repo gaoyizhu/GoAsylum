@@ -4,11 +4,10 @@
 @custom-variant dark (&:is(.dark *));
 
 /* 
- * Wabi-Sabi Design Philosophy
- * - Natural imperfection and organic textures
- * - Warm earth tones inspired by Japanese traditional colors
- * - Generous whitespace for contemplative experience
- * - Gentle animations reflecting the passage of time
+ * LineGo/GoAsylum Design System
+ * - 木质棋盘风格
+ * - 温暖的小麦色背景
+ * - 简洁直观的用户界面
  */
 
 @theme inline {
@@ -48,87 +47,82 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-  
-  /* Custom Wabi-Sabi colors */
-  --color-sumi-black: oklch(0.2 0.01 60);
-  --color-washi-white: oklch(0.97 0.01 80);
-  --color-matcha-green: oklch(0.65 0.08 130);
-  --color-kaki-orange: oklch(0.62 0.15 40);
-  --color-wood-brown: oklch(0.55 0.06 60);
 }
 
 :root {
-  /* Wabi-Sabi inspired color palette */
-  --primary: var(--color-sumi-black);
-  --primary-foreground: var(--color-washi-white);
-  --sidebar-primary: var(--color-matcha-green);
-  --sidebar-primary-foreground: var(--color-washi-white);
-  --chart-1: var(--color-matcha-green);
-  --chart-2: var(--color-wood-brown);
-  --chart-3: var(--color-kaki-orange);
-  --chart-4: var(--color-sumi-black);
-  --chart-5: oklch(0.75 0.05 100);
-  --radius: 0.25rem;
+  /* LineGo原始配色 */
+  --primary: #8B4513;
+  --primary-foreground: #FFFFFF;
+  --background: #F5DEB3;
+  --foreground: #2C1810;
+  --card: #FAEBD7;
+  --card-foreground: #2C1810;
+  --popover: #FAEBD7;
+  --popover-foreground: #2C1810;
+  --secondary: #D2B48C;
+  --secondary-foreground: #2C1810;
+  --muted: #8B7355;
+  --muted-foreground: #5D4037;
+  --accent: #D4AF37;
+  --accent-foreground: #2C1810;
+  --destructive: #EF4444;
+  --destructive-foreground: #FFFFFF;
+  --border: #D2B48C;
+  --input: #D2B48C;
+  --ring: #8B4513;
+  --radius: 0.5rem;
   
-  /* Base colors - warm paper tones */
-  --background: oklch(0.97 0.01 80);
-  --foreground: oklch(0.2 0.01 60);
-  --card: oklch(0.98 0.005 85);
-  --card-foreground: oklch(0.2 0.01 60);
-  --popover: oklch(0.98 0.005 85);
-  --popover-foreground: oklch(0.2 0.01 60);
-  --secondary: oklch(0.93 0.01 75);
-  --secondary-foreground: oklch(0.25 0.01 60);
-  --muted: oklch(0.94 0.01 78);
-  --muted-foreground: oklch(0.5 0.02 65);
-  --accent: var(--color-matcha-green);
-  --accent-foreground: var(--color-washi-white);
-  --destructive: var(--color-kaki-orange);
-  --destructive-foreground: var(--color-washi-white);
-  --border: oklch(0.88 0.01 70);
-  --input: oklch(0.88 0.01 70);
-  --ring: var(--color-matcha-green);
-  --sidebar: oklch(0.96 0.01 82);
-  --sidebar-foreground: oklch(0.2 0.01 60);
-  --sidebar-accent: oklch(0.92 0.01 75);
-  --sidebar-accent-foreground: oklch(0.2 0.01 60);
-  --sidebar-border: oklch(0.88 0.01 70);
-  --sidebar-ring: var(--color-matcha-green);
+  --sidebar: #FAEBD7;
+  --sidebar-foreground: #2C1810;
+  --sidebar-primary: #8B4513;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #D2B48C;
+  --sidebar-accent-foreground: #2C1810;
+  --sidebar-border: #D2B48C;
+  --sidebar-ring: #8B4513;
+  
+  --chart-1: #8B4513;
+  --chart-2: #D4AF37;
+  --chart-3: #D2B48C;
+  --chart-4: #8B7355;
+  --chart-5: #5D4037;
 }
 
 .dark {
-  --primary: var(--color-matcha-green);
-  --primary-foreground: var(--color-sumi-black);
-  --sidebar-primary: var(--color-matcha-green);
-  --sidebar-primary-foreground: var(--color-sumi-black);
-  --background: oklch(0.15 0.01 60);
-  --foreground: oklch(0.92 0.01 80);
-  --card: oklch(0.18 0.01 62);
-  --card-foreground: oklch(0.92 0.01 80);
-  --popover: oklch(0.18 0.01 62);
-  --popover-foreground: oklch(0.92 0.01 80);
-  --secondary: oklch(0.22 0.01 65);
-  --secondary-foreground: oklch(0.85 0.01 78);
-  --muted: oklch(0.24 0.01 66);
-  --muted-foreground: oklch(0.65 0.02 72);
-  --accent: var(--color-matcha-green);
-  --accent-foreground: var(--color-sumi-black);
-  --destructive: var(--color-kaki-orange);
-  --destructive-foreground: var(--color-washi-white);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: var(--color-matcha-green);
-  --chart-1: var(--color-matcha-green);
-  --chart-2: var(--color-wood-brown);
-  --chart-3: var(--color-kaki-orange);
-  --chart-4: oklch(0.75 0.05 100);
-  --chart-5: oklch(0.85 0.03 90);
-  --sidebar: oklch(0.18 0.01 62);
-  --sidebar-foreground: oklch(0.92 0.01 80);
-  --sidebar-accent: oklch(0.24 0.01 66);
-  --sidebar-accent-foreground: oklch(0.92 0.01 80);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: var(--color-matcha-green);
+  --primary: #A0522D;
+  --primary-foreground: #FFFFFF;
+  --background: #2C1810;
+  --foreground: #ECEDEE;
+  --card: #3E2723;
+  --card-foreground: #ECEDEE;
+  --popover: #3E2723;
+  --popover-foreground: #ECEDEE;
+  --secondary: #5D4037;
+  --secondary-foreground: #ECEDEE;
+  --muted: #9BA1A6;
+  --muted-foreground: #D2B48C;
+  --accent: #D4AF37;
+  --accent-foreground: #2C1810;
+  --destructive: #F87171;
+  --destructive-foreground: #FFFFFF;
+  --border: #5D4037;
+  --input: #5D4037;
+  --ring: #A0522D;
+  
+  --sidebar: #3E2723;
+  --sidebar-foreground: #ECEDEE;
+  --sidebar-primary: #A0522D;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: #5D4037;
+  --sidebar-accent-foreground: #ECEDEE;
+  --sidebar-border: #5D4037;
+  --sidebar-ring: #A0522D;
+  
+  --chart-1: #A0522D;
+  --chart-2: #D4AF37;
+  --chart-3: #8B7355;
+  --chart-4: #9BA1A6;
+  --chart-5: #D2B48C;
 }
 
 @layer base {
@@ -137,15 +131,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Noto Sans JP', sans-serif;
-    font-weight: 300;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Noto Serif JP', serif;
-    font-weight: 500;
-  }
-  .font-emphasis {
-    font-family: 'Shippori Mincho', serif;
+    font-family: system-ui, -apple-system, sans-serif;
   }
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
@@ -187,26 +173,5 @@
       padding-right: 2rem;
       max-width: 1280px;
     }
-  }
-  
-  /* Wabi-Sabi specific utilities */
-  .wabi-shadow {
-    box-shadow: 0 2px 8px oklch(0.2 0.01 60 / 0.08), 0 1px 3px oklch(0.2 0.01 60 / 0.06);
-  }
-  
-  .wabi-shadow-lg {
-    box-shadow: 0 8px 24px oklch(0.2 0.01 60 / 0.12), 0 2px 8px oklch(0.2 0.01 60 / 0.08);
-  }
-  
-  .paper-texture {
-    background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)" opacity="0.03"/%3E%3C/svg%3E');
-  }
-  
-  .ink-transition {
-    transition: all 500ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  
-  .zen-spacing {
-    padding: clamp(2rem, 5vw, 4rem);
   }
 }
