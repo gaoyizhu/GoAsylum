@@ -146,23 +146,32 @@ export function CanvasBoard({
                 )}
                 {shape === 'cross' && (
                   <>
-                    <line
-                      x1={cx - stoneRadius}
-                      y1={cy - stoneRadius}
-                      x2={cx + stoneRadius}
-                      y2={cy + stoneRadius}
-                      stroke={color}
-                      strokeWidth="6"
-                      strokeLinecap="round"
-                    />
-                    <line
-                      x1={cx + stoneRadius}
-                      y1={cy - stoneRadius}
-                      x2={cx - stoneRadius}
-                      y2={cy + stoneRadius}
-                      stroke={color}
-                      strokeWidth="6"
-                      strokeLinecap="round"
+                    {/* 八边形星星形状 */}
+                    <path
+                      d={(() => {
+                        const lineLength = stoneRadius * 1.8;
+                        const lineWidth = stoneRadius * 0.5;
+                        const halfLen = lineLength / 2;
+                        const halfWidth = lineWidth / 2;
+                        const cos45 = Math.cos(Math.PI / 4);
+                        const r1 = halfLen;
+                        const r2 = halfWidth / cos45;
+                        
+                        return `
+                          M ${cx} ${cy - r1}
+                          L ${cx + r2} ${cy - r2}
+                          L ${cx + r1} ${cy}
+                          L ${cx + r2} ${cy + r2}
+                          L ${cx} ${cy + r1}
+                          L ${cx - r2} ${cy + r2}
+                          L ${cx - r1} ${cy}
+                          L ${cx - r2} ${cy - r2}
+                          Z
+                        `;
+                      })()}
+                      fill={color}
+                      stroke={showBorder ? (color === '#FFFFFF' ? '#999999' : '#000000') : 'none'}
+                      strokeWidth={showBorder ? "2" : "0"}
                     />
                   </>
                 )}
