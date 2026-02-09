@@ -1,0 +1,139 @@
+/**
+ * Canvas Board Component - 画布模式棋盘（艺术家模式）
+ */
+import type { Position } from '@/lib/go-game-canvas13x13/types';
+
+interface CanvasBoardProps {
+  board: (string | null)[][];
+  boardSize: number;
+  onIntersectionClick?: (pos: Position, color: string) => void;
+  disabled?: boolean;
+  selectedColor: string;
+}
+
+export function CanvasBoard({
+  board,
+  boardSize,
+  onIntersectionClick,
+  disabled = false,
+  selectedColor,
+}: CanvasBoardProps) {
+  const cellSize = 40;
+  const padding = 30;
+  const boardWidth = (boardSize - 1) * cellSize + padding * 2;
+  const boardHeight = (boardSize - 1) * cellSize + padding * 2;
+  const stoneRadius = cellSize * 0.45;
+
+  const handleIntersectionClick = (x: number, y: number) => {
+    if (!disabled && onIntersectionClick) {
+      onIntersectionClick({ x, y }, selectedColor);
+    }
+  };
+
+  return (
+    <div className="inline-block bg-[#FAEBD7] rounded-lg shadow-lg p-4">
+      <svg
+        width={boardWidth}
+        height={boardHeight}
+        className="bg-[#D2B48C]"
+      >
+        {/* Grid lines */}
+        <g stroke="#8B4513" strokeWidth="1.5">
+          {Array.from({ length: boardSize }).map((_, i) => (
+            <line
+              key={`h-${i}`}
+              x1={padding}
+              y1={padding + i * cellSize}
+              x2={padding + (boardSize - 1) * cellSize}
+              y2={padding + i * cellSize}
+            />
+          ))}
+          {Array.from({ length: boardSize }).map((_, i) => (
+            <line
+              key={`v-${i}`}
+              x1={padding + i * cellSize}
+              y1={padding}
+              x2={padding + i * cellSize}
+              y2={padding + (boardSize - 1) * cellSize}
+            />
+          ))}
+        </g>
+
+        {/* Star points */}
+        {boardSize === 13 && (
+          <>
+            {[3, 9].map(x =>
+              [3, 9].map(y => (
+                <circle
+                  key={`star-${x}-${y}`}
+                  cx={padding + x * cellSize}
+                  cy={padding + y * cellSize}
+                  r={3}
+                  fill="#8B4513"
+                />
+              ))
+            )}
+            <circle
+              cx={padding + 6 * cellSize}
+              cy={padding + 6 * cellSize}
+              r={3}
+              fill="#8B4513"
+            />
+          </>
+        )}
+
+        {/* Draw colored stones */}
+        {board.map((row, y) =>
+          row.map((color, x) => {
+            if (color === null) return null;
+
+            const cx = padding + x * cellSize;
+            const cy = padding + y * cellSize;
+
+            return (
+              <g key={`stone-${x}-${y}`}>
+                <circle
+                  cx={cx + 2}
+                  cy={cy + 2}
+                  r={stoneRadius}
+                  fill="#000000"
+                  opacity="0.2"
+                />
+                <circle
+                  cx={cx}
+                  cy={cy}
+                  r={stoneRadius}
+                  fill={color}
+                  stroke={color === '#FFFFFF' ? '#999999' : color}
+                  strokeWidth="1.5"
+                />
+              </g>
+            );
+          })
+        )}
+
+        {/* Interactive intersection points */}
+        {Array.from({ length: boardSize }).map((_, y) =>
+          Array.from({ length: boardSize }).map((_, x) => {
+            const cx = padding + x * cellSize;
+            const cy = padding + y * cellSize;
+
+            return (
+              <circle
+                key={`intersection-${x}-${y}`}
+                cx={cx}
+                cy={cy}
+                r={stoneRadius * 0.8}
+                fill="transparent"
+                className={`${
+                  disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:fill-accent/20'
+                } transition-all`}
+                onClick={() => handleIntersectionClick(x, y)}
+              />
+            );
+          })
+        )}
+      </svg>
+    </div>
+  );
+}

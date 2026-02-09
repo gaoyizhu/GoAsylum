@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { LineBoard } from "@/components/LineBoard";
 import { GoBoard } from "@/components/GoBoard";
 import { TricolorBoard } from "@/components/TricolorBoard";
+import { CanvasBoard } from "@/components/CanvasBoard";
 
 // 导入引擎
 import * as LineEngine from "@/lib/go-game-line/engine";
@@ -48,8 +49,15 @@ export default function Game() {
 
   const engine = getEngine();
   
-  const [gameState, setGameState] = useState<any>(() => (engine as any).createInitialGameState());
+  const [gameState, setGameState] = useState<any>(() => {
+    if (gameType === 'canvas') {
+      return (engine as any).createInitialState();
+    }
+    return (engine as any).createInitialGameState();
+  });
   const [isAIThinking, setIsAIThinking] = useState(false);
+  const [showColors, setShowColors] = useState(false); // 一色围棋特有：显示黑白按钮
+  const [selectedColor, setSelectedColor] = useState('#000000'); // 画布模式特有：选中的颜色
 
   const lastMove = gameState.moveHistory?.length > 0
     ? gameState.moveHistory[gameState.moveHistory.length - 1].position
@@ -128,8 +136,12 @@ export default function Game() {
   };
 
   const handleNewGame = () => {
-    setGameState((engine as any).createInitialGameState());
-    setIsAIThinking(false);
+    if (gameType === 'canvas') {
+      setGameState((engine as any).createInitialState());
+    } else {
+      setGameState((engine as any).createInitialGameState());
+    }
+    setShowColors(false);
   };
 
   const handleJudge = () => {
@@ -169,16 +181,41 @@ export default function Game() {
       );
     }
 
+    if (gameType === 'canvas') {
+      const canvasBoard = gameState.board || (gameState as any).canvasState?.board;
       return (
-        <GoBoard
-          board={gameState.board}
-          onIntersectionClick={handlePlaceStone}
-          lastMove={lastMove}
-          disabled={!isPlayerTurn || isAIThinking}
-          boardSize={parseInt(boardSize.split('x')[0])}
-          showColors={gameType !== 'mono'}
+        <CanvasBoard
+          board={canvasBoard}
+          boardSize={13}
+          onIntersectionClick={(pos, color) => {
+            // 画布模式直接设置颜色，不需要验证
+            const newBoard = canvasBoard.map((row: any[], y: number) =>
+              row.map((cell: any, x: number) =>
+                x === pos.x && y === pos.y ? color : cell
+              )
+            );
+            if (gameState.canvasState) {
+              setGameState({ ...gameState, canvasState: { ...gameState.canvasState, board: newBoard } });
+            } else {
+              setGameState({ ...gameState, board: newBoard });
+            }
+          }}
+          disabled={false}
+          selectedColor={selectedColor}
         />
       );
+    }
+
+    return (
+      <GoBoard
+        board={gameState.board}
+        onIntersectionClick={handlePlaceStone}
+        lastMove={lastMove}
+        disabled={!isPlayerTurn || isAIThinking}
+        boardSize={parseInt(boardSize.split('x')[0])}
+        showColors={gameType === 'mono' ? showColors : true}
+      />
+    );
   };
 
   // 获取当前玩家文本
@@ -229,31 +266,73 @@ export default function Game() {
       {/* Control Buttons */}
       <div className="bg-card border-t border-border p-4">
         <div className="max-w-md mx-auto space-y-2">
+          {/* 画布模式：颜色选择器 */}
+          {gameType === 'canvas' && (
+            <div className="space-y-2">
+              <div className="grid grid-cols-8 gap-1">
+                {['#000000', '#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF', '#FFFFFF'].map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-10 h-10 rounded border-2 ${
+                      selectedColor === color ? 'border-primary ring-2 ring-primary' : 'border-gray-300'
+                    } ${color === '#FFFFFF' ? 'bg-white' : ''}`}
+                    style={{ backgroundColor: color }}
+                  />
+                ))}
+              </div>
+              <div className="grid grid-cols-8 gap-1">
+                {['#FF8800', '#88FF00', '#0088FF', '#8800FF', '#FF0088', '#00FF88', '#888888', '#CCCCCC'].map((color) => (
+                  <button
+                    key={color}
+                    onClick={() => setSelectedColor(color)}
+                    className={`w-10 h-10 rounded border-2 ${
+                      selectedColor === color ? 'border-primary ring-2 ring-primary' : 'border-gray-300'
+                    }`}
+                    style={{ backgroundColor: color }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
           {/* First Row */}
           <div className="grid grid-cols-3 gap-2">
+            {/* 一色围棋特有：显示黑白按钮 */}
+            {gameType === 'mono' && (
+              <Button
+                variant={showColors ? "default" : "outline"}
+                onClick={() => setShowColors(!showColors)}
+                className={showColors ? "bg-primary text-primary-foreground" : "text-foreground"}
+              >
+                {(t.game as any).showColors || '显示黑白'}
+              </Button>
+            )}
+            {gameType !== 'mono' && (
+              <Button
+                variant="outline"
+                onClick={handleUndo}
+                disabled={!canUndo || isAIThinking}
+                className="text-foreground"
+              >
+                {t.game.undo}
+              </Button>
+            )}
             <Button
               variant="outline"
-              onClick={handleUndo}
-              disabled={!canUndo || isAIThinking}
+              onClick={gameType === 'mono' ? handleUndo : handlePass}
+              disabled={gameType === 'mono' ? (!canUndo || isAIThinking) : (!isPlayerTurn || isAIThinking)}
               className="text-foreground"
             >
-              {t.game.undo}
+              {gameType === 'mono' ? t.game.undo : t.game.pass}
             </Button>
             <Button
               variant="outline"
-              onClick={handlePass}
-              disabled={!isPlayerTurn || isAIThinking}
-              className="text-foreground"
-            >
-              {t.game.pass}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={handleJudge}
-              disabled={gameState.status !== 'playing' || isAIThinking}
+              onClick={gameType === 'canvas' ? handleUndo : handleJudge}
+              disabled={gameType === 'canvas' ? (!canUndo || isAIThinking) : (gameState.status !== 'playing' || isAIThinking)}
               className="text-primary"
             >
-              {t.game.judge}
+              {gameType === 'canvas' ? t.game.undo : (gameType === 'mono' ? t.game.pass : t.game.judge)}
             </Button>
           </div>
 
@@ -265,7 +344,7 @@ export default function Game() {
               disabled={gameState.status !== 'playing' || isAIThinking}
               className="text-destructive"
             >
-              {t.game.resign}
+              {gameType === 'canvas' ? ((t.game as any).clearCanvas || '清空') : t.game.resign}
             </Button>
             <Button
               variant="outline"
