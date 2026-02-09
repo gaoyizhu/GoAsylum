@@ -65,7 +65,7 @@ export default function Game() {
   const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross'>('circle');
   const [showBorder, setShowBorder] = useState(true);
   const [isEraser, setIsEraser] = useState(false);
-  const [showGrid, setShowGrid] = useState(true);
+  const [showGrid, setShowGrid] = useState(gameType !== 'canvas');
 
   const lastMove = gameState.moveHistory?.length > 0
     ? gameState.moveHistory[gameState.moveHistory.length - 1].position
