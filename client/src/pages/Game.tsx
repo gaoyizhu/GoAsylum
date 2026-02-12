@@ -80,7 +80,9 @@ export default function Game() {
       ? gameState.status === 'playing'
       : gameState.currentPlayer === 'black' && gameState.status === 'playing');
 
-  const canUndo = gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
+  const canUndo = gameType === 'tricolor'
+    ? gameState.history?.length >= 1
+    : gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
 
   const handlePlaceStone = (position: any) => {
     // 标记死棋状态：点击棋子标记/取消标记
@@ -163,13 +165,25 @@ export default function Game() {
 
   const handlePass = () => {
     if (!isPlayerTurn || isAIThinking) return;
-    setGameState((engine as any).makePass(gameState));
+    if (gameType === 'tricolor') {
+      setGameState((engine as any).pass(gameState));
+    } else {
+      setGameState((engine as any).makePass(gameState));
+    }
   };
 
   const handleUndo = () => {
     if (!canUndo || isAIThinking) return;
-    const steps = gameMode === 'ai' ? 2 : 1;
-    setGameState((engine as any).undoMoves(gameState, steps));
+    if (gameType === 'tricolor') {
+      // 三色围棋的undo只能撤销一步
+      const result = (engine as any).undo(gameState);
+      if (result) {
+        setGameState(result);
+      }
+    } else {
+      const steps = gameMode === 'ai' ? 2 : 1;
+      setGameState((engine as any).undoMoves(gameState, steps));
+    }
   };
 
   const handleResign = () => {
@@ -190,7 +204,9 @@ export default function Game() {
   };
 
   const handleJudge = () => {
-    if (gameState.status !== 'playing' || isAIThinking) return;
+    // 三色围棋没有status字段，需要特殊处理
+    if (gameType !== 'tricolor' && gameState.status !== 'playing') return;
+    if (isAIThinking) return;
     // 开始标记死棋
     if ('startMarkingDeadStones' in engine) {
       setGameState((engine as any).startMarkingDeadStones(gameState));

@@ -275,3 +275,73 @@ export function undo(state: GameState): GameState | null {
     koPosition: null,
   };
 }
+
+// 点目相关函数
+export function startMarkingDeadStones(state: GameState): GameState {
+  return {
+    ...state,
+    status: 'marking_dead_stones' as any,
+    deadStones: new Set<string>(),
+  };
+}
+
+export function toggleDeadStone(state: GameState, position: Position): GameState {
+  const key = `${position.x},${position.y}`;
+  const newDeadStones = new Set((state as any).deadStones || []);
+  
+  if (newDeadStones.has(key)) {
+    newDeadStones.delete(key);
+  } else {
+    newDeadStones.add(key);
+  }
+  
+  return {
+    ...state,
+    deadStones: newDeadStones as any,
+  };
+}
+
+export function confirmDeadStones(state: GameState): GameState {
+  const deadStones = (state as any).deadStones || new Set<string>();
+  
+  // 创建新棋盘，移除死棋
+  const newBoard = cloneBoard(state.board);
+  deadStones.forEach((key: string) => {
+    const [x, y] = key.split(',').map(Number);
+    newBoard[y][x] = null;
+  });
+  
+  // 计算地盘
+  const territory = calculateTerritory(newBoard);
+  
+  // 计算得分（三色围棋：每方的得分 = 棋子数 + 地盘数）
+  const blackScore = territory.black;
+  const whiteScore = territory.white;
+  const greenScore = territory.green;
+  
+  // 判断胜者（得分最高的一方）
+  let winner: PlayerColor;
+  if (blackScore >= whiteScore && blackScore >= greenScore) {
+    winner = 'black';
+  } else if (whiteScore >= greenScore) {
+    winner = 'white';
+  } else {
+    winner = 'green';
+  }
+  
+  return {
+    ...state,
+    status: 'finished' as any,
+    winner: winner as any,
+    score: { black: blackScore, white: whiteScore, green: greenScore } as any,
+    deadStones: undefined as any,
+  };
+}
+
+export function cancelMarkingDeadStones(state: GameState): GameState {
+  return {
+    ...state,
+    status: 'playing' as any,
+    deadStones: undefined as any,
+  };
+}

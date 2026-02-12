@@ -27,6 +27,14 @@ export interface GameState {
   history: (PlayerColor | null)[][][];
   lastMove: Position | null;
   koPosition: Position | null;
+  status?: 'playing' | 'marking_dead_stones' | 'finished';
+  deadStones?: Set<string>;
+  winner?: PlayerColor;
+  score?: {
+    black: number;
+    white: number;
+    green: number;
+  };
 }
 
 export interface MoveResult {
