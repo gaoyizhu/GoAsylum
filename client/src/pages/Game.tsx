@@ -321,6 +321,20 @@ export default function Game() {
         {renderBoard()}
       </div>
 
+      {/* Game Result Display */}
+      {gameState.status === 'finished' && gameState.result && (
+        <div className="bg-card border-t border-border px-4 py-3">
+          <div className="text-center p-3 bg-primary/10 rounded-lg max-w-md mx-auto">
+            <div className="text-lg font-semibold text-foreground">
+              {t.game.black}: {gameState.result.blackTerritory?.toFixed(1) || 0}, {t.game.white}: {gameState.result.whiteTerritory?.toFixed(1) || 0}
+            </div>
+            <div className="text-sm text-muted-foreground mt-1">
+              {gameState.result.winner === 'black' ? t.game.blackWins : gameState.result.winner === 'white' ? t.game.whiteWins : t.game.draw}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Control Buttons */}
       <div className="bg-card border-t border-border p-4">
         <div className="max-w-md mx-auto space-y-2">
@@ -527,17 +541,6 @@ export default function Game() {
 
       {/* Bottom Info */}
       <div className="bg-card border-t border-border px-4 py-3">
-        {/* 游戏结果显示 */}
-        {gameState.status === 'finished' && gameState.result && (
-          <div className="text-center mb-3 p-3 bg-primary/10 rounded-lg">
-            <div className="text-lg font-semibold text-foreground">
-              {t.game.black}: {gameState.result.blackTerritory?.toFixed(1) || 0}, {t.game.white}: {gameState.result.whiteTerritory?.toFixed(1) || 0}
-            </div>
-            <div className="text-sm text-muted-foreground mt-1">
-              {gameState.result.winner === 'black' ? t.game.blackWins : gameState.result.winner === 'white' ? t.game.whiteWins : t.game.draw}
-            </div>
-          </div>
-        )}
         {/* 提子信息 */}
         <div className="flex justify-around">
           <div className="flex items-center gap-2">
