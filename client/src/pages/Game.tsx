@@ -267,6 +267,7 @@ export default function Game() {
         showColors={gameType === 'mono' || gameType === 'amnesia' ? showColors : true}
         amnesiaMode={gameType === 'amnesia'}
         moveHistory={gameState.moveHistory}
+        deadStones={gameState.deadStones || []}
       />
     );
   };

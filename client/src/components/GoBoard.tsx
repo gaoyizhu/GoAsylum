@@ -11,6 +11,7 @@ interface GoBoardProps {
   showColors?: boolean; // For mono mode
   amnesiaMode?: boolean; // For amnesia mode
   moveHistory?: any[]; // Move history for amnesia mode
+  deadStones?: Position[]; // Dead stones marked during counting
 }
 
 export function GoBoard({
@@ -23,6 +24,7 @@ export function GoBoard({
   showColors = true,
   amnesiaMode = false,
   moveHistory = [],
+  deadStones = [],
 }: GoBoardProps) {
   // 响应式尺寸：动态获取屏幕宽度
   const [containerWidth, setContainerWidth] = useState(560);
@@ -209,6 +211,7 @@ export function GoBoard({
                   fill={displayColor}
                   stroke={strokeColor}
                   strokeWidth="1.5"
+                  opacity={deadStones.some(ds => ds.x === x && ds.y === y) ? 0.4 : 1}
                 />
                 {isLastMove(x, y) && (
                   <circle
@@ -217,6 +220,27 @@ export function GoBoard({
                     r={stoneRadius * 0.3}
                     fill="#FF4444"
                   />
+                )}
+                {/* 死棋标记：红色叉号 */}
+                {deadStones.some(ds => ds.x === x && ds.y === y) && (
+                  <>
+                    <line
+                      x1={cx - stoneRadius * 0.5}
+                      y1={cy - stoneRadius * 0.5}
+                      x2={cx + stoneRadius * 0.5}
+                      y2={cy + stoneRadius * 0.5}
+                      stroke="#FF0000"
+                      strokeWidth="2.5"
+                    />
+                    <line
+                      x1={cx + stoneRadius * 0.5}
+                      y1={cy - stoneRadius * 0.5}
+                      x2={cx - stoneRadius * 0.5}
+                      y2={cy + stoneRadius * 0.5}
+                      stroke="#FF0000"
+                      strokeWidth="2.5"
+                    />
+                  </>
                 )}
               </g>
             );
