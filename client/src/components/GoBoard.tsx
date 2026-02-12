@@ -48,6 +48,7 @@ export function GoBoard({
   const stoneRadius = cellSize * 0.45;
 
   const handleIntersectionClick = (x: number, y: number) => {
+    console.log(`GoBoard handleIntersectionClick: x=${x}, y=${y}, disabled=${disabled}, isMarkingDeadStones=${isMarkingDeadStones}`);
     if (!disabled && onIntersectionClick) {
       onIntersectionClick({ x, y });
     }
