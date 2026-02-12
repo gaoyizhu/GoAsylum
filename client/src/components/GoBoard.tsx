@@ -12,6 +12,7 @@ interface GoBoardProps {
   amnesiaMode?: boolean; // For amnesia mode
   moveHistory?: any[]; // Move history for amnesia mode
   deadStones?: Position[]; // Dead stones marked during counting
+  isMarkingDeadStones?: boolean; // Whether in marking dead stones mode
 }
 
 export function GoBoard({
@@ -25,6 +26,7 @@ export function GoBoard({
   amnesiaMode = false,
   moveHistory = [],
   deadStones = [],
+  isMarkingDeadStones = false,
 }: GoBoardProps) {
   // 响应式尺寸：动态获取屏幕宽度
   const [containerWidth, setContainerWidth] = useState(560);
@@ -250,7 +252,14 @@ export function GoBoard({
         {/* Interactive intersection points */}
         {Array.from({ length: boardSize }).map((_, y) =>
           Array.from({ length: boardSize }).map((_, x) => {
-            if (board[y][x] !== null) return null;
+            // 标记死棋状态下，只为有棋子的位置添加交互区域
+            // 正常状态下，只为空位置添加交互区域
+            const hasStone = board[y][x] !== null;
+            
+            // 正常下棋：只能点击空位
+            // 标记死棋：只能点击有棋子的位置
+            if (!isMarkingDeadStones && hasStone) return null;
+            if (isMarkingDeadStones && !hasStone) return null;
 
             const cx = padding + x * cellSize;
             const cy = padding + y * cellSize;

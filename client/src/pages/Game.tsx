@@ -268,6 +268,7 @@ export default function Game() {
         amnesiaMode={gameType === 'amnesia'}
         moveHistory={gameState.moveHistory}
         deadStones={gameState.deadStones || []}
+        isMarkingDeadStones={gameState.status === 'marking_dead_stones'}
       />
     );
   };
