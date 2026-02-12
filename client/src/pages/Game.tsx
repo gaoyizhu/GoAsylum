@@ -67,9 +67,11 @@ export default function Game() {
   const [isEraser, setIsEraser] = useState(false);
   const [showGrid, setShowGrid] = useState(gameType !== 'canvas');
 
-  const lastMove = gameState.moveHistory?.length > 0
-    ? gameState.moveHistory[gameState.moveHistory.length - 1].position
-    : null;
+  const lastMove = gameType === 'tricolor'
+    ? gameState.lastMove
+    : (gameState.moveHistory?.length > 0
+      ? gameState.moveHistory[gameState.moveHistory.length - 1].position
+      : null);
 
   // 三色围棋没有status字段，总是允许落子
   const isPlayerTurn = gameType === 'tricolor'
@@ -534,7 +536,7 @@ export default function Game() {
                 <Button
                   variant="outline"
                   onClick={handleJudge}
-                  disabled={gameState.status !== 'playing' || isAIThinking}
+                  disabled={gameType === 'tricolor' ? isAIThinking : (gameState.status !== 'playing' || isAIThinking)}
                   className="text-primary"
                 >
                   {t.game.judge}

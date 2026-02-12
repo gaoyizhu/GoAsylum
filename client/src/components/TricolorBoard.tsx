@@ -140,7 +140,7 @@ export function TricolorBoard({
                     cx={cx}
                     cy={cy}
                     r={stoneRadius * 0.3}
-                    fill="#FF4444"
+                    fill={stone === 'white' ? '#000000' : '#FFFFFF'}
                   />
                 )}
               </g>
