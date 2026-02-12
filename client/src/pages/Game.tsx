@@ -415,9 +415,9 @@ export default function Game() {
           )}
 
           {/* First Row */}
-          <div className="grid grid-cols-3 gap-2">
+          <div className={`grid gap-2 ${gameType === 'mono' ? 'grid-cols-4' : 'grid-cols-3'}`}>
             {/* 一色围棋特有：显示黑白按钮 */}
-            {gameType === 'mono' && (
+            {gameType === 'mono' && gameState.status !== 'marking_dead_stones' && (
               <Button
                 variant={showColors ? "default" : "outline"}
                 onClick={() => setShowColors(!showColors)}
@@ -482,6 +482,33 @@ export default function Game() {
                   className="text-primary-foreground col-span-2"
                 >
                   {t.game.confirmDeadStones || '确认死棋'}
+                </Button>
+              </>
+            ) : gameType === 'mono' ? (
+              <>
+                <Button
+                  variant="outline"
+                  onClick={handleUndo}
+                  disabled={!canUndo || isAIThinking}
+                  className="text-foreground"
+                >
+                  {t.game.undo}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handlePass}
+                  disabled={!isPlayerTurn || isAIThinking}
+                  className="text-foreground"
+                >
+                  {t.game.pass}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleJudge}
+                  disabled={gameState.status !== 'playing' || isAIThinking}
+                  className="text-primary"
+                >
+                  {t.game.judge}
                 </Button>
               </>
             ) : (
