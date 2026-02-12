@@ -567,7 +567,7 @@ export default function Game() {
               </>
             ) : (
               <>
-                {gameType !== 'mono' && gameType !== 'amnesia' && (
+                {gameType !== 'mono' && (
                   <Button
                     variant="outline"
                     onClick={handleUndo}
