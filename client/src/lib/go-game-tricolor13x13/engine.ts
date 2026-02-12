@@ -34,10 +34,26 @@ function cloneBoard(board: (PlayerColor | null)[][]): (PlayerColor | null)[][] {
   return board.map(row => [...row]);
 }
 
-function getNextPlayer(current: PlayerColor): PlayerColor {
-  if (current === 'black') return 'white';
-  if (current === 'white') return 'green';
-  return 'black';
+function getNextPlayer(current: PlayerColor, resignedPlayers: PlayerColor[] = []): PlayerColor {
+  let next = current;
+  let attempts = 0;
+  
+  // 最多尝试3次，避免无限循环
+  while (attempts < 3) {
+    if (next === 'black') next = 'white';
+    else if (next === 'white') next = 'green';
+    else next = 'black';
+    
+    // 如果下一个玩家没有认输，返回
+    if (!resignedPlayers.includes(next)) {
+      return next;
+    }
+    
+    attempts++;
+  }
+  
+  // 如果所有玩家都认输了，返回当前玩家
+  return current;
 }
 
 function isValidPosition(x: number, y: number): boolean {
@@ -189,7 +205,7 @@ export function makeMove(state: GameState, x: number, y: number): MoveResult {
   // 创建新状态
   const newState: GameState = {
     board: newBoard,
-    currentPlayer: getNextPlayer(state.currentPlayer),
+    currentPlayer: getNextPlayer(state.currentPlayer, state.resignedPlayers ? Array.from(state.resignedPlayers) : []),
     capturedStones: {
       black: state.capturedStones.black + captured.black,
       white: state.capturedStones.white + captured.white,
@@ -198,6 +214,7 @@ export function makeMove(state: GameState, x: number, y: number): MoveResult {
     history: [...state.history, cloneBoard(state.board)],
     lastMove: { x, y },
     koPosition: null,
+    resignedPlayers: state.resignedPlayers || new Set(),
   };
 
   return { success: true, newState };
