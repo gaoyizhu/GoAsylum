@@ -81,6 +81,12 @@ export default function Game() {
   const canUndo = gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
 
   const handlePlaceStone = (position: any) => {
+    // 标记死棋状态：点击棋子标记/取消标记
+    if (gameState.status === 'marking_dead_stones') {
+      handleToggleDeadStone(position);
+      return;
+    }
+
     // 画布模式特殊处理
     if (gameType === 'canvas') {
       const canvasEngine = engine as typeof CanvasEngine;
@@ -183,9 +189,30 @@ export default function Game() {
 
   const handleJudge = () => {
     if (gameState.status !== 'playing' || isAIThinking) return;
-    // 判定胜负 - 使用judgeGame如果存在，否则使用resign
-    if ('judgeGame' in engine) {
-      setGameState((engine as any).judgeGame(gameState));
+    // 开始标记死棋
+    if ('startMarkingDeadStones' in engine) {
+      setGameState((engine as any).startMarkingDeadStones(gameState));
+    }
+  };
+
+  const handleToggleDeadStone = (position: any) => {
+    if (gameState.status !== 'marking_dead_stones') return;
+    if ('toggleDeadStone' in engine) {
+      setGameState((engine as any).toggleDeadStone(gameState, position));
+    }
+  };
+
+  const handleConfirmDeadStones = () => {
+    if (gameState.status !== 'marking_dead_stones') return;
+    if ('confirmDeadStones' in engine) {
+      setGameState((engine as any).confirmDeadStones(gameState));
+    }
+  };
+
+  const handleCancelMarkingDeadStones = () => {
+    if (gameState.status !== 'marking_dead_stones') return;
+    if ('cancelMarkingDeadStones' in engine) {
+      setGameState((engine as any).cancelMarkingDeadStones(gameState));
     }
   };
 
@@ -246,7 +273,9 @@ export default function Game() {
 
   // 获取当前玩家文本
   const getCurrentPlayerText = () => {
-    if (isAIThinking) return t.game.aiThinking;
+    if (gameState.status === 'marking_dead_stones') {
+      return t.game.markDeadStones || '标记死棋';
+    }
     if (gameState.status === 'finished') {
       if (!gameState.result) return t.game.draw;
       const winner = gameState.result.winner;
@@ -422,6 +451,23 @@ export default function Game() {
                   清空棋盘
                 </Button>
               </>
+            ) : gameState.status === 'marking_dead_stones' ? (
+              <>
+                <Button
+                  variant="outline"
+                  onClick={handleCancelMarkingDeadStones}
+                  className="text-foreground"
+                >
+                  {t.game.cancelMarkingDeadStones || '取消'}
+                </Button>
+                <Button
+                  variant="default"
+                  onClick={handleConfirmDeadStones}
+                  className="text-primary-foreground col-span-2"
+                >
+                  {t.game.confirmDeadStones || '确认死棋'}
+                </Button>
+              </>
             ) : (
               <>
                 {gameType !== 'mono' && gameType !== 'amnesia' && (
@@ -478,22 +524,36 @@ export default function Game() {
       </div>
 
       {/* Bottom Info */}
-      <div className="bg-card border-t border-border px-4 py-3 flex justify-around">
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-black" />
-          <span className="text-foreground">{t.game.black}</span>
-          <span className="text-muted-foreground text-sm">
-            {t.game.captures}: {gameState.blackCaptures || 0}
-          </span>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="w-6 h-6 rounded-full bg-white border border-gray-400" />
-          <span className="text-foreground">
-            {gameMode === 'ai' && gameType === 'line' ? t.game.whiteAI : t.game.white}
-          </span>
-          <span className="text-muted-foreground text-sm">
-            {t.game.captures}: {gameState.whiteCaptures || 0}
-          </span>
+      <div className="bg-card border-t border-border px-4 py-3">
+        {/* 游戏结果显示 */}
+        {gameState.status === 'finished' && gameState.result && (
+          <div className="text-center mb-3 p-3 bg-primary/10 rounded-lg">
+            <div className="text-lg font-semibold text-foreground">
+              {t.game.black}: {gameState.result.blackTerritory?.toFixed(1) || 0}, {t.game.white}: {gameState.result.whiteTerritory?.toFixed(1) || 0}
+            </div>
+            <div className="text-sm text-muted-foreground mt-1">
+              {gameState.result.winner === 'black' ? t.game.blackWins : gameState.result.winner === 'white' ? t.game.whiteWins : t.game.draw}
+            </div>
+          </div>
+        )}
+        {/* 提子信息 */}
+        <div className="flex justify-around">
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full bg-black" />
+            <span className="text-foreground">{t.game.black}</span>
+            <span className="text-muted-foreground text-sm">
+              {t.game.captures}: {gameState.blackCaptures || 0}
+            </span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="w-6 h-6 rounded-full bg-white border border-gray-400" />
+            <span className="text-foreground">
+              {gameMode === 'ai' && gameType === 'line' ? t.game.whiteAI : t.game.white}
+            </span>
+            <span className="text-muted-foreground text-sm">
+              {t.game.captures}: {gameState.whiteCaptures || 0}
+            </span>
+          </div>
         </div>
       </div>
     </div>
