@@ -5,6 +5,14 @@
 import { useRoute, useLocation } from "wouter";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { useState, useEffect } from "react";
 
 // 导入不同的棋盘组件
@@ -58,6 +66,7 @@ export default function Game() {
     return (engine as any).createInitialGameState();
   });
   const [isAIThinking, setIsAIThinking] = useState(false);
+  const [showResignDialog, setShowResignDialog] = useState(false);
   const [showColors, setShowColors] = useState(false); // 一色围棋特有：显示黑白按钮
   
   // 画布模式特有状态
@@ -187,7 +196,19 @@ export default function Game() {
   };
 
   const handleResign = () => {
-    if (gameState.status !== 'playing' || isAIThinking) return;
+    // 三色围棋没有status字段，所以需要特殊处理
+    const isPlaying = gameType === 'tricolor' ? !gameState.status || gameState.status === 'playing' : gameState.status === 'playing';
+    if (!isPlaying || isAIThinking) return;
+    
+    if (gameType === 'tricolor') {
+      setShowResignDialog(true);
+    } else if ('resign' in engine) {
+      setGameState((engine as any).resign(gameState));
+    }
+  };
+
+  const confirmResign = () => {
+    setShowResignDialog(false);
     if ('resign' in engine) {
       setGameState((engine as any).resign(gameState));
     }
@@ -259,6 +280,8 @@ export default function Game() {
           onIntersectionClick={handlePlaceStone}
           lastMove={lastMove}
           disabled={!isPlayerTurn || isAIThinking}
+          isMarkingDeadStones={gameState.status === 'marking_dead_stones'}
+          deadStones={gameState.deadStones}
         />
       );
     }
@@ -340,15 +363,28 @@ export default function Game() {
       </div>
 
       {/* Game Result Display */}
-      {gameState.status === 'finished' && gameState.result && (
+      {gameState.status === 'finished' && (
         <div className="bg-card border-t border-border px-4 py-3">
           <div className="text-center p-3 bg-primary/10 rounded-lg max-w-md mx-auto">
-            <div className="text-lg font-semibold text-foreground">
-              {t.game.black}: {gameState.result.blackTerritory?.toFixed(1) || 0}, {t.game.white}: {gameState.result.whiteTerritory?.toFixed(1) || 0}
-            </div>
-            <div className="text-sm text-muted-foreground mt-1">
-              {gameState.result.winner === 'black' ? t.game.blackWins : gameState.result.winner === 'white' ? t.game.whiteWins : t.game.draw}
-            </div>
+            {gameType === 'tricolor' && gameState.score ? (
+              <>
+                <div className="text-lg font-semibold text-foreground">
+                  {t.game.black}: {gameState.score.black}, {t.game.white}: {gameState.score.white}, 绿方: {gameState.score.green}
+                </div>
+                <div className="text-sm text-muted-foreground mt-1">
+                  {gameState.winner === 'black' ? t.game.blackWins : gameState.winner === 'white' ? t.game.whiteWins : gameState.winner === 'green' ? '绿方胜利！' : t.game.draw}
+                </div>
+              </>
+            ) : gameState.result ? (
+              <>
+                <div className="text-lg font-semibold text-foreground">
+                  {t.game.black}: {gameState.result.blackTerritory?.toFixed(1) || 0}, {t.game.white}: {gameState.result.whiteTerritory?.toFixed(1) || 0}
+                </div>
+                <div className="text-sm text-muted-foreground mt-1">
+                  {gameState.result.winner === 'black' ? t.game.blackWins : gameState.result.winner === 'white' ? t.game.whiteWins : t.game.draw}
+                </div>
+              </>
+            ) : null}
           </div>
         </div>
       )}
@@ -567,7 +603,7 @@ export default function Game() {
               <Button
                 variant="outline"
                 onClick={handleResign}
-                disabled={gameState.status !== 'playing' || isAIThinking}
+                disabled={(gameType === 'tricolor' ? (gameState.status && gameState.status !== 'playing') : gameState.status !== 'playing') || isAIThinking}
                 className="text-destructive"
               >
                 {t.game.resign}
@@ -606,6 +642,30 @@ export default function Game() {
           </div>
         </div>
       </div>
+
+      {/* Resign Confirmation Dialog for Tricolor Go */}
+      <Dialog open={showResignDialog} onOpenChange={setShowResignDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>确认认输</DialogTitle>
+            <DialogDescription>
+              {gameType === 'tricolor' && gameState.currentPlayer && (
+                <span>
+                  {gameState.currentPlayer === 'black' ? '黑方' : gameState.currentPlayer === 'white' ? '白方' : '绿方'}认输后，其他两方将继续比赛。确定要认输吗？
+                </span>
+              )}
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowResignDialog(false)}>
+              取消
+            </Button>
+            <Button variant="destructive" onClick={confirmResign}>
+              确认认输
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

@@ -35,6 +35,7 @@ export interface GameState {
     white: number;
     green: number;
   };
+  resignedPlayers?: Set<PlayerColor>;
 }
 
 export interface MoveResult {

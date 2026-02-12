@@ -9,6 +9,8 @@ interface TricolorBoardProps {
   onIntersectionClick?: (pos: Position) => void;
   lastMove?: Position | null;
   disabled?: boolean;
+  isMarkingDeadStones?: boolean;
+  deadStones?: Set<string>;
 }
 
 export function TricolorBoard({
@@ -17,6 +19,8 @@ export function TricolorBoard({
   onIntersectionClick,
   lastMove,
   disabled = false,
+  isMarkingDeadStones = false,
+  deadStones = new Set(),
 }: TricolorBoardProps) {
   const [containerWidth, setContainerWidth] = useState(560);
   
@@ -117,6 +121,7 @@ export function TricolorBoard({
 
             const cx = padding + x * cellSize;
             const cy = padding + y * cellSize;
+            const isDead = deadStones.has(`${x},${y}`);
 
             return (
               <g key={`stone-${x}-${y}`}>
@@ -134,14 +139,35 @@ export function TricolorBoard({
                   fill={getStoneColor(stone)}
                   stroke={getStrokeColor(stone)}
                   strokeWidth="1.5"
+                  opacity={isDead ? 0.4 : 1}
                 />
-                {isLastMove(x, y) && (
+                {isLastMove(x, y) && !isDead && (
                   <circle
                     cx={cx}
                     cy={cy}
                     r={stoneRadius * 0.3}
                     fill={stone === 'white' ? '#000000' : '#FFFFFF'}
                   />
+                )}
+                {isDead && (
+                  <g>
+                    <line
+                      x1={cx - stoneRadius * 0.5}
+                      y1={cy - stoneRadius * 0.5}
+                      x2={cx + stoneRadius * 0.5}
+                      y2={cy + stoneRadius * 0.5}
+                      stroke="#FF4444"
+                      strokeWidth="3"
+                    />
+                    <line
+                      x1={cx + stoneRadius * 0.5}
+                      y1={cy - stoneRadius * 0.5}
+                      x2={cx - stoneRadius * 0.5}
+                      y2={cy + stoneRadius * 0.5}
+                      stroke="#FF4444"
+                      strokeWidth="3"
+                    />
+                  </g>
                 )}
               </g>
             );
@@ -151,10 +177,14 @@ export function TricolorBoard({
         {/* Interactive intersection points */}
         {Array.from({ length: boardSize }).map((_, y) =>
           Array.from({ length: boardSize }).map((_, x) => {
-            if (board[y][x] !== null) return null;
+            // 标记死棋状态：只显示有棋子的位置的交互区域
+            // 正常状态：只显示空位置的交互区域
+            const hasStone = board[y][x] !== null;
+            if (isMarkingDeadStones ? !hasStone : hasStone) return null;
 
             const cx = padding + x * cellSize;
             const cy = padding + y * cellSize;
+            const isDisabled = isMarkingDeadStones ? false : disabled;
 
             return (
               <circle
@@ -164,7 +194,7 @@ export function TricolorBoard({
                 r={stoneRadius * 0.8}
                 fill="transparent"
                 className={`${
-                  disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:fill-accent/20'
+                  isDisabled ? 'cursor-not-allowed' : 'cursor-pointer hover:fill-accent/20'
                 } transition-all`}
                 onClick={() => handleIntersectionClick(x, y)}
               />

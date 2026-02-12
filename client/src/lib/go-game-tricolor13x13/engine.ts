@@ -345,3 +345,36 @@ export function cancelMarkingDeadStones(state: GameState): GameState {
     deadStones: undefined as any,
   };
 }
+/**
+ * 认输函数
+ * 当前玩家认输，游戏继续，轮到下一个未认输的玩家
+ */
+export function resign(state: GameState): GameState {
+  const resignedPlayers = new Set(state.resignedPlayers || []);
+  resignedPlayers.add(state.currentPlayer);
+  
+  // 如果有两个玩家认输，游戏结束，剩下的玩家获胜
+  if (resignedPlayers.size >= 2) {
+    const remainingPlayer = (['black', 'white', 'green'] as PlayerColor[]).find(
+      p => !resignedPlayers.has(p)
+    );
+    return {
+      ...state,
+      resignedPlayers,
+      status: 'finished' as any,
+      winner: remainingPlayer as any,
+    };
+  }
+  
+  // 否则，游戏继续，轮到下一个未认输的玩家
+  let nextPlayer = getNextPlayer(state.currentPlayer);
+  while (resignedPlayers.has(nextPlayer)) {
+    nextPlayer = getNextPlayer(nextPlayer);
+  }
+  
+  return {
+    ...state,
+    currentPlayer: nextPlayer,
+    resignedPlayers,
+  };
+}
