@@ -510,7 +510,7 @@ export default function Game() {
                   disabled={gameState.status !== 'playing' || isAIThinking}
                   className="text-primary"
                 >
-                  {gameType === 'mono' ? t.game.pass : t.game.judge}
+                  {t.game.judge}
                 </Button>
               </>
             )}
