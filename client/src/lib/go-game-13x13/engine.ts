@@ -560,6 +560,21 @@ export function toggleDeadStone(state: GameState, position: Position): GameState
 }
 
 /**
+ * 取消标记死棋，返回到playing状态
+ */
+export function cancelMarkingDeadStones(state: GameState): GameState {
+  if (state.status !== 'marking_dead_stones') {
+    return state;
+  }
+
+  return {
+    ...state,
+    status: 'playing',
+    deadStones: [],
+  };
+}
+
+/**
  * 确认死棋标记，计算最终得分
  */
 export function confirmDeadStones(state: GameState): GameState {

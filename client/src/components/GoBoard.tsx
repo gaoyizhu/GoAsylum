@@ -48,8 +48,8 @@ export function GoBoard({
   const stoneRadius = cellSize * 0.45;
 
   const handleIntersectionClick = (x: number, y: number) => {
-    console.log(`GoBoard handleIntersectionClick: x=${x}, y=${y}, disabled=${disabled}, isMarkingDeadStones=${isMarkingDeadStones}`);
-    if (!disabled && onIntersectionClick) {
+    // 在标记死棋状态下，忽略disabled限制，允许点击棋子
+    if ((!disabled || isMarkingDeadStones) && onIntersectionClick) {
       onIntersectionClick({ x, y });
     }
   };
