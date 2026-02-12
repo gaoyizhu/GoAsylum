@@ -26,7 +26,7 @@ export function TricolorBoard({
   
   useEffect(() => {
     const updateWidth = () => {
-      const width = Math.min(window.innerWidth - 32, 600);
+      const width = Math.min(window.innerWidth - 48, 600);
       setContainerWidth(width);
     };
     updateWidth();
@@ -67,7 +67,7 @@ export function TricolorBoard({
   };
 
   return (
-    <div className="flex justify-center items-center p-4">
+    <div className="flex justify-center items-center py-4 px-3">
       <svg
         width={boardWidth}
         height={boardHeight}

@@ -19,7 +19,7 @@ export function LineBoard({
   
   useEffect(() => {
     const updateWidth = () => {
-      const width = Math.min(window.innerWidth - 32, 700);
+      const width = Math.min(window.innerWidth - 48, 700);
       setContainerWidth(width);
     };
     updateWidth();
@@ -44,7 +44,7 @@ export function LineBoard({
   };
 
   return (
-    <div className="flex justify-center items-center p-4">
+    <div className="flex justify-center items-center py-4 px-3">
       <svg
         width={boardWidth}
         height={boardHeight}

@@ -29,7 +29,7 @@ export function CanvasBoard({
   
   useEffect(() => {
     const updateWidth = () => {
-      const width = Math.min(window.innerWidth - 32, 600);
+      const width = Math.min(window.innerWidth - 56, 600);
       setContainerWidth(width);
     };
     updateWidth();
@@ -50,7 +50,7 @@ export function CanvasBoard({
   };
 
   return (
-    <div className="inline-block bg-[#FAEBD7] rounded-lg shadow-lg p-4">
+    <div className="inline-block bg-[#FAEBD7] rounded-lg shadow-lg p-3">
       <svg
         width={boardWidth}
         height={boardHeight}
