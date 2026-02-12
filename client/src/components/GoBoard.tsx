@@ -24,8 +24,10 @@ export function GoBoard({
   amnesiaMode = false,
   moveHistory = [],
 }: GoBoardProps) {
-  const cellSize = 40;
-  const padding = 30;
+  // 响应式尺寸：根据屏幕宽度计算cellSize
+  const maxBoardWidth = typeof window !== 'undefined' ? Math.min(window.innerWidth - 40, 600) : 560;
+  const cellSize = Math.floor(maxBoardWidth / boardSize);
+  const padding = Math.max(20, cellSize * 0.5);
   const boardWidth = (boardSize - 1) * cellSize + padding * 2;
   const boardHeight = (boardSize - 1) * cellSize + padding * 2;
   const stoneRadius = cellSize * 0.45;

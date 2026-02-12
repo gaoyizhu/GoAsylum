@@ -15,10 +15,12 @@ export function LineBoard({
   disabled = false,
 }: LineBoardProps) {
   const BOARD_WIDTH = 13;
-  const cellSize = 50;
-  const padding = 40;
+  // 响应式尺寸
+  const maxBoardWidth = typeof window !== 'undefined' ? Math.min(window.innerWidth - 40, 700) : 660;
+  const cellSize = Math.floor(maxBoardWidth / BOARD_WIDTH);
+  const padding = Math.max(20, cellSize * 0.5);
   const boardWidth = (BOARD_WIDTH - 1) * cellSize + padding * 2;
-  const boardHeight = 120;
+  const boardHeight = Math.max(100, cellSize * 2.5);
   const stoneRadius = cellSize * 0.4;
 
   const handleIntersectionClick = (x: number) => {
