@@ -8,7 +8,7 @@ export const translations = {
   zh: {
     // 主屏幕
     home: {
-      title: '非正常围棋研究所',
+      title: '围棋疯人院',
       subtitle: '',
       startGame: '开始游戏',
       settings: '设置',
