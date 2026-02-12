@@ -559,6 +559,32 @@ export function analyzeSituation(state: GameState): {
   };
 }
 
+// 开始标记死棋
+export function startMarkingDeadStones(state: GameState): GameState {
+  if (state.status !== 'playing') {
+    return state;
+  }
+  
+  return {
+    ...state,
+    status: 'marking_dead_stones',
+    deadStones: [],
+  };
+}
+
+// 取消标记死棋
+export function cancelMarkingDeadStones(state: GameState): GameState {
+  if (state.status !== 'marking_dead_stones') {
+    return state;
+  }
+  
+  return {
+    ...state,
+    status: 'playing',
+    deadStones: [],
+  };
+}
+
 // 切换死棋标记
 export function toggleDeadStone(state: GameState, pos: Position): GameState {
   const index = state.deadStones.findIndex(p => positionsEqual(p, pos));
