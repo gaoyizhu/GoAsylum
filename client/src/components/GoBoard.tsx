@@ -273,7 +273,7 @@ export function GoBoard({
                 r={stoneRadius * 0.8}
                 fill="transparent"
                 className={`${
-                  disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:fill-accent/20'
+                  (disabled && !isMarkingDeadStones) ? 'cursor-not-allowed' : 'cursor-pointer hover:fill-accent/20'
                 } transition-all`}
                 onClick={() => handleIntersectionClick(x, y)}
               />
