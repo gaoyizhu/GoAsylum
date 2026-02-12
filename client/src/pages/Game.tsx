@@ -469,7 +469,7 @@ export default function Game() {
           )}
 
           {/* First Row */}
-          <div className={`grid gap-2 ${gameType === 'mono' ? 'grid-cols-4' : 'grid-cols-3'}`}>
+          <div className={`grid gap-2 ${gameType === 'mono' || gameType === 'amnesia' ? 'grid-cols-4' : 'grid-cols-3'}`}>
             {/* 一色围棋特有：显示黑白按钮 */}
             {gameType === 'mono' && gameState.status !== 'marking_dead_stones' && (
               <Button
@@ -478,16 +478,6 @@ export default function Game() {
                 className={showColors ? "bg-primary text-primary-foreground" : "text-foreground"}
               >
                 {(t.game as any).showColors || '显示黑白'}
-              </Button>
-            )}
-            {/* 失忆症特有：回忆过去按钮 */}
-            {gameType === 'amnesia' && (
-              <Button
-                variant={showColors ? "default" : "outline"}
-                onClick={() => setShowColors(!showColors)}
-                className={showColors ? "bg-primary text-primary-foreground" : "text-foreground"}
-              >
-                {(t.game as any).recallPast || '回忆过去'}
               </Button>
             )}
             {/* 画布模式特殊按钮 */}
@@ -540,6 +530,40 @@ export default function Game() {
               </>
             ) : gameType === 'mono' ? (
               <>
+                <Button
+                  variant="outline"
+                  onClick={handleUndo}
+                  disabled={!canUndo || isAIThinking}
+                  className="text-foreground"
+                >
+                  {t.game.undo}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handlePass}
+                  disabled={!isPlayerTurn || isAIThinking}
+                  className="text-foreground"
+                >
+                  {t.game.pass}
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={handleJudge}
+                  disabled={gameState.status !== 'playing' || isAIThinking}
+                  className="text-primary"
+                >
+                  {t.game.judge}
+                </Button>
+              </>
+            ) : gameType === 'amnesia' ? (
+              <>
+                <Button
+                  variant={showColors ? "default" : "outline"}
+                  onClick={() => setShowColors(!showColors)}
+                  className={showColors ? "bg-primary text-primary-foreground" : "text-foreground"}
+                >
+                  {(t.game as any).recallPast || '回忆过去'}
+                </Button>
                 <Button
                   variant="outline"
                   onClick={handleUndo}
