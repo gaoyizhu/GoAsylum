@@ -1,6 +1,7 @@
 /**
  * Canvas Board Component - 画布模式棋盘（艺术家模式）
  */
+import { useState, useEffect } from 'react';
 import type { Position } from '@/lib/go-game-canvas13x13/types';
 
 interface StoneInfo {
@@ -24,9 +25,19 @@ export function CanvasBoard({
   disabled = false,
   showGrid = true,
 }: CanvasBoardProps) {
-  // 响应式尺寸
-  const maxBoardWidth = typeof window !== 'undefined' ? Math.min(window.innerWidth - 40, 600) : 560;
-  const cellSize = Math.floor(maxBoardWidth / boardSize);
+  const [containerWidth, setContainerWidth] = useState(560);
+  
+  useEffect(() => {
+    const updateWidth = () => {
+      const width = Math.min(window.innerWidth - 80, 600);
+      setContainerWidth(width);
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+  
+  const cellSize = Math.floor(containerWidth / (boardSize + 1));
   const padding = Math.max(20, cellSize * 0.5);
   const boardWidth = (boardSize - 1) * cellSize + padding * 2;
   const boardHeight = (boardSize - 1) * cellSize + padding * 2;

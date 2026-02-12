@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import type { BoardState, Position, StoneColor } from '@/lib/go-game-line/types';
 
 interface LineBoardProps {
@@ -15,9 +15,19 @@ export function LineBoard({
   disabled = false,
 }: LineBoardProps) {
   const BOARD_WIDTH = 13;
-  // 响应式尺寸
-  const maxBoardWidth = typeof window !== 'undefined' ? Math.min(window.innerWidth - 40, 700) : 660;
-  const cellSize = Math.floor(maxBoardWidth / BOARD_WIDTH);
+  const [containerWidth, setContainerWidth] = useState(660);
+  
+  useEffect(() => {
+    const updateWidth = () => {
+      const width = Math.min(window.innerWidth - 80, 700);
+      setContainerWidth(width);
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+  
+  const cellSize = Math.floor(containerWidth / (BOARD_WIDTH + 1));
   const padding = Math.max(20, cellSize * 0.5);
   const boardWidth = (BOARD_WIDTH - 1) * cellSize + padding * 2;
   const boardHeight = Math.max(100, cellSize * 2.5);

@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import type { BoardState, Position } from '@/lib/go-game-9x9/types';
 
 interface GoBoardProps {
@@ -24,9 +24,20 @@ export function GoBoard({
   amnesiaMode = false,
   moveHistory = [],
 }: GoBoardProps) {
-  // 响应式尺寸：根据屏幕宽度计算cellSize
-  const maxBoardWidth = typeof window !== 'undefined' ? Math.min(window.innerWidth - 40, 600) : 560;
-  const cellSize = Math.floor(maxBoardWidth / boardSize);
+  // 响应式尺寸：动态获取屏幕宽度
+  const [containerWidth, setContainerWidth] = useState(560);
+  
+  useEffect(() => {
+    const updateWidth = () => {
+      const width = Math.min(window.innerWidth - 80, 600);
+      setContainerWidth(width);
+    };
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
+  
+  const cellSize = Math.floor(containerWidth / (boardSize + 1));
   const padding = Math.max(20, cellSize * 0.5);
   const boardWidth = (boardSize - 1) * cellSize + padding * 2;
   const boardHeight = (boardSize - 1) * cellSize + padding * 2;
