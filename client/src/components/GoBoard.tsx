@@ -33,7 +33,7 @@ export function GoBoard({
   
   useEffect(() => {
     const updateWidth = () => {
-      const width = Math.min(window.innerWidth - 80, 600);
+      const width = Math.min(window.innerWidth - 32, 600);
       setContainerWidth(width);
     };
     updateWidth();

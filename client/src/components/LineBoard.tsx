@@ -19,7 +19,7 @@ export function LineBoard({
   
   useEffect(() => {
     const updateWidth = () => {
-      const width = Math.min(window.innerWidth - 80, 700);
+      const width = Math.min(window.innerWidth - 32, 700);
       setContainerWidth(width);
     };
     updateWidth();
