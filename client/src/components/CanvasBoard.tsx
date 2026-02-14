@@ -24,6 +24,7 @@ interface CanvasBoardProps {
   showGrid?: boolean;
   lines?: LineInfo[];
   pendingLineStart?: Position | null;
+  selectedColor?: string;
 }
 
 export function CanvasBoard({
@@ -34,6 +35,7 @@ export function CanvasBoard({
   showGrid = true,
   lines = [],
   pendingLineStart = null,
+  selectedColor = '#000000',
 }: CanvasBoardProps) {
   const [containerWidth, setContainerWidth] = useState(560);
   
@@ -233,7 +235,7 @@ export function CanvasBoard({
             cx={padding + pendingLineStart.x * cellSize}
             cy={padding + pendingLineStart.y * cellSize}
             r={boardSize === 19 ? 4 : 5}
-            fill="red"
+            fill={selectedColor}
             opacity={0.7}
           />
         )}

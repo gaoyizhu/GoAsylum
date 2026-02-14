@@ -340,6 +340,7 @@ export default function Game() {
           showGrid={showGrid}
           lines={gameState.lines || []}
           pendingLineStart={pendingLineStart}
+          selectedColor={selectedColor}
         />
       );
     }
@@ -498,7 +499,7 @@ export default function Game() {
                   <Button
                     variant={selectedShape === 'circle' ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => setSelectedShape('circle')}
+                    onClick={() => { setSelectedShape('circle'); setPendingLineStart(null); }}
                     className="w-[1.875rem] h-[1.875rem] p-0 flex items-center justify-center"
                   >
                     <div className="w-3 h-3 rounded-full bg-current" />
@@ -506,7 +507,7 @@ export default function Game() {
                   <Button
                     variant={selectedShape === 'square' ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => setSelectedShape('square')}
+                    onClick={() => { setSelectedShape('square'); setPendingLineStart(null); }}
                     className="w-[1.875rem] h-[1.875rem] p-0 flex items-center justify-center"
                   >
                     <div className="w-3 h-3 bg-current" />
@@ -514,7 +515,7 @@ export default function Game() {
                   <Button
                     variant={selectedShape === 'cross' ? 'default' : 'outline'}
                     size="sm"
-                    onClick={() => setSelectedShape('cross')}
+                    onClick={() => { setSelectedShape('cross'); setPendingLineStart(null); }}
                     className="w-[1.875rem] h-[1.875rem] text-xl p-0 flex items-center justify-center leading-none"
                   >
                     ✨
