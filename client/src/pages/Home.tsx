@@ -11,7 +11,7 @@ import { useLocation } from "wouter";
 
 type GameMode = 'ai' | 'pvp';
 type GameType = 'standard' | 'line' | 'mono' | 'toroid' | 'magnetic' | 'tricolor' | 'amnesia' | 'canvas';
-type BoardSize = '9x9' | '13x13';
+type BoardSize = '9x9' | '13x13' | '19x19';
 
 export default function Home() {
   const { language, setLanguage, t } = useLanguage();
@@ -102,6 +102,17 @@ export default function Home() {
             >
               {t.home.size13x13}
             </Button>
+            {gameType === 'line' && (
+              <Button
+                variant="outline"
+                className={`flex-1 h-12 px-4 rounded-lg border ${
+                  boardSize === '19x19' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
+                }`}
+                onClick={() => setBoardSize('19x19')}
+              >
+                19{language === 'zh' ? '路' : ''}
+              </Button>
+            )}
           </div>
         </div>
 

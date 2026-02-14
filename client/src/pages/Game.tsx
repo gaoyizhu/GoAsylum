@@ -23,6 +23,7 @@ import { CanvasBoard } from "@/components/CanvasBoard";
 
 // 导入引擎
 import * as LineEngine from "@/lib/go-game-line/engine";
+import * as LineEngine19 from "@/lib/go-game-line19/engine";
 import * as Engine9x9 from "@/lib/go-game-9x9/engine";
 import * as Engine13x13 from "@/lib/go-game-13x13/engine";
 import * as ToroidEngine9x9 from "@/lib/go-game-toroid9x9/engine";
@@ -47,7 +48,7 @@ export default function Game() {
 
   // 根据游戏类型选择引擎
   const getEngine = () => {
-    if (gameType === 'line') return LineEngine;
+    if (gameType === 'line') return boardSize === '19x19' ? LineEngine19 : LineEngine;
     if (gameType === 'toroid') return boardSize === '9x9' ? ToroidEngine9x9 : ToroidEngine13x13;
     if (gameType === 'magnetic') return boardSize === '9x9' ? MagneticEngine9x9 : MagneticEngine13x13;
     if (gameType === 'tricolor') return TricolorEngine;
