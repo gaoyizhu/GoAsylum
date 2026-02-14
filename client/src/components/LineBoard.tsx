@@ -14,7 +14,7 @@ export function LineBoard({
   lastMove,
   disabled = false,
 }: LineBoardProps) {
-  const BOARD_WIDTH = 13;
+  const BOARD_WIDTH = board.length; // 动态获取棋盘大小
   const [containerWidth, setContainerWidth] = useState(660);
   
   useEffect(() => {
