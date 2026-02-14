@@ -417,7 +417,7 @@ export default function Game() {
           {renderBoard()}
           {/* 医嘱叠加层：棋盘正中间的半透明白色背景条 */}
           {showAdvice && (
-            <div className={`absolute top-1/2 left-0 right-0 transform -translate-y-1/2 py-3 bg-white/80 shadow-lg z-20 ${gameType === 'canvas' && boardSize === '19x19' ? 'mx-0' : 'mx-3'}`}>
+            <div className={`absolute top-1/2 left-0 right-0 transform -translate-y-1/2 py-3 bg-white/80 shadow-lg z-20 ${(gameType === 'canvas' && boardSize === '19x19') || gameType === 'line' ? 'mx-0' : 'mx-3'}`}>
               <div className={`${gameType === 'mono' ? 'text-[21px] md:text-[23px]' : 'text-[22px] md:text-[26px]'} font-bold text-black/80 text-center`} style={{ fontFamily: '"STKaiti", "KaiTi", "楷体", serif' }}>
                 {gameType === 'standard' ? t.game.adviceStandard :
                  gameType === 'line' ? t.game.adviceLine :
