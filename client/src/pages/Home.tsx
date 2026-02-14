@@ -22,10 +22,10 @@ export default function Home() {
   const [gameMode, setGameMode] = useState<GameMode>('pvp');
 
   const handleGameTypeChange = (type: GameType) => {
-    // 如果切换到画布模式，自动选择13路
+    // 画布模式现在支持13路和19路，不需要自动锁定
     if (type === 'canvas') {
       setGameType(type);
-      setBoardSize('13x13');
+      // 不再自动设置棋盘大小
     }
     // 其他模式不自动改变棋盘大小
     else {
@@ -93,18 +93,16 @@ export default function Home() {
                 {t.home.size9x9}
               </Button>
             )}
-            {gameType !== 'canvas' && (
-              <Button
-                variant="outline"
-                className={`flex-1 h-12 px-4 rounded-lg border ${
-                  boardSize === '13x13' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
-                }`}
-                onClick={() => setBoardSize('13x13')}
-              >
-                {t.home.size13x13}
-              </Button>
-            )}
-            {gameType === 'line' && (
+            <Button
+              variant="outline"
+              className={`flex-1 h-12 px-4 rounded-lg border ${
+                boardSize === '13x13' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
+              }`}
+              onClick={() => setBoardSize('13x13')}
+            >
+              {t.home.size13x13}
+            </Button>
+            {(gameType === 'line' || gameType === 'canvas') && (
               <Button
                 variant="outline"
                 className={`flex-1 h-12 px-4 rounded-lg border ${
