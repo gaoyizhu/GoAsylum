@@ -90,8 +90,8 @@ export default function Game() {
       ? gameState.status === 'playing'
       : gameState.currentPlayer === 'black' && gameState.status === 'playing');
 
-  const canUndo = gameType === 'tricolor'
-    ? gameState.history?.length >= 1
+  const canUndo = (gameType === 'tricolor' || gameType === 'magnetic')
+    ? (gameState.history?.length >= 1 || gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1))
     : gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
 
   const handlePlaceStone = (position: any) => {
@@ -184,11 +184,18 @@ export default function Game() {
 
   const handleUndo = () => {
     if (!canUndo || isAIThinking) return;
-    if (gameType === 'tricolor') {
-      // 三色围棋的undo只能撤销一步
+    if (gameType === 'tricolor' || gameType === 'magnetic') {
+      // 三色围棋和磁性围棋的undo只能撤销一步
       const result = (engine as any).undo(gameState);
       if (result) {
         setGameState(result);
+      }
+      // 如果是AI模式，再撤销一步AI的棋
+      if (gameMode === 'ai' && result) {
+        const result2 = (engine as any).undo(result);
+        if (result2) {
+          setGameState(result2);
+        }
       }
     } else {
       const steps = gameMode === 'ai' ? 2 : 1;
