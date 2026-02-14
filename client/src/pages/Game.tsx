@@ -369,7 +369,7 @@ export default function Game() {
           variant="ghost"
           size="sm"
           onClick={() => setShowAdvice(!showAdvice)}
-          className="bg-black/5 text-xs"
+          className="bg-black/5 text-sm"
         >
           {showAdvice ? t.game.hideAdvice : t.game.showAdvice}
         </Button>
