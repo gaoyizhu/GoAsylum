@@ -29,16 +29,20 @@ export function CanvasBoard({
   
   useEffect(() => {
     const updateWidth = () => {
-      const width = Math.min(window.innerWidth - 56, 600);
+      // 19路棋盘使用更宽的容器，减少边距
+      const margin = boardSize === 19 ? 0 : 56;
+      const maxWidth = boardSize === 19 ? 800 : 600;
+      const width = Math.min(window.innerWidth - margin, maxWidth);
       setContainerWidth(width);
     };
     updateWidth();
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
-  }, []);
+  }, [boardSize]);
   
   const cellSize = Math.floor(containerWidth / (boardSize + 1));
-  const padding = Math.max(20, cellSize * 0.5);
+  // 19路棋盘使用0 padding，其他使用正常padding
+  const padding = boardSize === 19 ? 0 : Math.max(20, cellSize * 0.5);
   const boardWidth = (boardSize - 1) * cellSize + padding * 2;
   const boardHeight = (boardSize - 1) * cellSize + padding * 2;
   const stoneRadius = cellSize * 0.45;
