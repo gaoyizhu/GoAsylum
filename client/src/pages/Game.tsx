@@ -371,8 +371,8 @@ export default function Game() {
           {renderBoard()}
           {/* 医嘱叠加层：棋盘正中间的半透明白色背景条 */}
           {showAdvice && (
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-md px-6 py-3 bg-white/80 rounded-lg shadow-lg z-20">
-              <div className="text-base md:text-lg font-medium text-gray-800 italic text-center">
+            <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 px-6 py-3 bg-white/80 shadow-lg z-20">
+              <div className="text-lg md:text-xl font-medium text-gray-800 italic text-center">
                 {gameType === 'standard' ? t.game.adviceStandard :
                  gameType === 'line' ? t.game.adviceLine :
                  gameType === 'mono' ? t.game.adviceMono :
