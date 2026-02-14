@@ -41,8 +41,8 @@ export function CanvasBoard({
   }, [boardSize]);
   
   const cellSize = Math.floor(containerWidth / (boardSize + 1));
-  // 19路棋盘使用16px padding让边缘棋子完整显示，其他使用正常padding
-  const padding = boardSize === 19 ? 16 : Math.max(20, cellSize * 0.5);
+  // 19路棋盘使用10px padding让边缘棋子完整显示，其他使用正常padding
+  const padding = boardSize === 19 ? 10 : Math.max(20, cellSize * 0.5);
   const boardWidth = (boardSize - 1) * cellSize + padding * 2;
   const boardHeight = (boardSize - 1) * cellSize + padding * 2;
   const stoneRadius = cellSize * 0.45;
