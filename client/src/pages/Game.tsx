@@ -311,7 +311,7 @@ export default function Game() {
       return (
         <CanvasBoard
           board={gameState.board}
-          boardSize={13}
+          boardSize={parseInt(boardSize.split('x')[0])}
           onIntersectionClick={handlePlaceStone}
           disabled={false}
           showGrid={showGrid}
