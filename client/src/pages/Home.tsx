@@ -22,16 +22,16 @@ export default function Home() {
   const [gameMode, setGameMode] = useState<GameMode>('pvp');
 
   const handleGameTypeChange = (type: GameType) => {
-    // 如果切换到线性围棋、三色围棋或画布模式，自动选择13路
-    if (type === 'line' || type === 'tricolor' || type === 'canvas') {
+    // 如果切换到画布模式，自动选择13路
+    if (type === 'canvas') {
       setGameType(type);
       setBoardSize('13x13');
     }
-    // 如果切换到不支持人机对战的模式且当前是人机对战，自动切换到双人对战
+    // 其他模式不自动改变棋盘大小
     else {
       setGameType(type);
       // 只有line支持AI，其他模式切换为pvp
-      if (gameMode === 'ai') {
+      if (gameMode === 'ai' && type !== 'line') {
         setGameMode('pvp');
       }
     }
@@ -82,7 +82,7 @@ export default function Home() {
             {t.home.boardSize}:
           </label>
           <div className="flex flex-row gap-2.5 flex-1">
-            {gameType !== 'line' && gameType !== 'tricolor' && gameType !== 'canvas' && (
+            {gameType !== 'line' && gameType !== 'canvas' && (
               <Button
                 variant="outline"
                 className={`flex-1 h-12 px-4 rounded-lg border ${
@@ -93,15 +93,17 @@ export default function Home() {
                 {t.home.size9x9}
               </Button>
             )}
-            <Button
-              variant="outline"
-              className={`flex-1 h-12 px-4 rounded-lg border ${
-                boardSize === '13x13' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
-              }`}
-              onClick={() => setBoardSize('13x13')}
-            >
-              {t.home.size13x13}
-            </Button>
+            {gameType !== 'canvas' && (
+              <Button
+                variant="outline"
+                className={`flex-1 h-12 px-4 rounded-lg border ${
+                  boardSize === '13x13' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
+                }`}
+                onClick={() => setBoardSize('13x13')}
+              >
+                {t.home.size13x13}
+              </Button>
+            )}
             {gameType === 'line' && (
               <Button
                 variant="outline"

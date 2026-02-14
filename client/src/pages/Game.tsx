@@ -30,6 +30,7 @@ import * as ToroidEngine9x9 from "@/lib/go-game-toroid9x9/engine";
 import * as ToroidEngine13x13 from "@/lib/go-game-toroid13x13/engine";
 import * as MagneticEngine9x9 from "@/lib/go-game-magnetic9x9/engine";
 import * as MagneticEngine13x13 from "@/lib/go-game-magnetic13x13/engine";
+import * as TricolorEngine9x9 from "@/lib/go-game-tricolor9x9/engine";
 import * as TricolorEngine from "@/lib/go-game-tricolor13x13/engine";
 import * as CanvasEngine from "@/lib/go-game-canvas13x13/engine";
 
@@ -51,7 +52,7 @@ export default function Game() {
     if (gameType === 'line') return boardSize === '19x19' ? LineEngine19 : LineEngine;
     if (gameType === 'toroid') return boardSize === '9x9' ? ToroidEngine9x9 : ToroidEngine13x13;
     if (gameType === 'magnetic') return boardSize === '9x9' ? MagneticEngine9x9 : MagneticEngine13x13;
-    if (gameType === 'tricolor') return TricolorEngine;
+    if (gameType === 'tricolor') return boardSize === '9x9' ? TricolorEngine9x9 : TricolorEngine;
     if (gameType === 'canvas') return CanvasEngine;
     return boardSize === '9x9' ? Engine9x9 : Engine13x13;
   };
