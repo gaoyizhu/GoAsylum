@@ -46,7 +46,7 @@ export const CANVAS_COLORS: CanvasColor[] = [
 ];
 
 // 棋子形状类型
-export type StoneShape = 'circle' | 'square' | 'plus' | 'cross';
+export type StoneShape = 'circle' | 'square' | 'plus' | 'cross' | 'line';
 
 export interface Position {
   x: number;
@@ -58,6 +58,13 @@ export interface StoneInfo {
   color: CanvasColor;
   shape: StoneShape;
   showBorder: boolean;
+}
+
+// 线段信息：记录起点、终点、颜色
+export interface LineInfo {
+  start: Position;
+  end: Position;
+  color: CanvasColor;
 }
 
 // 棋盘状态：每个位置可以是棋子信息或null（空）
@@ -79,4 +86,6 @@ export interface CanvasState {
   showBorder: boolean;
   isEraser: boolean;
   showGrid: boolean;
+  lines: LineInfo[]; // 存储所有线段
+  pendingLineStart: Position | null; // 线段绘制时的起点（等待第二个点）
 }

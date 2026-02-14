@@ -10,12 +10,20 @@ interface StoneInfo {
   showBorder: boolean;
 }
 
+interface LineInfo {
+  start: Position;
+  end: Position;
+  color: string;
+}
+
 interface CanvasBoardProps {
   board: (StoneInfo | null)[][];
   boardSize: number;
   onIntersectionClick?: (pos: Position) => void;
   disabled?: boolean;
   showGrid?: boolean;
+  lines?: LineInfo[];
+  pendingLineStart?: Position | null;
 }
 
 export function CanvasBoard({
@@ -24,6 +32,8 @@ export function CanvasBoard({
   onIntersectionClick,
   disabled = false,
   showGrid = true,
+  lines = [],
+  pendingLineStart = null,
 }: CanvasBoardProps) {
   const [containerWidth, setContainerWidth] = useState(560);
   
@@ -195,6 +205,37 @@ export function CanvasBoard({
               </g>
             );
           })
+        )}
+
+        {/* 线段渲染 */}
+        {lines.map((line, index) => {
+          const x1 = padding + line.start.x * cellSize;
+          const y1 = padding + line.start.y * cellSize;
+          const x2 = padding + line.end.x * cellSize;
+          const y2 = padding + line.end.y * cellSize;
+          return (
+            <line
+              key={`line-${index}`}
+              x1={x1}
+              y1={y1}
+              x2={x2}
+              y2={y2}
+              stroke={line.color}
+              strokeWidth={boardSize === 19 ? 3 : 4}
+              strokeLinecap="round"
+            />
+          );
+        })}
+
+        {/* 待完成线段的起点提示 */}
+        {pendingLineStart && (
+          <circle
+            cx={padding + pendingLineStart.x * cellSize}
+            cy={padding + pendingLineStart.y * cellSize}
+            r={boardSize === 19 ? 4 : 5}
+            fill="red"
+            opacity={0.7}
+          />
         )}
 
         {/* Interactive intersection points */}

@@ -75,7 +75,8 @@ export default function Game() {
   
   // 画布模式特有状态
   const [selectedColor, setSelectedColor] = useState('#FFFF00');
-  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross'>('cross');
+  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross' | 'line'>('cross');
+  const [pendingLineStart, setPendingLineStart] = useState<{x: number, y: number} | null>(null);
   const [showBorder, setShowBorder] = useState(false);
   const [isEraser, setIsEraser] = useState(false);
   const [showGrid, setShowGrid] = useState(gameType !== 'canvas');
@@ -107,7 +108,29 @@ export default function Game() {
     // 画布模式特殊处理
     if (gameType === 'canvas') {
       const canvasEngine = engine as typeof CanvasEngine;
-      // 更新state中的选项，然后调用placeColor
+      
+      // 线段模式：需要两次点击
+      if (selectedShape === 'line') {
+        if (pendingLineStart === null) {
+          // 第一次点击：记录起点
+          setPendingLineStart(position);
+        } else {
+          // 第二次点击：绘制线段
+          const newState = {
+            ...gameState,
+            lines: [...(gameState.lines || []), {
+              start: pendingLineStart,
+              end: position,
+              color: selectedColor
+            }]
+          };
+          setGameState(newState);
+          setPendingLineStart(null);
+        }
+        return;
+      }
+      
+      // 其他形状：正常处理
       const updatedState = {
         ...gameState,
         selectedColor,
@@ -315,6 +338,8 @@ export default function Game() {
           onIntersectionClick={handlePlaceStone}
           disabled={false}
           showGrid={showGrid}
+          lines={gameState.lines || []}
+          pendingLineStart={pendingLineStart}
         />
       );
     }
@@ -493,6 +518,14 @@ export default function Game() {
                     className="w-[1.875rem] h-[1.875rem] text-xl p-0 flex items-center justify-center leading-none"
                   >
                     ✨
+                  </Button>
+                  <Button
+                    variant={selectedShape === 'line' ? 'default' : 'outline'}
+                    size="sm"
+                    onClick={() => { setSelectedShape('line'); setPendingLineStart(null); }}
+                    className="w-[1.875rem] h-[1.875rem] p-0 flex items-center justify-center"
+                  >
+                    <div className="w-3.5 h-0.5 bg-current" />
                   </Button>
                 </div>
                 <Button

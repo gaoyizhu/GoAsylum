@@ -1,5 +1,5 @@
 /**
- * 19×19 画布模式游戏引擎
+ * 13×13 画布模式游戏引擎
  * 
  * 画布模式规则：
  * - 提供16种颜色的棋子供玩家自由放置
@@ -37,6 +37,8 @@ export function createInitialState(): CanvasState {
     showBorder: false, // 默认无边框
     isEraser: false, // 默认不是橡皮擦模式
     showGrid: false, // 默认隐藏棋盘网格
+    lines: [], // 线段列表
+    pendingLineStart: null, // 等待第二个点
   };
 }
 
