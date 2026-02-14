@@ -148,10 +148,10 @@ export function CanvasBoard({
                 )}
                 {shape === 'square' && (
                   <rect
-                    x={cx - stoneRadius - (boardSize === 19 ? 1.5 : 2.5)}
-                    y={cy - stoneRadius - (boardSize === 19 ? 1.5 : 2.5)}
-                    width={stoneRadius * 2 + (boardSize === 19 ? 3 : 5)}
-                    height={stoneRadius * 2 + (boardSize === 19 ? 3 : 5)}
+                    x={cx - stoneRadius - (boardSize === 19 ? 1 : 2.5)}
+                    y={cy - stoneRadius - (boardSize === 19 ? 1 : 2.5)}
+                    width={stoneRadius * 2 + (boardSize === 19 ? 2 : 5)}
+                    height={stoneRadius * 2 + (boardSize === 19 ? 2 : 5)}
                     fill={color}
                     stroke={showBorder ? (color === '#FFFFFF' ? '#999999' : '#000000') : 'none'}
                     strokeWidth={showBorder ? "2" : "0"}
@@ -162,10 +162,9 @@ export function CanvasBoard({
                     {/* 八边形星星形状 */}
                     <path
                       d={(() => {
-                        // 纵向长度缩减1px
-                        const verticalLength = stoneRadius * 1.8 - 0.5;
-                        // 横向缩减总共3px
-                        const horizontalLength = stoneRadius * 1.4 - 1.5; // 横向缩减
+                        // 19路棋盘：星星增大2px，13路棋盘：保持缩减
+                        const verticalLength = boardSize === 19 ? stoneRadius * 1.8 + 1.5 : stoneRadius * 1.8 - 0.5;
+                        const horizontalLength = boardSize === 19 ? stoneRadius * 1.4 + 0.5 : stoneRadius * 1.4 - 1.5;
                         const lineWidth = stoneRadius * 0.35; // 更瘦
                         const halfVertical = verticalLength / 2;
                         const halfHorizontal = horizontalLength / 2;
