@@ -71,7 +71,7 @@ export default function Game() {
   
   // 画布模式特有状态
   const [selectedColor, setSelectedColor] = useState('#000000');
-  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross'>('circle');
+  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross'>('cross');
   const [showBorder, setShowBorder] = useState(false);
   const [isEraser, setIsEraser] = useState(false);
   const [showGrid, setShowGrid] = useState(gameType !== 'canvas');
