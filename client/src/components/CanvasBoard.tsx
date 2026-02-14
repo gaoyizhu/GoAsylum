@@ -106,6 +106,23 @@ export function CanvasBoard({
             />
           </>
         )}
+        
+        {/* Star points for 19x19 board */}
+        {showGrid && boardSize === 19 && (
+          <>
+            {[3, 9, 15].map(x =>
+              [3, 9, 15].map(y => (
+                <circle
+                  key={`star-${x}-${y}`}
+                  cx={padding + x * cellSize}
+                  cy={padding + y * cellSize}
+                  r={3}
+                  fill="#8B4513"
+                />
+              ))
+            )}
+          </>
+        )}
 
         {/* Draw colored stones */}
         {board.map((row, y) =>
