@@ -473,17 +473,17 @@ export default function Game() {
                     variant={selectedShape === 'circle' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedShape('circle')}
-                    className="w-[1.875rem] h-[1.875rem] text-2xl p-0 flex items-center justify-center leading-none"
+                    className="w-[1.875rem] h-[1.875rem] p-0 flex items-center justify-center"
                   >
-                    ●
+                    <div className="w-3 h-3 rounded-full bg-current" />
                   </Button>
                   <Button
                     variant={selectedShape === 'square' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedShape('square')}
-                    className="w-[1.875rem] h-[1.875rem] text-2xl p-0 flex items-center justify-center leading-none"
+                    className="w-[1.875rem] h-[1.875rem] p-0 flex items-center justify-center"
                   >
-                    ■
+                    <div className="w-3 h-3 bg-current" />
                   </Button>
                   <Button
                     variant={selectedShape === 'cross' ? 'default' : 'outline'}
