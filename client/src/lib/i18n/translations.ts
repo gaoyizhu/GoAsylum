@@ -104,7 +104,7 @@ export const translations = {
       adviceMagnetic: '同性相斥，异性相吸，别太自恋',
       adviceTricolor: '有时候外交比棋艺更重要',
       adviceAmnesia: '你真的要开始回忆过去了吗？',
-      adviceCanvas: '自由是多么美好',
+      adviceCanvas: '自由 真好！',
     },
     // 设置屏幕
     settings: {
@@ -245,7 +245,7 @@ export const translations = {
       adviceMagnetic: 'Like poles repel, opposites attract, don\'t be too narcissistic',
       adviceTricolor: 'Sometimes diplomacy is more important than skill',
       adviceAmnesia: 'Are you really going to start remembering the past?',
-      adviceCanvas: 'Freedom is so beautiful',
+      adviceCanvas: 'Freedom feels great!',
     },
     // Settings Screen
     settings: {
