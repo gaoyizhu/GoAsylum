@@ -296,7 +296,7 @@ export default function Game() {
       return (
         <TricolorBoard
           board={gameState.board}
-          boardSize={13}
+          boardSize={boardSize === '9x9' ? 9 : 13}
           onIntersectionClick={handlePlaceStone}
           lastMove={lastMove}
           disabled={!isPlayerTurn || isAIThinking}
