@@ -382,7 +382,7 @@ export default function Game() {
           {/* 医嘱叠加层：棋盘正中间的半透明白色背景条 */}
           {showAdvice && (
             <div className="absolute top-1/2 left-0 right-0 transform -translate-y-1/2 mx-3 py-3 bg-white/80 shadow-lg z-20">
-              <div className={`${gameType === 'mono' ? 'text-[19px] md:text-[21px]' : 'text-xl md:text-2xl'} font-medium text-blue-900 text-center`} style={{ fontFamily: '"STLiti", "LiSu", "KaiTi", serif' }}>
+              <div className={`${gameType === 'mono' ? 'text-[21px] md:text-[23px]' : 'text-[22px] md:text-[26px]'} font-medium text-green-700 text-center`} style={{ fontFamily: '"STLiti", "LiSu", "KaiTi", serif' }}>
                 {gameType === 'standard' ? t.game.adviceStandard :
                  gameType === 'line' ? t.game.adviceLine :
                  gameType === 'mono' ? t.game.adviceMono :
