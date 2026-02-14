@@ -473,7 +473,7 @@ export default function Game() {
                     variant={selectedShape === 'circle' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedShape('circle')}
-                    className="w-[1.875rem] h-[1.875rem] text-2xl p-0"
+                    className="w-[1.875rem] h-[1.875rem] text-2xl p-0 flex items-center justify-center"
                   >
                     ●
                   </Button>
@@ -481,7 +481,7 @@ export default function Game() {
                     variant={selectedShape === 'square' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedShape('square')}
-                    className="w-[1.875rem] h-[1.875rem] text-2xl p-0"
+                    className="w-[1.875rem] h-[1.875rem] text-2xl p-0 flex items-center justify-center"
                   >
                     ■
                   </Button>
@@ -489,7 +489,7 @@ export default function Game() {
                     variant={selectedShape === 'cross' ? 'default' : 'outline'}
                     size="sm"
                     onClick={() => setSelectedShape('cross')}
-                    className="w-[1.875rem] h-[1.875rem] text-xl p-0"
+                    className="w-[1.875rem] h-[1.875rem] text-xl p-0 flex items-center justify-center"
                   >
                     ✨
                   </Button>
