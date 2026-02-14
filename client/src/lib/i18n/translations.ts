@@ -10,7 +10,7 @@ export const translations = {
     home: {
       title: '围棋疯人院',
       subtitle: '',
-      startGame: '开始游戏',
+      startGame: '开始治疗',
       settings: '设置',
       rules: '游戏规则',
       version: '版本',
@@ -151,8 +151,7 @@ export const translations = {
     // Home Screen
     home: {
       title: 'Go Asylum',
-      subtitle: '',   startGame: 'Start Game',
-      settings: 'Settings',
+      subtitle: '',      startGame: 'Start Treatment',    settings: 'Settings',
       rules: 'Game Rules',
       version: 'Version',
       language: 'Treatment Language',
