@@ -68,6 +68,7 @@ export default function Game() {
   const [isAIThinking, setIsAIThinking] = useState(false);
   const [showResignDialog, setShowResignDialog] = useState(false);
   const [showColors, setShowColors] = useState(false); // 一色围棋特有：显示黑白按钮
+  const [showAdvice, setShowAdvice] = useState(false); // 显示医嘱
   
   // 画布模式特有状态
   const [selectedColor, setSelectedColor] = useState('#FFFF00');
@@ -354,13 +355,39 @@ export default function Game() {
             {t.game.move?.replace('{0}', String(gameState.moveHistory?.length || 0))}
           </div>
         </div>
-        <div className="w-20" />
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => setShowAdvice(!showAdvice)}
+          className="bg-black/5 text-xs"
+        >
+          {showAdvice ? t.game.hideAdvice : t.game.showAdvice}
+        </Button>
       </div>
 
       {/* Board */}
       <div className="flex-1 flex items-center justify-center p-4">
         {renderBoard()}
       </div>
+
+      {/* Medical Advice Display */}
+      {showAdvice && (
+        <div className="bg-card border-t border-border px-4 py-3">
+          <div className="text-center p-3 bg-primary/10 rounded-lg max-w-md mx-auto">
+            <div className="text-base font-medium text-foreground italic">
+              {gameType === 'standard' ? t.game.adviceStandard :
+               gameType === 'line' ? t.game.adviceLine :
+               gameType === 'mono' ? t.game.adviceMono :
+               gameType === 'toroid' ? t.game.adviceToroid :
+               gameType === 'magnetic' ? t.game.adviceMagnetic :
+               gameType === 'tricolor' ? t.game.adviceTricolor :
+               gameType === 'amnesia' ? t.game.adviceAmnesia :
+               gameType === 'canvas' ? t.game.adviceCanvas :
+               t.game.adviceStandard}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Game Result Display */}
       {gameState.status === 'finished' && (
