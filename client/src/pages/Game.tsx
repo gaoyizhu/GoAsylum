@@ -365,6 +365,23 @@ export default function Game() {
         </Button>
       </div>
 
+      {/* 手机端医嘱显示区域（固定高度） */}
+      {showAdvice && (
+        <div className="md:hidden px-4 py-2 min-h-[3rem] flex items-center justify-center">
+          <div className="text-sm font-medium text-foreground italic text-center">
+            {gameType === 'standard' ? t.game.adviceStandard :
+             gameType === 'line' ? t.game.adviceLine :
+             gameType === 'mono' ? t.game.adviceMono :
+             gameType === 'toroid' ? t.game.adviceToroid :
+             gameType === 'magnetic' ? t.game.adviceMagnetic :
+             gameType === 'tricolor' ? t.game.adviceTricolor :
+             gameType === 'amnesia' ? t.game.adviceAmnesia :
+             gameType === 'canvas' ? t.game.adviceCanvas :
+             t.game.adviceStandard}
+          </div>
+        </div>
+      )}
+
       {/* Board Container - 响应式布局 */}
       <div className="flex-1 flex items-center justify-center p-4">
         {/* 桌面端：水平布局，棋盘居中，医嘱在右侧 */}
@@ -389,23 +406,8 @@ export default function Game() {
           )}
         </div>
 
-        {/* 手机端：医嘱绝对定位在棋盘上方，不影响棋盘位置 */}
-        <div className="md:hidden relative w-full flex items-center justify-center">
-          {showAdvice && (
-            <div className="absolute top-4 left-0 right-0 px-4 z-10">
-              <div className="text-sm font-medium text-foreground italic text-center">
-                {gameType === 'standard' ? t.game.adviceStandard :
-                 gameType === 'line' ? t.game.adviceLine :
-                 gameType === 'mono' ? t.game.adviceMono :
-                 gameType === 'toroid' ? t.game.adviceToroid :
-                 gameType === 'magnetic' ? t.game.adviceMagnetic :
-                 gameType === 'tricolor' ? t.game.adviceTricolor :
-                 gameType === 'amnesia' ? t.game.adviceAmnesia :
-                 gameType === 'canvas' ? t.game.adviceCanvas :
-                 t.game.adviceStandard}
-              </div>
-            </div>
-          )}
+        {/* 手机端：棋盘居中显示 */}
+        <div className="md:hidden w-full flex items-center justify-center">
           {renderBoard()}
         </div>
       </div>
