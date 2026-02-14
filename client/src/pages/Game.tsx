@@ -365,9 +365,9 @@ export default function Game() {
         </Button>
       </div>
 
-      {/* 手机端医嘱显示区域（固定高度） */}
-      {showAdvice && (
-        <div className="md:hidden px-4 py-2 min-h-[3rem] flex items-center justify-center">
+      {/* 手机端医嘱显示区域（始终占据固定高度） */}
+      <div className="md:hidden px-4 py-2 h-[3rem] flex items-center justify-center">
+        {showAdvice && (
           <div className="text-sm font-medium text-foreground italic text-center">
             {gameType === 'standard' ? t.game.adviceStandard :
              gameType === 'line' ? t.game.adviceLine :
@@ -379,8 +379,8 @@ export default function Game() {
              gameType === 'canvas' ? t.game.adviceCanvas :
              t.game.adviceStandard}
           </div>
-        </div>
-      )}
+        )}
+      </div>
 
       {/* Board Container - 响应式布局 */}
       <div className="flex-1 flex items-center justify-center p-4">
