@@ -54,7 +54,7 @@ export function CanvasBoard({
   };
 
   return (
-    <div className="inline-block bg-[#FAEBD7] rounded-lg shadow-lg p-3">
+    <div className={boardSize === 19 ? "inline-block" : "inline-block bg-[#FAEBD7] rounded-lg shadow-lg p-3"}>
       <svg
         width={boardWidth}
         height={boardHeight}
