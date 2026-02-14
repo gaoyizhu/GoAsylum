@@ -154,20 +154,20 @@ export default function Home() {
             <Button
               variant="outline"
               className={`flex-1 h-12 px-4 rounded-lg border ${
-                language === 'en' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
-              }`}
-              onClick={() => setLanguage('en')}
-            >
-              English
-            </Button>
-            <Button
-              variant="outline"
-              className={`flex-1 h-12 px-4 rounded-lg border ${
                 language === 'zh' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
               }`}
               onClick={() => setLanguage('zh')}
             >
               中文
+            </Button>
+            <Button
+              variant="outline"
+              className={`flex-1 h-12 px-4 rounded-lg border ${
+                language === 'en' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
+              }`}
+              onClick={() => setLanguage('en')}
+            >
+              English
             </Button>
           </div>
         </div>
