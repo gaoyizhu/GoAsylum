@@ -104,7 +104,7 @@ export const translations = {
       adviceMagnetic: '天下之道 同性相斥 异性相吸',
       adviceTricolor: '有时候外交比棋艺更重要',
       adviceAmnesia: '你真的要开始回忆过去了吗？',
-      adviceCanvas: '自由 真好！',
+      adviceCanvas: '这盘棋用来欣赏',
     },
     // 设置屏幕
     settings: {
@@ -245,7 +245,7 @@ export const translations = {
       adviceMagnetic: 'The way of the world: like repels like, opposites attract',
       adviceTricolor: 'Sometimes diplomacy is more important than skill',
       adviceAmnesia: 'Are you really going to start remembering the past?',
-      adviceCanvas: 'Freedom feels great!',
+      adviceCanvas: 'This board is for appreciation',
     },
     // Settings Screen
     settings: {
