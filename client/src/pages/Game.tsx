@@ -365,14 +365,9 @@ export default function Game() {
         </Button>
       </div>
 
-      {/* Board */}
-      <div className="flex-1 flex items-center justify-center p-4">
-        {renderBoard()}
-      </div>
-
       {/* Medical Advice Display */}
       {showAdvice && (
-        <div className="bg-card border-t border-border px-4 py-3">
+        <div className="bg-card border-b border-border px-4 py-3">
           <div className="text-center p-3 bg-primary/10 rounded-lg max-w-md mx-auto">
             <div className="text-base font-medium text-foreground italic">
               {gameType === 'standard' ? t.game.adviceStandard :
@@ -388,6 +383,11 @@ export default function Game() {
           </div>
         </div>
       )}
+
+      {/* Board */}
+      <div className="flex-1 flex items-center justify-center p-4">
+        {renderBoard()}
+      </div>
 
       {/* Game Result Display */}
       {gameState.status === 'finished' && (
