@@ -638,7 +638,7 @@ export default function Game() {
                 <Button
                   variant="outline"
                   onClick={handleJudge}
-                  disabled={gameType === 'tricolor' ? isAIThinking : (gameState.status !== 'playing' || isAIThinking)}
+                  disabled={(gameType === 'tricolor' || gameType === 'line') ? isAIThinking : (gameState.status !== 'playing' || isAIThinking)}
                   className="text-primary"
                 >
                   {t.game.judge}
