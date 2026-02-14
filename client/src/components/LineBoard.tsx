@@ -19,14 +19,15 @@ export function LineBoard({
   
   useEffect(() => {
     const updateWidth = () => {
-      // 充分利用屏幕宽度，减少左右边距
-      const width = Math.min(window.innerWidth - 24, 700);
+      // 19路棋盘左右边距为0，其他棋盘保留24px边距
+      const margin = BOARD_WIDTH >= 19 ? 0 : 24;
+      const width = Math.min(window.innerWidth - margin, 700);
       setContainerWidth(width);
     };
     updateWidth();
     window.addEventListener('resize', updateWidth);
     return () => window.removeEventListener('resize', updateWidth);
-  }, []);
+  }, [BOARD_WIDTH]);
   
   const cellSize = Math.floor(containerWidth / (BOARD_WIDTH + 1));
   // 根据棋盘大小动态调整padding，19路使用更小的padding
@@ -46,7 +47,7 @@ export function LineBoard({
   };
 
   return (
-    <div className="flex justify-center items-center py-4 px-1">
+    <div className={`flex justify-center items-center py-4 ${BOARD_WIDTH >= 19 ? 'px-0' : 'px-1'}`}>
       <svg
         width={boardWidth}
         height={boardHeight}
