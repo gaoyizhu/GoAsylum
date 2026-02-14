@@ -389,10 +389,10 @@ export default function Game() {
           )}
         </div>
 
-        {/* 手机端：垂直布局，医嘱在棋盘上方 */}
-        <div className="md:hidden w-full flex flex-col items-center gap-3">
+        {/* 手机端：医嘱绝对定位在棋盘上方，不影响棋盘位置 */}
+        <div className="md:hidden relative w-full flex items-center justify-center">
           {showAdvice && (
-            <div className="px-4">
+            <div className="absolute top-4 left-0 right-0 px-4 z-10">
               <div className="text-sm font-medium text-foreground italic text-center">
                 {gameType === 'standard' ? t.game.adviceStandard :
                  gameType === 'line' ? t.game.adviceLine :
