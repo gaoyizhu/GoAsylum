@@ -365,28 +365,49 @@ export default function Game() {
         </Button>
       </div>
 
-      {/* Medical Advice Display */}
-      {showAdvice && (
-        <div className="bg-card border-b border-border px-4 py-3">
-          <div className="text-center p-3 bg-primary/10 rounded-lg max-w-md mx-auto">
-            <div className="text-base font-medium text-foreground italic">
-              {gameType === 'standard' ? t.game.adviceStandard :
-               gameType === 'line' ? t.game.adviceLine :
-               gameType === 'mono' ? t.game.adviceMono :
-               gameType === 'toroid' ? t.game.adviceToroid :
-               gameType === 'magnetic' ? t.game.adviceMagnetic :
-               gameType === 'tricolor' ? t.game.adviceTricolor :
-               gameType === 'amnesia' ? t.game.adviceAmnesia :
-               gameType === 'canvas' ? t.game.adviceCanvas :
-               t.game.adviceStandard}
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Board */}
+      {/* Board Container - 响应式布局 */}
       <div className="flex-1 flex items-center justify-center p-4">
-        {renderBoard()}
+        {/* 桌面端：水平布局，棋盘居中，医嘱在右侧 */}
+        <div className="hidden md:flex items-center justify-center gap-8 w-full max-w-5xl">
+          <div className="flex-shrink-0">
+            {renderBoard()}
+          </div>
+          {showAdvice && (
+            <div className="w-64 p-4 bg-primary/10 rounded-lg">
+              <div className="text-base font-medium text-foreground italic text-center">
+                {gameType === 'standard' ? t.game.adviceStandard :
+                 gameType === 'line' ? t.game.adviceLine :
+                 gameType === 'mono' ? t.game.adviceMono :
+                 gameType === 'toroid' ? t.game.adviceToroid :
+                 gameType === 'magnetic' ? t.game.adviceMagnetic :
+                 gameType === 'tricolor' ? t.game.adviceTricolor :
+                 gameType === 'amnesia' ? t.game.adviceAmnesia :
+                 gameType === 'canvas' ? t.game.adviceCanvas :
+                 t.game.adviceStandard}
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* 手机端：垂直布局，医嘱叠加在棋盘上方 */}
+        <div className="md:hidden relative w-full flex flex-col items-center">
+          {showAdvice && (
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 z-10 px-4 py-2">
+              <div className="text-sm font-medium text-foreground italic text-center bg-background/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg">
+                {gameType === 'standard' ? t.game.adviceStandard :
+                 gameType === 'line' ? t.game.adviceLine :
+                 gameType === 'mono' ? t.game.adviceMono :
+                 gameType === 'toroid' ? t.game.adviceToroid :
+                 gameType === 'magnetic' ? t.game.adviceMagnetic :
+                 gameType === 'tricolor' ? t.game.adviceTricolor :
+                 gameType === 'amnesia' ? t.game.adviceAmnesia :
+                 gameType === 'canvas' ? t.game.adviceCanvas :
+                 t.game.adviceStandard}
+              </div>
+            </div>
+          )}
+          {renderBoard()}
+        </div>
       </div>
 
       {/* Game Result Display */}
