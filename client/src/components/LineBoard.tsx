@@ -19,7 +19,8 @@ export function LineBoard({
   
   useEffect(() => {
     const updateWidth = () => {
-      const width = Math.min(window.innerWidth - 48, 700);
+      // 充分利用屏幕宽度，减少左右边距
+      const width = Math.min(window.innerWidth - 24, 700);
       setContainerWidth(width);
     };
     updateWidth();
@@ -28,7 +29,8 @@ export function LineBoard({
   }, []);
   
   const cellSize = Math.floor(containerWidth / (BOARD_WIDTH + 1));
-  const padding = Math.max(20, cellSize * 0.5);
+  // 根据棋盘大小动态调整padding，19路使用更小的padding
+  const padding = BOARD_WIDTH >= 19 ? Math.max(12, cellSize * 0.3) : Math.max(20, cellSize * 0.5);
   const boardWidth = (BOARD_WIDTH - 1) * cellSize + padding * 2;
   const boardHeight = Math.max(100, cellSize * 2.5);
   const stoneRadius = cellSize * 0.4;
@@ -44,7 +46,7 @@ export function LineBoard({
   };
 
   return (
-    <div className="flex justify-center items-center py-4 px-3">
+    <div className="flex justify-center items-center py-4 px-1">
       <svg
         width={boardWidth}
         height={boardHeight}
