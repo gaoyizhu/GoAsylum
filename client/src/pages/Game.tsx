@@ -226,10 +226,20 @@ export default function Game() {
   };
 
   const handleJudge = () => {
+    if (isAIThinking) return;
+    
+    // 线形围棋：直接裁判
+    if (gameType === 'line') {
+      if ('judgeGame' in engine) {
+        setGameState((engine as any).judgeGame(gameState));
+      }
+      return;
+    }
+    
     // 三色围棋没有status字段，需要特殊处理
     if (gameType !== 'tricolor' && gameState.status !== 'playing') return;
-    if (isAIThinking) return;
-    // 开始标记死棋
+    
+    // 其他模式：开始标记死棋
     if ('startMarkingDeadStones' in engine) {
       setGameState((engine as any).startMarkingDeadStones(gameState));
     }
