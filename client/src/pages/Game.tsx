@@ -68,11 +68,10 @@ export default function Game() {
   const [isAIThinking, setIsAIThinking] = useState(false);
   const [showResignDialog, setShowResignDialog] = useState(false);
   const [showColors, setShowColors] = useState(false); // 一色围棋特有：显示黑白按钮
-  const [showAdvice, setShowAdvice] = useState(false); // 显示医嘱
   
   // 画布模式特有状态
-  const [selectedColor, setSelectedColor] = useState('#FFFF00');
-  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross'>('cross');
+  const [selectedColor, setSelectedColor] = useState('#000000');
+  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross'>('circle');
   const [showBorder, setShowBorder] = useState(false);
   const [isEraser, setIsEraser] = useState(false);
   const [showGrid, setShowGrid] = useState(gameType !== 'canvas');
@@ -355,61 +354,12 @@ export default function Game() {
             {t.game.move?.replace('{0}', String(gameState.moveHistory?.length || 0))}
           </div>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setShowAdvice(!showAdvice)}
-          className="bg-black/5 text-xs"
-        >
-          {showAdvice ? t.game.hideAdvice : t.game.showAdvice}
-        </Button>
+        <div className="w-20" />
       </div>
 
-      {/* 手机端医嘱显示区域（始终占据固定高度） */}
-      <div className="md:hidden px-4 py-2 h-[3rem] flex items-center justify-center">
-        {showAdvice && (
-          <div className="text-sm font-medium text-foreground italic text-center">
-            {gameType === 'standard' ? t.game.adviceStandard :
-             gameType === 'line' ? t.game.adviceLine :
-             gameType === 'mono' ? t.game.adviceMono :
-             gameType === 'toroid' ? t.game.adviceToroid :
-             gameType === 'magnetic' ? t.game.adviceMagnetic :
-             gameType === 'tricolor' ? t.game.adviceTricolor :
-             gameType === 'amnesia' ? t.game.adviceAmnesia :
-             gameType === 'canvas' ? t.game.adviceCanvas :
-             t.game.adviceStandard}
-          </div>
-        )}
-      </div>
-
-      {/* Board Container - 响应式布局 */}
+      {/* Board */}
       <div className="flex-1 flex items-center justify-center p-4">
-        {/* 桌面端：水平布局，棋盘居中，医嘱在右侧 */}
-        <div className="hidden md:flex items-center justify-center gap-8 w-full max-w-5xl">
-          <div className="flex-shrink-0">
-            {renderBoard()}
-          </div>
-          {showAdvice && (
-            <div className="w-64 p-4 bg-primary/10 rounded-lg">
-              <div className="text-base font-medium text-foreground italic text-center">
-                {gameType === 'standard' ? t.game.adviceStandard :
-                 gameType === 'line' ? t.game.adviceLine :
-                 gameType === 'mono' ? t.game.adviceMono :
-                 gameType === 'toroid' ? t.game.adviceToroid :
-                 gameType === 'magnetic' ? t.game.adviceMagnetic :
-                 gameType === 'tricolor' ? t.game.adviceTricolor :
-                 gameType === 'amnesia' ? t.game.adviceAmnesia :
-                 gameType === 'canvas' ? t.game.adviceCanvas :
-                 t.game.adviceStandard}
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* 手机端：棋盘居中显示 */}
-        <div className="md:hidden w-full flex items-center justify-center">
-          {renderBoard()}
-        </div>
+        {renderBoard()}
       </div>
 
       {/* Game Result Display */}

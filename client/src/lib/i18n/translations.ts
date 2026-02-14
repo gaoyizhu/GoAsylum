@@ -94,17 +94,6 @@ export const translations = {
       countTerritory: '申请点目',
       countTerritoryTitle: '申请点目',
       countTerritoryMessage: '确定要结束游戏并计算三方地盘吗？',
-      // 医嘱功能
-      showAdvice: '显示医嘱',
-      hideAdvice: '隐藏医嘱',
-      adviceStandard: '正常人，你不该来这的',
-      adviceLine: '一根筋的世界，比想象的要复杂',
-      adviceMono: '当你看不清这个世界，才真正开始思考',
-      adviceToroid: '有时候墙只是一种幻觉',
-      adviceMagnetic: '同性相斥，异性相吸，别太自恋',
-      adviceTricolor: '有时候外交比棋艺更重要',
-      adviceAmnesia: '你真的要开始回忆过去了吗？',
-      adviceCanvas: '自由是多么美好',
     },
     // 设置屏幕
     settings: {
@@ -235,17 +224,6 @@ export const translations = {
       countTerritory: 'Count Territory',
       countTerritoryTitle: 'Count Territory',
       countTerritoryMessage: 'End the game and count territory for all three players?',
-      // Medical Advice
-      showAdvice: 'Show Advice',
-      hideAdvice: 'Hide Advice',
-      adviceStandard: 'Normal person, you shouldn\'t be here',
-      adviceLine: 'The world of stubbornness is more complex than you think',
-      adviceMono: 'When you can\'t see the world clearly, you truly begin to think',
-      adviceToroid: 'Sometimes walls are just an illusion',
-      adviceMagnetic: 'Like poles repel, opposites attract, don\'t be too narcissistic',
-      adviceTricolor: 'Sometimes diplomacy is more important than skill',
-      adviceAmnesia: 'Are you really going to start remembering the past?',
-      adviceCanvas: 'Freedom is so beautiful',
     },
     // Settings Screen
     settings: {
