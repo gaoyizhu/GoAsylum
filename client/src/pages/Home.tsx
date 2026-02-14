@@ -185,7 +185,7 @@ export default function Home() {
 
         {/* Start Game Button */}
         <Button
-          className="w-full py-4 rounded-xl text-lg font-bold mt-2.5 bg-primary text-background"
+          className="w-full h-12 rounded-xl text-lg font-bold mt-2.5 bg-primary text-background"
           onClick={handleStartGame}
         >
           {t.home.startGame}
