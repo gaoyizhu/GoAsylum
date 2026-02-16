@@ -5,8 +5,8 @@
 
 /* 
  * LineGo/GoAsylum Design System
- * - 木质棋盘风格
- * - 温暖的小麦色背景
+ * - 优雅蓝灰系配色
+ * - 理性、冷静、现代
  * - 简洁直观的用户界面
  */
 
@@ -50,79 +50,79 @@
 }
 
 :root {
-  /* LineGo原始配色 */
-  --primary: #8B4513;
+  /* 优雅蓝灰系配色 */
+  --primary: #2C3E50;
   --primary-foreground: #FFFFFF;
-  --background: #F5DEB3;
-  --foreground: #2C1810;
-  --card: #FAEBD7;
-  --card-foreground: #2C1810;
-  --popover: #FAEBD7;
-  --popover-foreground: #2C1810;
-  --secondary: #D2B48C;
-  --secondary-foreground: #2C1810;
-  --muted: #8B7355;
-  --muted-foreground: #5D4037;
-  --accent: #D4AF37;
-  --accent-foreground: #2C1810;
-  --destructive: #EF4444;
+  --background: #ECF0F1;
+  --foreground: #2C3E50;
+  --card: #FFFFFF;
+  --card-foreground: #2C3E50;
+  --popover: #FFFFFF;
+  --popover-foreground: #2C3E50;
+  --secondary: #BDC3C7;
+  --secondary-foreground: #2C3E50;
+  --muted: #95A5A6;
+  --muted-foreground: #7F8C8D;
+  --accent: #3498DB;
+  --accent-foreground: #FFFFFF;
+  --destructive: #E74C3C;
   --destructive-foreground: #FFFFFF;
-  --border: #D2B48C;
-  --input: #D2B48C;
-  --ring: #8B4513;
+  --border: #BDC3C7;
+  --input: #BDC3C7;
+  --ring: #3498DB;
   --radius: 0.5rem;
   
-  --sidebar: #FAEBD7;
-  --sidebar-foreground: #2C1810;
-  --sidebar-primary: #8B4513;
+  --sidebar: #FFFFFF;
+  --sidebar-foreground: #2C3E50;
+  --sidebar-primary: #2C3E50;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #D2B48C;
-  --sidebar-accent-foreground: #2C1810;
-  --sidebar-border: #D2B48C;
-  --sidebar-ring: #8B4513;
+  --sidebar-accent: #BDC3C7;
+  --sidebar-accent-foreground: #2C3E50;
+  --sidebar-border: #BDC3C7;
+  --sidebar-ring: #3498DB;
   
-  --chart-1: #8B4513;
-  --chart-2: #D4AF37;
-  --chart-3: #D2B48C;
-  --chart-4: #8B7355;
-  --chart-5: #5D4037;
+  --chart-1: #2C3E50;
+  --chart-2: #3498DB;
+  --chart-3: #95A5A6;
+  --chart-4: #7F8C8D;
+  --chart-5: #BDC3C7;
 }
 
 .dark {
-  --primary: #A0522D;
+  --primary: #3498DB;
   --primary-foreground: #FFFFFF;
-  --background: #2C1810;
-  --foreground: #ECEDEE;
-  --card: #3E2723;
-  --card-foreground: #ECEDEE;
-  --popover: #3E2723;
-  --popover-foreground: #ECEDEE;
-  --secondary: #5D4037;
-  --secondary-foreground: #ECEDEE;
-  --muted: #9BA1A6;
-  --muted-foreground: #D2B48C;
-  --accent: #D4AF37;
-  --accent-foreground: #2C1810;
-  --destructive: #F87171;
+  --background: #1C2833;
+  --foreground: #ECF0F1;
+  --card: #2C3E50;
+  --card-foreground: #ECF0F1;
+  --popover: #2C3E50;
+  --popover-foreground: #ECF0F1;
+  --secondary: #34495E;
+  --secondary-foreground: #ECF0F1;
+  --muted: #7F8C8D;
+  --muted-foreground: #95A5A6;
+  --accent: #3498DB;
+  --accent-foreground: #FFFFFF;
+  --destructive: #E74C3C;
   --destructive-foreground: #FFFFFF;
-  --border: #5D4037;
-  --input: #5D4037;
-  --ring: #A0522D;
+  --border: #34495E;
+  --input: #34495E;
+  --ring: #3498DB;
   
-  --sidebar: #3E2723;
-  --sidebar-foreground: #ECEDEE;
-  --sidebar-primary: #A0522D;
+  --sidebar: #2C3E50;
+  --sidebar-foreground: #ECF0F1;
+  --sidebar-primary: #3498DB;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #5D4037;
-  --sidebar-accent-foreground: #ECEDEE;
-  --sidebar-border: #5D4037;
-  --sidebar-ring: #A0522D;
+  --sidebar-accent: #34495E;
+  --sidebar-accent-foreground: #ECF0F1;
+  --sidebar-border: #34495E;
+  --sidebar-ring: #3498DB;
   
-  --chart-1: #A0522D;
-  --chart-2: #D4AF37;
-  --chart-3: #8B7355;
-  --chart-4: #9BA1A6;
-  --chart-5: #D2B48C;
+  --chart-1: #3498DB;
+  --chart-2: #2C3E50;
+  --chart-3: #7F8C8D;
+  --chart-4: #95A5A6;
+  --chart-5: #BDC3C7;
 }
 
 @layer base {
