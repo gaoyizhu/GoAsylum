@@ -21,7 +21,7 @@ export function LineBoard({
     const updateWidth = () => {
       // 19路棋盘左右边距为0，其他棋盘保留24px边距
       const margin = BOARD_WIDTH >= 19 ? 0 : 24;
-      const width = Math.min(window.innerWidth - margin, 700);
+      const width = Math.min(window.innerWidth - margin, 630);
       setContainerWidth(width);
     };
     updateWidth();
