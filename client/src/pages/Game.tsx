@@ -212,14 +212,14 @@ export default function Game() {
 
   const handleUndo = () => {
     if (!canUndo || isAIThinking) return;
-    if (gameType === 'tricolor' || gameType === 'magnetic') {
-      // 三色围棋和磁性围棋的undo只能撤销一步
+    if (gameType === 'tricolor' || gameType === 'magnetic' || gameType === 'canvas') {
+      // 三色围棋、磁性围棋和画布模式的undo只能撤销一步
       const result = (engine as any).undo(gameState);
       if (result) {
         setGameState(result);
       }
-      // 如果是AI模式，再撤销一步AI的棋
-      if (gameMode === 'ai' && result) {
+      // 如果是AI模式，再撤销一步AI的棋（画布模式不支持AI）
+      if (gameMode === 'ai' && result && gameType !== 'canvas') {
         const result2 = (engine as any).undo(result);
         if (result2) {
           setGameState(result2);
