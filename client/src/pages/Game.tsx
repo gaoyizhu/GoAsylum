@@ -74,8 +74,8 @@ export default function Game() {
   const [showAdvice, setShowAdvice] = useState(false); // 显示医嘱
   
   // 画布模式特有状态
-  const [selectedColor, setSelectedColor] = useState('#FFFF00');
-  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross' | 'line'>('cross');
+  const [selectedColor, setSelectedColor] = useState('#FF0000');
+  const [selectedShape, setSelectedShape] = useState<'circle' | 'square' | 'cross' | 'line'>('circle');
   const [pendingLineStart, setPendingLineStart] = useState<{x: number, y: number} | null>(null);
   const [showBorder, setShowBorder] = useState(false);
   const [isEraser, setIsEraser] = useState(false);
