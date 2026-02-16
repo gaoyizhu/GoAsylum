@@ -20,7 +20,7 @@ export function LineBoard({
   useEffect(() => {
     const updateWidth = () => {
       // 19路棋盘左右边距为0，其他棋盘保留24px边距
-      const margin = BOARD_WIDTH >= 19 ? 0 : 24;
+      const margin = BOARD_WIDTH >= 19 ? 48 : 24;
       const width = Math.min(window.innerWidth - margin, 700);
       setContainerWidth(width);
     };
@@ -47,7 +47,7 @@ export function LineBoard({
   };
 
   return (
-    <div className={`flex justify-center items-center py-4 ${BOARD_WIDTH >= 19 ? 'px-0' : 'px-1'} w-full overflow-x-hidden`}>
+    <div className="flex justify-center items-center py-4 w-full">
       <svg
         width={boardWidth}
         height={boardHeight}
