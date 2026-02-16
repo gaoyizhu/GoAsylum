@@ -44,7 +44,7 @@ export default function Home() {
       <div className="flex flex-col items-center justify-start w-full max-w-md gap-5 pt-2 pb-24">
         {/* Logo */}
         <div className="flex items-center mb-2 mt-0">
-          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/bHpRFPsynNpqIQtb.png" alt="围棋疯人院" className="w-[160px] h-[160px]" />
+          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/xLncJqWTVrdaRYko.png" alt="围棋疯人院" className="w-[160px] h-[160px]" />
         </div>
 
         {/* Title */}
