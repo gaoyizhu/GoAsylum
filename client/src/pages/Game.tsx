@@ -96,6 +96,8 @@ export default function Game() {
 
   const canUndo = (gameType === 'tricolor' || gameType === 'magnetic')
     ? (gameState.history?.length >= 1 || gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1))
+    : gameType === 'canvas'
+    ? (gameState.moveHistory?.length >= 1 || (gameState as any).lines?.length >= 1)
     : gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
 
   const handlePlaceStone = (position: any) => {

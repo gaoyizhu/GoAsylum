@@ -130,11 +130,19 @@ export function selectColor(state: CanvasState, color: CanvasColor): CanvasState
 
 // 撤销
 export function undo(state: CanvasState): CanvasState {
-  if (state.moveHistory.length === 0) {
+  if (state.moveHistory.length === 0 && state.lines.length === 0) {
     return state;
   }
 
-  // 撤销最后一步
+  // 如果有线段，优先撤销线段
+  if (state.lines.length > 0) {
+    return {
+      ...state,
+      lines: state.lines.slice(0, -1),
+    };
+  }
+
+  // 否则撤销最后一个棋子
   const newHistory = state.moveHistory.slice(0, -1);
   
   // 重新构建棋盘状态
@@ -142,6 +150,9 @@ export function undo(state: CanvasState): CanvasState {
   newState.selectedColor = state.selectedColor; // 保持当前选择的颜色
   newState.selectedShape = state.selectedShape; // 保持当前选择的形状
   newState.showBorder = state.showBorder; // 保持当前边框状态
+  newState.isEraser = state.isEraser; // 保持橡皮擦状态
+  newState.showGrid = state.showGrid; // 保持网格状态
+  newState.lines = state.lines; // 保持线段数据
   
   for (const move of newHistory) {
     const tempBoard = copyBoard(newState.board);
