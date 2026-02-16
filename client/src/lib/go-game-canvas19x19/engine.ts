@@ -32,7 +32,7 @@ export function createInitialState(): CanvasState {
   return {
     board: createEmptyBoard(),
     moveHistory: [],
-    selectedColor: CANVAS_COLORS[0], // 默认选择黑色
+    selectedColor: CANVAS_COLORS[2], // 默认选择红色
     selectedShape: 'circle', // 默认圆形
     showBorder: false, // 默认无边框
     isEraser: false, // 默认不是橡皮擦模式
