@@ -384,9 +384,9 @@ export default function Game() {
   };
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
+    <div className={`min-h-screen ${gameType === 'canvas' ? 'bg-[#FAF3E8]' : 'bg-background'} flex flex-col`}>
       {/* Top Bar */}
-      <div className="bg-card border-b border-border px-4 py-3 flex items-center justify-between">
+      <div className={`${gameType === 'canvas' ? 'bg-[#F5E6D3]' : 'bg-card'} border-b border-border px-4 py-3 flex items-center justify-between`}>
         <Button
           variant="ghost"
           size="sm"
@@ -419,7 +419,7 @@ export default function Game() {
           {renderBoard()}
           {/* 医嘱叠加层：棋盘正中间的半透明白色背景条 */}
           {showAdvice && (
-            <div className={`absolute top-1/2 left-0 right-0 transform -translate-y-1/2 py-3 bg-white/80 shadow-lg z-20 ${(gameType === 'canvas' && boardSize === '19x19') || gameType === 'line' ? 'mx-0' : 'mx-3'}`}>
+            <div className={`absolute top-1/2 left-0 right-0 transform -translate-y-1/2 py-3 ${gameType === 'canvas' ? 'bg-[#F5E6D3]/90' : 'bg-white/80'} shadow-lg z-20 ${(gameType === 'canvas' && boardSize === '19x19') || gameType === 'line' ? 'mx-0' : 'mx-3'}`}>
               <div className={`${gameType === 'mono' ? 'text-[21px] md:text-[23px]' : 'text-[22px] md:text-[26px]'} font-bold text-black/80 text-center`} style={{ fontFamily: '"STKaiti", "KaiTi", "楷体", serif' }}>
                 {gameType === 'standard' ? t.game.adviceStandard :
                  gameType === 'line' ? t.game.adviceLine :
@@ -464,7 +464,7 @@ export default function Game() {
       )}
 
       {/* Control Buttons */}
-      <div className="bg-card border-t border-border p-4">
+      <div className={`${gameType === 'canvas' ? 'bg-[#F5E6D3]' : 'bg-card'} border-t border-border p-4`}>
         <div className="max-w-md mx-auto space-y-2">
           {/* 画布模式：颜色选择器 */}
           {gameType === 'canvas' && (
@@ -475,7 +475,7 @@ export default function Game() {
                     key={color}
                     onClick={() => setSelectedColor(color)}
                     className={`w-10 h-10 rounded border-2 ${
-                      selectedColor === color ? 'border-primary ring-2 ring-primary' : 'border-gray-300'
+                      selectedColor === color ? 'border-[#D4A574] ring-2 ring-[#D4A574]' : 'border-[#E8D4B8]'
                     } ${color === '#FFFFFF' ? 'bg-white' : ''}`}
                     style={{ backgroundColor: color }}
                   />
@@ -487,7 +487,7 @@ export default function Game() {
                     key={color}
                     onClick={() => setSelectedColor(color)}
                     className={`w-10 h-10 rounded border-2 ${
-                      selectedColor === color ? 'border-primary ring-2 ring-primary' : 'border-gray-300'
+                      selectedColor === color ? 'border-[#D4A574] ring-2 ring-[#D4A574]' : 'border-[#E8D4B8]'
                     }`}
                     style={{ backgroundColor: color }}
                   />
