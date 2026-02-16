@@ -20,7 +20,7 @@ export function LineBoard({
   useEffect(() => {
     const updateWidth = () => {
       // 19路棋盘左右边距为0，其他棋盘保留24px边距
-      const margin = BOARD_WIDTH >= 19 ? 48 : 24;
+      const margin = BOARD_WIDTH >= 19 ? 10 : 24;
       const width = Math.min(window.innerWidth - margin, 700);
       setContainerWidth(width);
     };
