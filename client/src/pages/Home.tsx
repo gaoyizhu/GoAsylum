@@ -22,18 +22,16 @@ export default function Home() {
   const [gameMode, setGameMode] = useState<GameMode>('pvp');
 
   const handleGameTypeChange = (type: GameType) => {
-    // 画布模式现在支持13路和19路，不需要自动锁定
-    if (type === 'canvas') {
-      setGameType(type);
-      // 不再自动设置棋盘大小
+    setGameType(type);
+    
+    // 一根筋和五彩画布默认13路
+    if (type === 'line' || type === 'canvas') {
+      setBoardSize('13x13');
     }
-    // 其他模式不自动改变棋盘大小
-    else {
-      setGameType(type);
-      // 只有line支持AI，其他模式切换为pvp
-      if (gameMode === 'ai' && type !== 'line') {
-        setGameMode('pvp');
-      }
+    
+    // 只有line支持AI，其他模式切换为pvp
+    if (gameMode === 'ai' && type !== 'line') {
+      setGameMode('pvp');
     }
   };
 
