@@ -44,7 +44,7 @@ export default function Home() {
       <div className="flex flex-col items-center justify-start w-full max-w-md gap-5 pt-2 pb-24">
         {/* Logo */}
         <div className="flex items-center mb-2 mt-0">
-          <img src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/jULnBYNiDfWotanv.png" alt="围棋疯人院" className="w-[160px] h-[160px]" />
+          <img src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/osQUDORQkwnUcXnKlsavVh-img-1_1771259038000_na1fn_bG9nby1ibHVlLWdyZXk.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L29zUVVET1JRa3duVWNYbktsc2F2VmgtaW1nLTFfMTc3MTI1OTAzODAwMF9uYTFmbl9iRzluYnkxaWJIVmxMV2R5WlhrLnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=Y4Pfp~yM9s6F3vdUg9eZqZmEwFTR3Bxtk41xvVRMN4JPYVbvK0AH~X03H0zGjvookKO0mnH5fsLOnfGbBpsFRV0pqAt-qbQ8wxGg9uDYFrxF0zoiGP2-X~g7eV5RPOJ7l2414lkLWchAlAjKcvWvZ-M3lg~6vrqC1eKbe00N75G0btw12oqOwmmMfB4GMPxWbeNfB7LhsiFlY8Eoc0ElV4dcePGKoQFZfoew3vd1Q2Ard44Jt6erpbdL2jQCu2VlBTZ062ribaO6Py5uo51eaRRtDRoWh38C-yoqvkVMPCuvOHSVx4KI-pntFS-mg396d1zVNQVmmykslyTL9uOcSA__" alt="围棋疯人院" className="w-[160px] h-[160px]" />
         </div>
 
         {/* Title */}
