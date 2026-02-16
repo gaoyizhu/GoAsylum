@@ -66,11 +66,11 @@ export function CanvasBoard({
   };
 
   return (
-    <div className={boardSize === 19 ? "inline-block" : "inline-block bg-[#F5E6D3] rounded-lg shadow-lg p-3"}>
+    <div className={boardSize === 19 ? "inline-block" : "inline-block bg-white rounded-lg shadow-lg p-3"}>
       <svg
         width={boardWidth}
         height={boardHeight}
-        className="bg-[#F5E6D3]"
+        className="bg-white"
       >
         {/* Grid lines */}
         {showGrid && (
