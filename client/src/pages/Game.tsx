@@ -414,7 +414,7 @@ export default function Game() {
       </div>
 
       {/* Board */}
-      <div className={`flex-1 flex items-center justify-center ${gameType === 'canvas' && boardSize === '19x19' ? 'p-0' : 'p-4'}`}>
+      <div className={`flex-1 flex items-center justify-center ${gameType === 'canvas' && boardSize === '19x19' ? 'p-0' : 'p-4'} overflow-x-hidden`}>
         <div className="relative">
           {renderBoard()}
           {/* 医嘱叠加层：棋盘正中间的半透明白色背景条 */}

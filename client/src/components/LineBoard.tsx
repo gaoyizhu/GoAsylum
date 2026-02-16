@@ -47,11 +47,12 @@ export function LineBoard({
   };
 
   return (
-    <div className={`flex justify-center items-center py-4 ${BOARD_WIDTH >= 19 ? 'px-0' : 'px-1'}`}>
+    <div className={`flex justify-center items-center py-4 ${BOARD_WIDTH >= 19 ? 'px-0' : 'px-1'} w-full overflow-x-hidden`}>
       <svg
         width={boardWidth}
         height={boardHeight}
-        className="shadow-lg rounded bg-card"
+        className="shadow-lg rounded bg-card max-w-full"
+        style={{ maxWidth: '100%' }}
       >
         {/* Draw horizontal line */}
         <line
