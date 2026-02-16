@@ -178,6 +178,7 @@ export function clearCanvas(state: CanvasState): CanvasState {
     ...state,
     board: createEmptyBoard(),
     moveHistory: [],
+    lines: [], // 清空线段
   };
 }
 
