@@ -44,6 +44,13 @@ export default function Game() {
   const [, setLocation] = useLocation();
   const { t } = useLanguage();
   
+  // 验证params，如果无效则重定向到首页
+  useEffect(() => {
+    if (!params || !params.type || !params.size || !params.mode) {
+      setLocation('/');
+    }
+  }, [params, setLocation]);
+  
   const gameType = params?.type || 'standard';
   const boardSize = params?.size || '9x9';
   const gameMode = params?.mode || 'pvp';
@@ -102,24 +109,21 @@ export default function Game() {
 
   // 监听params变化，重置游戏状态
   useEffect(() => {
-    // 当params变化时（包括后退导致的URL变化），重新初始化游戏状态
-    const newEngine = getEngine();
-    const newState = (gameType === 'canvas' || gameType === 'magnetic' || gameType === 'tricolor')
-      ? (newEngine as any).createInitialState()
-      : (newEngine as any).createInitialGameState();
-    setGameState(newState);
-  }, [gameType, boardSize, gameMode]);
-  
-  // 监听浏览器后退事件，确保状态正确重置
-  useEffect(() => {
-    const handlePopState = () => {
-      // 当用户点击浏览器后退时，重置到首页
-      setLocation('/');
-    };
+    // 确保params有效
+    if (!params || !params.type) return;
     
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [setLocation]);
+    // 当params变化时（包括后退导致的URL变化），重新初始化游戏状态
+    try {
+      const newEngine = getEngine();
+      const newState = (gameType === 'canvas' || gameType === 'magnetic' || gameType === 'tricolor')
+        ? (newEngine as any).createInitialState()
+        : (newEngine as any).createInitialGameState();
+      setGameState(newState);
+    } catch (error) {
+      console.error('Error initializing game state:', error);
+      setLocation('/');
+    }
+  }, [gameType, boardSize, gameMode]);
 
   const handlePlaceStone = (position: any) => {
     // 标记死棋状态：点击棋子标记/取消标记
@@ -323,9 +327,8 @@ export default function Game() {
   };
 
   const handleBackHome = () => {
-    // 使用window.history.pushState确保后退按钮正常工作
-    window.history.pushState(null, '', '/');
-    setLocation('/');
+    // 使用replace避免后退时回到游戏页面
+    setLocation('/', { replace: true });
   };
 
   // 渲染棋盘
