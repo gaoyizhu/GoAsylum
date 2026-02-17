@@ -189,10 +189,7 @@ export default function Home() {
           {t.home.startGame}
         </Button>
 
-        {/* Version */}
-        <p className="text-xs text-muted-foreground mt-2.5">
-          {t.home.version} 1.0.0
-        </p>
+
       </div>
     </div>
   );
