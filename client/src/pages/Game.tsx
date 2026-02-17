@@ -100,6 +100,17 @@ export default function Game() {
     ? (gameState.moveHistory?.length >= 1 || (gameState as any).lines?.length >= 1)
     : gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
 
+  // 监听浏览器后退事件，确保状态正确重置
+  useEffect(() => {
+    const handlePopState = () => {
+      // 当用户点击浏览器后退时，重置到首页
+      setLocation('/');
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, [setLocation]);
+
   const handlePlaceStone = (position: any) => {
     // 标记死棋状态：点击棋子标记/取消标记
     if (gameState.status === 'marking_dead_stones') {
@@ -302,6 +313,8 @@ export default function Game() {
   };
 
   const handleBackHome = () => {
+    // 使用window.history.pushState确保后退按钮正常工作
+    window.history.pushState(null, '', '/');
     setLocation('/');
   };
 
