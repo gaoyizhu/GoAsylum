@@ -124,6 +124,25 @@ export default function Game() {
       setLocation('/');
     }
   }, [gameType, boardSize, gameMode]);
+  
+  // 处理浏览器后退按钮，确保直接返回首页
+  useEffect(() => {
+    // 在历史记录中添加一个首页状态
+    window.history.pushState({ page: 'home' }, '', '/');
+    // 然后立即前进到游戏页面
+    window.history.pushState({ page: 'game' }, '', window.location.pathname);
+    
+    const handlePopState = (event: PopStateEvent) => {
+      // 当用户点击后退时，直接导航到首页
+      event.preventDefault();
+      setLocation('/', { replace: true });
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [setLocation]);
 
   const handlePlaceStone = (position: any) => {
     // 标记死棋状态：点击棋子标记/取消标记
