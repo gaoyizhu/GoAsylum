@@ -100,6 +100,16 @@ export default function Game() {
     ? (gameState.moveHistory?.length >= 1 || (gameState as any).lines?.length >= 1)
     : gameState.moveHistory?.length >= (gameMode === 'ai' ? 2 : 1);
 
+  // 监听params变化，重置游戏状态
+  useEffect(() => {
+    // 当params变化时（包括后退导致的URL变化），重新初始化游戏状态
+    const newEngine = getEngine();
+    const newState = (gameType === 'canvas' || gameType === 'magnetic' || gameType === 'tricolor')
+      ? (newEngine as any).createInitialState()
+      : (newEngine as any).createInitialGameState();
+    setGameState(newState);
+  }, [gameType, boardSize, gameMode]);
+  
   // 监听浏览器后退事件，确保状态正确重置
   useEffect(() => {
     const handlePopState = () => {
