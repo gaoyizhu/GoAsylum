@@ -524,14 +524,13 @@ export function analyzeSituation(state: GameState): {
 export function judgeGame(state: GameState): GameState {
   const { blackTerritory, whiteTerritory, blackScore, whiteScore } = analyzeSituation(state);
 
-  // 黑棋需要至少 7.5 个交叉点才能获胜
+  // 一根筋13路规则：黑棋需要至少 8 个交叉点才能获胜
+  // 黑棋少于 8 个交叉点时，白棋获胜
   let winner: 'black' | 'white' | 'draw';
-  if (blackScore >= 7.5) {
+  if (blackScore >= 8) {
     winner = 'black';
-  } else if (whiteScore >= 7.5) {
-    winner = 'white';
   } else {
-    winner = 'draw';
+    winner = 'white';
   }
 
   return {
