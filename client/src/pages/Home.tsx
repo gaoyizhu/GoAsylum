@@ -47,16 +47,16 @@ export default function Home() {
       {/* 意见箱 - 左上角 */}
       <button
         onClick={() => setShowFeedback(true)}
-        className="fixed top-4 left-4 z-50 group hover:scale-105 transition-all duration-200"
+        className="fixed top-4 right-4 z-50 group hover:scale-105 transition-all duration-200"
         aria-label="意见箱"
       >
-        <div className="flex flex-col items-center gap-0.5 bg-background px-1.5 py-1 rounded-md">
+        <div className="flex flex-col items-center gap-1 bg-background px-2 py-1.5 rounded-md">
           <img 
             src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/qwBumg6tipzmXEO3kEggmT_1771410887219_na1fn_ZmVlZGJhY2stYm94LXNpbXBsZQ.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L3F3QnVtZzZ0aXB6bVhFTzNrRWdnbVRfMTc3MTQxMDg4NzIxOV9uYTFmbl9abVZsWkdKaFkyc3RZbTk0TFhOcGJYQnNaUS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=Rt3CTndehFZ3z7FdwaJN3hnot2X3HyFMJeHj1RnKZ6vLfVDeWDVolL1x26BjjURg7YpIop3qe5M~cT7XT9XgOVrblkJlZll84Sq96BH0tFlKN766NWSryKJ-WCIJ0ZHvqnOS1TeeutRB3OMAFIq0vbR3JJ9LR18jRyjwp~uHiGK8WNG6tO9cg0VKX68IdmzfJxNVhmhx3hy8KAmFaUXjXnwiClTErjij-U9aa6fR9j~Cj52Dkiyzu~xUGTsFyL1~S6CAR1d2U-pyjq8eW0d4RaizLjFQC3mGo47EmHYvx12RDyi2KGX~id8c5y7OeMIQ2aqascov~BBvjDGr~5F-CQ__"
             alt="意见箱" 
-            className="w-5 h-5 drop-shadow-sm"
+            className="w-8 h-8 drop-shadow-sm"
           />
-          <span className="text-foreground text-[9px] font-bold tracking-wide">
+          <span className="text-foreground text-[11px] font-bold tracking-wide">
             意见箱
           </span>
         </div>
