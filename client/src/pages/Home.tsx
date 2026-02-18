@@ -5,6 +5,7 @@
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { Language } from "@/lib/i18n/translations";
 import { useLocation } from "wouter";
@@ -21,6 +22,8 @@ export default function Home() {
   const [gameType, setGameType] = useState<GameType>('standard');
   const [boardSize, setBoardSize] = useState<BoardSize>('9x9');
   const [gameMode, setGameMode] = useState<GameMode>('pvp');
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState('');
 
 
   const handleGameTypeChange = (type: GameType) => {
@@ -184,7 +187,10 @@ export default function Home() {
         <div className="flex flex-row gap-4 mt-1 w-full justify-center items-end">
           {/* 院长信箱 */}
           <button
-            onClick={() => alert('院长信箱功能开发中...')}
+            onClick={() => {
+              setDialogMessage('院长信箱功能开发中');
+              setDialogOpen(true);
+            }}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
             aria-label="院长信箱"
           >
@@ -198,7 +204,10 @@ export default function Home() {
 
           {/* 诊费随喜 */}
           <button
-            onClick={() => alert('诊费功能开发中...')}
+            onClick={() => {
+              setDialogMessage('诊费功能开发中');
+              setDialogOpen(true);
+            }}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
             aria-label="诊费随喜"
           >
@@ -212,7 +221,10 @@ export default function Home() {
 
           {/* 下载APP */}
           <button
-            onClick={() => alert('APP开发中')}
+            onClick={() => {
+              setDialogMessage('APP开发中');
+              setDialogOpen(true);
+            }}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
             aria-label="下载APP"
           >
@@ -227,6 +239,26 @@ export default function Home() {
 
 
       </div>
+
+      {/* 自定义对话框 */}
+      <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <DialogContent className="bg-card text-card-foreground" showCloseButton={false}>
+          <DialogHeader>
+            <DialogTitle className="text-center text-lg">提示</DialogTitle>
+          </DialogHeader>
+          <div className="py-4 text-center">
+            <p className="text-base">{dialogMessage}</p>
+          </div>
+          <DialogFooter className="flex justify-center">
+            <Button
+              onClick={() => setDialogOpen(false)}
+              className="bg-primary text-primary-foreground px-8"
+            >
+              确认
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
