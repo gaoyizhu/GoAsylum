@@ -25,4 +25,20 @@ export const users = mysqlTable("users", {
 export type User = typeof users.$inferSelect;
 export type InsertUser = typeof users.$inferInsert;
 
-// TODO: Add your tables here
+/**
+ * Feedbacks table for storing user feedback from Director's Mailbox
+ */
+export const feedbacks = mysqlTable("feedbacks", {
+  id: int("id").autoincrement().primaryKey(),
+  /** User's nickname (required) */
+  nickname: varchar("nickname", { length: 100 }).notNull(),
+  /** Contact information (optional, email or WeChat) */
+  contact: varchar("contact", { length: 320 }),
+  /** Feedback message content (required) */
+  message: text("message").notNull(),
+  /** Timestamp when feedback was submitted */
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Feedback = typeof feedbacks.$inferSelect;
+export type InsertFeedback = typeof feedbacks.$inferInsert;

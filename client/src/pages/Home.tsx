@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { useLanguage } from "@/lib/i18n/language-context";
 import type { Language } from "@/lib/i18n/translations";
 import { useLocation } from "wouter";
+import { FeedbackForm } from "@/components/FeedbackForm";
 
 
 type GameMode = 'ai' | 'pvp';
@@ -24,6 +25,7 @@ export default function Home() {
   const [gameMode, setGameMode] = useState<GameMode>('pvp');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState('');
+  const [feedbackFormOpen, setFeedbackFormOpen] = useState(false);
 
 
   const handleGameTypeChange = (type: GameType) => {
@@ -187,10 +189,7 @@ export default function Home() {
         <div className="flex flex-row gap-4 mt-1 w-full justify-center items-end">
           {/* 院长信箱 */}
           <button
-            onClick={() => {
-              setDialogMessage(t.home.directorMailboxDev);
-              setDialogOpen(true);
-            }}
+            onClick={() => setFeedbackFormOpen(true)}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
             aria-label={t.home.directorMailbox}
           >
@@ -259,6 +258,9 @@ export default function Home() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* 院长信箱反馈表单 */}
+      <FeedbackForm open={feedbackFormOpen} onOpenChange={setFeedbackFormOpen} />
     </div>
   );
 }

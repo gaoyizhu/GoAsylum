@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { InsertUser, users } from "../drizzle/schema";
+import { feedbacks, InsertFeedback, InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -89,4 +89,34 @@ export async function getUserByOpenId(openId: string) {
   return result.length > 0 ? result[0] : undefined;
 }
 
-// TODO: add feature queries here as your schema grows.
+/**
+ * Insert a new feedback into the database
+ */
+export async function createFeedback(feedback: InsertFeedback): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create feedback: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    await db.insert(feedbacks).values(feedback);
+  } catch (error) {
+    console.error("[Database] Failed to create feedback:", error);
+    throw error;
+  }
+}
+
+/**
+ * Get all feedbacks ordered by creation time (newest first)
+ */
+export async function getAllFeedbacks() {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get feedbacks: database not available");
+    return [];
+  }
+
+  const result = await db.select().from(feedbacks).orderBy(feedbacks.createdAt);
+  return result;
+}

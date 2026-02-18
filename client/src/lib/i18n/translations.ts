@@ -40,6 +40,23 @@ export const translations = {
       consultationDev: '诊费功能开发中',
       appDev: 'APP开发中',
     },
+    // 反馈表单
+    feedback: {
+      nickname: '昵称',
+      nicknamePlaceholder: '请输入您的昵称',
+      nicknameRequired: '请输入昵称',
+      contact: '联系方式',
+      contactPlaceholder: '邮箱或微信',
+      optional: '可选',
+      message: '反馈内容',
+      messagePlaceholder: '请输入您的反馈内容',
+      messageRequired: '请输入反馈内容',
+      submit: '提交',
+      submitting: '提交中...',
+      cancel: '取消',
+      submitSuccess: '提交成功！感谢您的反馈。',
+      submitError: '提交失败，请稍后重试。',
+    },
     // 游戏屏幕
     game: {
       backHome: '返回主页',
@@ -185,6 +202,23 @@ export const translations = {
       directorMailboxDev: 'Director\'s Mailbox Under Development',
       consultationDev: 'Donation Under Development',
       appDev: 'APP Under Development',
+    },
+    // Feedback Form
+    feedback: {
+      nickname: 'Nickname',
+      nicknamePlaceholder: 'Enter your nickname',
+      nicknameRequired: 'Please enter your nickname',
+      contact: 'Contact',
+      contactPlaceholder: 'Email or WeChat',
+      optional: 'Optional',
+      message: 'Feedback',
+      messagePlaceholder: 'Enter your feedback',
+      messageRequired: 'Please enter your feedback',
+      submit: 'Submit',
+      submitting: 'Submitting...',
+      cancel: 'Cancel',
+      submitSuccess: 'Submitted successfully! Thank you for your feedback.',
+      submitError: 'Submission failed. Please try again later.',
     },
     // Game Screen
     game: {
