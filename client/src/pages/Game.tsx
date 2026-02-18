@@ -82,6 +82,17 @@ export default function Game() {
   const [showGrid, setShowGrid] = useState(gameType !== 'canvas');
 
   // 监听URL参数变化，当浏览器后退导致params变化时重新初始化游戏
+  // 监听浏览器后退事件，直接重定向到首页
+  useEffect(() => {
+    const handlePopState = () => {
+      // 浏览器后退时直接跳转到首页
+      setLocation('/', { replace: true });
+    };
+    
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   useEffect(() => {
     if (!params || !params.type) {
       // 如果params无效，返回首页
