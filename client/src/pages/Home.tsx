@@ -212,7 +212,7 @@ export default function Home() {
 
           {/* 下载APP */}
           <button
-            onClick={() => alert('下载APP功能开发中...')}
+            onClick={() => alert('APP开发中')}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
             aria-label="下载APP"
           >
