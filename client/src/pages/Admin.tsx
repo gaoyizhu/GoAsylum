@@ -13,9 +13,17 @@ import { toast } from "sonner";
 import { Trash2, CheckCircle2, Mail } from "lucide-react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 export default function Admin() {
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedFeedback, setSelectedFeedback] = useState<any>(null);
   const utils = trpc.useUtils();
   
   const { data: feedbacks, isLoading } = trpc.feedback.list.useQuery();
@@ -116,7 +124,9 @@ export default function Admin() {
                     <TableCell className="text-muted-foreground">
                       {feedback.contact || "-"}
                     </TableCell>
-                    <TableCell className="max-w-md truncate">{feedback.message}</TableCell>
+                    <TableCell className="max-w-md truncate cursor-pointer hover:text-primary" onClick={() => setSelectedFeedback(feedback)}>
+                      {feedback.message}
+                    </TableCell>
                     <TableCell className="text-muted-foreground text-sm">
                       {new Date(feedback.createdAt).toLocaleString("zh-CN")}
                     </TableCell>
@@ -152,6 +162,65 @@ export default function Admin() {
             {searchTerm ? "没有找到匹配的反馈" : "暂无反馈"}
           </div>
         )}
+
+        {/* 查看完整反馈对话框 */}
+        <Dialog open={!!selectedFeedback} onOpenChange={() => setSelectedFeedback(null)}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>反馈详情</DialogTitle>
+            </DialogHeader>
+            {selectedFeedback && (
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">昵称</label>
+                  <p className="mt-1 text-foreground">{selectedFeedback.nickname}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">联系方式</label>
+                  <p className="mt-1 text-foreground">{selectedFeedback.contact || "未提供"}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">反馈内容</label>
+                  <p className="mt-1 text-foreground whitespace-pre-wrap">{selectedFeedback.message}</p>
+                </div>
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">提交时间</label>
+                  <p className="mt-1 text-foreground">
+                    {new Date(selectedFeedback.createdAt).toLocaleString("zh-CN")}
+                  </p>
+                </div>
+                <div className="flex gap-2 pt-4">
+                  {selectedFeedback.isRead === 0 && (
+                    <Button
+                      onClick={() => {
+                        handleMarkAsRead(selectedFeedback.id);
+                        setSelectedFeedback(null);
+                      }}
+                      disabled={markAsReadMutation.isPending}
+                    >
+                      <CheckCircle2 className="w-4 h-4 mr-2" />
+                      标记为已读
+                    </Button>
+                  )}
+                  <Button
+                    variant="destructive"
+                    onClick={() => {
+                      handleDelete(selectedFeedback.id);
+                      setSelectedFeedback(null);
+                    }}
+                    disabled={deleteMutation.isPending}
+                  >
+                    <Trash2 className="w-4 h-4 mr-2" />
+                    删除反馈
+                  </Button>
+                  <Button variant="outline" onClick={() => setSelectedFeedback(null)}>
+                    关闭
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
