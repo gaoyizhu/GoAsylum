@@ -191,7 +191,7 @@ export default function Home() {
               setDialogMessage(t.home.directorMailboxDev);
               setDialogOpen(true);
             }}
-            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
+            className="group flex flex-col items-center gap-0.5 hover:scale-105 transition-all duration-200"
             aria-label={t.home.directorMailbox}
           >
             <img 
@@ -208,7 +208,7 @@ export default function Home() {
               setDialogMessage(t.home.appDev);
               setDialogOpen(true);
             }}
-            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
+            className="group flex flex-col items-center gap-0.5 hover:scale-105 transition-all duration-200"
             aria-label={t.home.downloadApp}
           >
             <img 
@@ -225,7 +225,7 @@ export default function Home() {
               setDialogMessage(t.home.consultationDev);
               setDialogOpen(true);
             }}
-            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
+            className="group flex flex-col items-center gap-0.5 hover:scale-105 transition-all duration-200"
             aria-label={t.home.consultation}
           >
             <img 
