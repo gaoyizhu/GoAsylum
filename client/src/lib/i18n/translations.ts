@@ -32,7 +32,13 @@ export const translations = {
       pvp: '左右互博',
       solo: '独自创作',
       threePlayers: '三人对战',
-      threePK: '三人PK',
+      threePK: '三人 PK',
+      directorMailbox: '院长信箱',
+      consultation: '诊费随喜',
+      downloadApp: '下载APP',
+      directorMailboxDev: '院长信箱功能开发中',
+      consultationDev: '诊费功能开发中',
+      appDev: 'APP开发中',
     },
     // 游戏屏幕
     game: {
@@ -173,6 +179,12 @@ export const translations = {
       solo: 'Solo Creation',
       threePlayers: '3 Players',
       threePK: 'P v P v P',
+      directorMailbox: 'Director\'s Mailbox',
+      consultation: 'Consultation Fee',
+      downloadApp: 'Download APP',
+      directorMailboxDev: 'Director\'s Mailbox Under Development',
+      consultationDev: 'Consultation Fee Under Development',
+      appDev: 'APP Under Development',
     },
     // Game Screen
     game: {

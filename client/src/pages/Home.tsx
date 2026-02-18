@@ -188,52 +188,52 @@ export default function Home() {
           {/* 院长信箱 */}
           <button
             onClick={() => {
-              setDialogMessage('院长信箱功能开发中');
+              setDialogMessage(t.home.directorMailboxDev);
               setDialogOpen(true);
             }}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
-            aria-label="院长信箱"
+            aria-label={t.home.directorMailbox}
           >
             <img 
               src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/r27CSWsjU3cTTcCXsh901N_1771426336585_na1fn_bWFpbGJveC1pY29uLWxhcmdlLXYy.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L3IyN0NTV3NqVTNjVFRjQ1hzaDkwMU5fMTc3MTQyNjMzNjU4NV9uYTFmbl9iV0ZwYkdKdmVDMXBZMjl1TFd4aGNtZGxMWFl5LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=ZUL77YLLQu9h1s8b6ZmPaHCa3COO~0hcZWiclPI7FZQZ~FHxwfsmAB-gxkat~yeOMFVBUvcczwVl6D53XWQ467sPcAq-3RXvfESloOQicFwmsJi6YS3a4pMvSXljFGMyP7CXBw1bNxoPyB4gdYwGGNRSIlG3WlzLzY1cwx4cs~L1NHSxHBKo48uGN0-BoVEGZkhKZcbrycjL1LjxKpKafJW8l~yj~PiktTY5TdE5pRW8viKgWuKD4Hys-32IbjholWsVuOtH7SpcS9xRciPKo2T7xhPE3RrqqFzPAtgR40xRrNil7B204mLixmjYRQtbsMdzQ7FGc1lw7eCZDQ392A__"
-              alt="院长信箱" 
+              alt={t.home.directorMailbox} 
               className="w-8 h-8"
             />
-            <span className="text-xs font-medium text-foreground">院长信箱</span>
+            <span className="text-xs font-medium text-foreground">{t.home.directorMailbox}</span>
           </button>
 
           {/* 诊费随喜 */}
           <button
             onClick={() => {
-              setDialogMessage('诊费功能开发中');
+              setDialogMessage(t.home.consultationDev);
               setDialogOpen(true);
             }}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
-            aria-label="诊费随喜"
+            aria-label={t.home.consultation}
           >
             <img 
-              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/Bc1EQgiPRRTckxsyqh4BBn_1771424462933_na1fn_eXVhbi1pY29uLXNsYXRl.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L0JjMUVRZ2lQUlJUY2t4c3lxaDRCQm5fMTc3MTQyNDQ2MjkzM19uYTFmbl9lWFZoYmkxcFkyOXVMWE5zWVhSbC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=kjC37bG0cQ83LXoU2te0t9JWQGQVSNy8F-q8Z~8LkZr1CV6zRYhvf40fWqhnDfAwFX2dXn0jf6U8ICkHzhNXCdCRbqfC~ETs0UuEEygAcz6DCuyY-NMI2hUmjMG0fmF8dk4lwzokq6zo8DUg-RNxPofrNztwMoiZnM2DGAgU1bmTY-oZbk4LU7GkJ7XY2-7Y5tlhBRHVeAoUI9U56B7bCp3d6Q6wMN8QIpICSxrFY0xAwF9BLyGgNk8mYpZHB09rKWnnCuU0b4R~SCeFYC5hNKTGmiv5Wbrt~HE1fBxfe78gbzF0LFJN7LmHJG7K3RK4Sp6nTILNRLB-cz9JMp4Hyw__"
-              alt="诊费随喜" 
+              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/Bc1EQgiPRRTckxsyqh4BBn_1771424462933_na1fn_eXVhYmktaWNvbi1zbGF0ZS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=kjC37bG0cQ83LXoU2te0t9JWQGQVSNy8F-q8Z~8LkZr1CV6zRYhvf40fWqhnDfAwFX2dXn0jf6U8ICkHzhNXCdCRbqfC~ETs0UuEEygAcz6DCuyY-NMI2hUmjMG0fmF8dk4lwzokq6zo8DUg-RNxPofrNztwMoiZnM2DGAgU1bmTY-oZbk4LU7GkJ7XY2-7Y5tlhBRHVeAoUI9U56B7bCp3d6Q6wMN8QIpICSxrFY0xAwF9BLyGgNk8mYpZHB09rKWnnCuU0b4R~SCeFYC5hNKTGmiv5Wbrt~HE1fBxfe78gbzF0LFJN7LmHJG7K3RK4Sp6nTILNRLB-cz9JMp4Hyw__"
+              alt={t.home.consultation} 
               className="w-8 h-8"
             />
-            <span className="text-xs font-medium text-foreground">诊费随喜</span>
+            <span className="text-xs font-medium text-foreground">{t.home.consultation}</span>
           </button>
 
           {/* 下载APP */}
           <button
             onClick={() => {
-              setDialogMessage('APP开发中');
+              setDialogMessage(t.home.appDev);
               setDialogOpen(true);
             }}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
-            aria-label="下载APP"
+            aria-label={t.home.downloadApp}
           >
             <img 
-              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/aHURU3dAeYvX7KTbNkWA16-img-1_1771429918000_na1fn_ZG93bmxvYWQtYXBwLWljb24tdjQ.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L2FIVVJVM2RBZVl2WDdLVGJOa1dBMTYtaW1nLTFfMTc3MTQyOTkxODAwMF9uYTFmbl9aRzkzYm14dllXUXRZWEJ3TFdsamIyNHRkalEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=c13tJ0qogSSiA5QS~wav6f~pzUGnoEcn05-YESo2yybmVtMxw5FP-Qz2XW0jSqgNuS2ysU5AYBuIXsm7uhSFYNcircmQdlxfKjZftXn-SW1iB-sFepLYlFhz3BTyxZs3cHeC5FrUc0j8IUZ8GbY4bRmBZbupI97KzD5YblXIZcXfBCGHcIKoYY5Kk7rLSJXRBPeaxCOAXnQrcgXWOwPdMuqOZAmXzBAAFa28lmlvp~mwh3gxY59AhHQBys8oOysG6tVah8KLvB~uJHmWTXjEE82Kpd-8JCoI0evgewrMCXJvOLoK0guB5AQnyqkJvTt4dG8LhveDJYAZbVpc9-jsKg__"
-              alt="下载APP" 
+              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/aHURU3dAeYvX7KTbNkWA16-img-1_1771429918000_na1fn_ZG93bmxvYWQtYXBwLWljb24tdjQ.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L2FIVVJVM2RBZVl2WDdLVGJOa1dBMTYtaW1nLTFfMTc3MTQyOTkxODAwMF9uYTFmbl9aRzkzYm14dFlXUXRZWEJ3TFdsamIyNHRkalEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=c13tJ0qogSSiA5QS~wav6f~pzUGnoEcn05-YESo2yybmVtMxw5FP-Qz2XW0jSqgNuS2ysU5AYBuIXsm7uhSFYNcircmQdlxfKjZftXn-SW1iB-sFepLYlFhz3BTyxZs3cHeC5FrUc0j8IUZ8GbY4bRmBZbupI97KzD5YblXIZcXfBCGHcIKoYY5Kk7rLSJXRBPeaxCOAXnQrcgXWOwPdMuqOZAmXzBAAFa28lmlvp~mwh3gxY59AhHQBys8oOysG6tVah8KLvB~uJHmWTXjEE82Kpd-8JCoI0evgewrMCXJvOLoK0guB5AQnyqkJvTt4dG8LhveDJYAZbVpc9-jsKg__"
+              alt={t.home.downloadApp} 
               className="w-8 h-8"
             />
-            <span className="text-xs font-medium text-foreground">下载APP</span>
+            <span className="text-xs font-medium text-foreground">{t.home.downloadApp}</span>
           </button>
         </div>
 
