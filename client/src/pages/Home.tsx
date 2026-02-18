@@ -199,7 +199,7 @@ export default function Home() {
               alt={t.home.directorMailbox} 
               className="w-8 h-8"
             />
-            <span className="text-xs font-medium text-foreground">{t.home.directorMailbox}</span>
+            <span className="text-xs font-medium text-foreground text-center w-16 leading-tight">{t.home.directorMailbox}</span>
           </button>
 
           {/* 下载APP */}
@@ -216,7 +216,7 @@ export default function Home() {
               alt={t.home.downloadApp} 
               className="w-8 h-8"
             />
-            <span className="text-xs font-medium text-foreground">{t.home.downloadApp}</span>
+            <span className="text-xs font-medium text-foreground text-center w-16 leading-tight">{t.home.downloadApp}</span>
           </button>
 
           {/* 诊费随喜 */}
@@ -233,7 +233,7 @@ export default function Home() {
               alt={t.home.consultation} 
               className="w-8 h-8"
             />
-            <span className="text-xs font-medium text-foreground">{t.home.consultation}</span>
+            <span className="text-xs font-medium text-foreground text-center w-16 leading-tight">{t.home.consultation}</span>
           </button>
         </div>
 
