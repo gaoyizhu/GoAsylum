@@ -29,8 +29,8 @@ export default function Home() {
       setBoardSize('13x13');
     }
     
-    // 只有line支持AI，其他模式切换为pvp
-    if (gameMode === 'ai' && type !== 'line') {
+    // 所有模式都只支持pvp
+    if (gameMode === 'ai') {
       setGameMode('pvp');
     }
   };
@@ -131,24 +131,10 @@ export default function Home() {
               <>
                 <Button
                   variant="outline"
-                  className={`flex-1 h-12 px-4 rounded-lg border ${
-                    gameMode === 'pvp' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
-                  }`}
-                  onClick={() => setGameMode('pvp')}
+                  className="flex-1 h-12 px-4 rounded-lg border bg-primary text-background border-primary"
                 >
                   {gameType === 'canvas' ? t.home.solo : t.home.pvp}
                 </Button>
-                {gameType === 'line' && (
-                  <Button
-                    variant="outline"
-                    className={`flex-1 h-12 px-4 rounded-lg border ${
-                      gameMode === 'ai' ? 'bg-primary text-background border-primary' : 'border-border text-foreground'
-                    }`}
-                    onClick={() => setGameMode('ai')}
-                  >
-                    {t.home.vsAI}
-                  </Button>
-                )}
               </>
             )}
           </div>
