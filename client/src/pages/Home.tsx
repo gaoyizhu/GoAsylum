@@ -43,14 +43,6 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background flex items-start justify-center p-6 relative">
-      {/* 功德箱 - 右上角 */}
-      <div className="fixed top-4 right-4 z-50">
-        <img 
-          src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/dzDPxbaoQEtfNOnH.png"
-          alt="功德箱" 
-          className="w-20 h-20 drop-shadow-lg hover:scale-105 transition-transform duration-200"
-        />
-      </div>
 
       <div className="flex flex-col items-center justify-start w-full max-w-md gap-5 pt-2 pb-24">
         {/* Logo */}
