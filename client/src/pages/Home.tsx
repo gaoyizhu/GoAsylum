@@ -181,7 +181,7 @@ export default function Home() {
         </Button>
 
         {/* 院长信箱和诊费随喜按钮 */}
-        <div className="flex flex-row gap-4 mt-4 w-full justify-center">
+        <div className="flex flex-row gap-4 mt-2 w-full justify-center items-end">
           {/* 院长信箱 */}
           <button
             onClick={() => alert('院长信箱功能开发中...')}
@@ -191,7 +191,7 @@ export default function Home() {
             <img 
               src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/UmzOUCEIpUGALyXS8CZIdv_1771419452848_na1fn_bWFpbGJveC1pY29uLXRyYW5zcGFyZW50.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L1Vtek9VQ0VJcFVHQUx5WFM4Q1pJZHZfMTc3MTQxOTQ1Mjg0OF9uYTFmbl9iV0ZwYkdKdmVDMXBZMjl1TFhSeVlXNXpjR0Z5Wlc1MC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=m90I9tUkyemOh3pckcgsR40gvfi5--KNhnhwWc9TCJCCzABLWTifLO8DZVQLMeN4KSm-AL-ogc4~zOyzKunbPd2cwcKez9SooH7n5J6uzEE9pwkJgfgbVmtp5ZaRXFgCjOpzGeFn9MUdRmVrJmxvp9Z4HRH5VVGjr9EU342~VXdaVdlply9t6~IqibvZvZTel7jrXe2JY9X-OJVbEWc8okqVsjpX-ZeGp7xcVLtO1uYVgyph8g~Xuo3JlS00SnyAes0PDGCJVy4PjwAnYPlXMvAMBLbNBGUeBscixZaNqVYryOMsvqh-PUJWFhhjcVzGYQ0gNp7b~80XowH92D3PMg__"
               alt="院长信箱" 
-              className="w-10 h-10"
+              className="w-8 h-8"
             />
             <span className="text-xs font-medium text-foreground">院长信箱</span>
           </button>
