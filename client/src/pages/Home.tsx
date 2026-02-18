@@ -50,7 +50,7 @@ export default function Home() {
         className="fixed top-4 left-4 z-50 group hover:scale-105 transition-all duration-200"
         aria-label="意见箱"
       >
-        <div className="flex flex-col items-center gap-1 bg-gradient-to-br from-blue-500 to-blue-600 px-3 py-2 rounded-lg shadow-lg hover:shadow-xl">
+        <div className="flex flex-col items-center gap-1 bg-primary px-3 py-2 rounded-lg shadow-lg hover:shadow-xl">
           <img 
             src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/IcycnH0P8pHtEuDVj9oGza-img-1_1771409110000_na1fn_ZmVlZGJhY2stYm94LWljb24.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L0ljeWNuSDBQOHBIdEV1RFZqOW9HemEtaW1nLTFfMTc3MTQwOTExMDAwMF9uYTFmbl9abVZsWkdKaFkyc3RZbTk0TFdsamIyNC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=W4CCqtJw4vXA04qjxzvgky1zlE62rVfv9Gj7fUizYHjSpicVwsDt9TMkVddDGcuHcmXxVrjhWmo8p8YYH75BaOqd9w~Re5h4-qwGXtSW6GDvwmTHjn03bgSjMb5pDCbM~9iXFuTuxbeLjWvubOmp2jD3oLCn0DuJ-SaSh2r2f5~o431dRyPUXt9tt9x00DeppFrFX~mBRF9ZVE7q6lJL3NassaMGFHnOJPBLqO2ILpYE1CGdt~bjR1O8P-wSNmy~ErjchfNHim9fdipnLvC4ERA58V9bKRzQ-opVXOMrwMgEpQa95RJPdOC9QJ6GfwJzl8KCElg6bMlD0V8RVdUWEg__"
             alt="意见箱" 
