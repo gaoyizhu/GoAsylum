@@ -15,6 +15,13 @@
       "when": 1771435212070,
       "tag": "0001_warm_mockingbird",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1771435732221,
+      "tag": "0002_early_william_stryker",
+      "breakpoints": true
     }
   ]
 }

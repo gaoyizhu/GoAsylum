@@ -1,4 +1,4 @@
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { feedbacks, InsertFeedback, InsertUser, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -117,6 +117,42 @@ export async function getAllFeedbacks() {
     return [];
   }
 
-  const result = await db.select().from(feedbacks).orderBy(feedbacks.createdAt);
+  const result = await db.select().from(feedbacks).orderBy(desc(feedbacks.createdAt));
   return result;
+}
+
+/**
+ * Mark a feedback as read
+ */
+export async function markFeedbackAsRead(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot mark feedback as read: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    await db.update(feedbacks).set({ isRead: 1 }).where(eq(feedbacks.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to mark feedback as read:", error);
+    throw error;
+  }
+}
+
+/**
+ * Delete a feedback by ID
+ */
+export async function deleteFeedback(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete feedback: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    await db.delete(feedbacks).where(eq(feedbacks.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to delete feedback:", error);
+    throw error;
+  }
 }

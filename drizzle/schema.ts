@@ -36,6 +36,8 @@ export const feedbacks = mysqlTable("feedbacks", {
   contact: varchar("contact", { length: 320 }),
   /** Feedback message content (required) */
   message: text("message").notNull(),
+  /** Whether the feedback has been read by admin */
+  isRead: int("isRead").default(0).notNull(),
   /** Timestamp when feedback was submitted */
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

@@ -3,7 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { createFeedback, getAllFeedbacks } from "./db";
+import { createFeedback, deleteFeedback, getAllFeedbacks, markFeedbackAsRead } from "./db";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -40,6 +40,18 @@ export const appRouter = router({
     list: publicProcedure.query(async () => {
       return await getAllFeedbacks();
     }),
+    markAsRead: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await markFeedbackAsRead(input.id);
+        return { success: true };
+      }),
+    delete: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await deleteFeedback(input.id);
+        return { success: true };
+      }),
   }),
 });
 

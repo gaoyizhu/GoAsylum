@@ -1,0 +1,1 @@
+ALTER TABLE `feedbacks` ADD `isRead` int DEFAULT 0 NOT NULL;
