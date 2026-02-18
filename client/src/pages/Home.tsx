@@ -181,7 +181,7 @@ export default function Home() {
         </Button>
 
         {/* 院长信箱和诊费随喜按钮 */}
-        <div className="flex flex-row gap-4 mt-2 w-full justify-center items-end">
+        <div className="flex flex-row gap-4 mt-1 w-full justify-center items-end">
           {/* 院长信箱 */}
           <button
             onClick={() => alert('院长信箱功能开发中...')}
