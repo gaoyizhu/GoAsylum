@@ -212,7 +212,7 @@ export default function Home() {
             aria-label={t.home.consultation}
           >
             <img 
-              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/Bc1EQgiPRRTckxsyqh4BBn_1771424462933_na1fn_eXVhYmktaWNvbi1zbGF0ZS5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=kjC37bG0cQ83LXoU2te0t9JWQGQVSNy8F-q8Z~8LkZr1CV6zRYhvf40fWqhnDfAwFX2dXn0jf6U8ICkHzhNXCdCRbqfC~ETs0UuEEygAcz6DCuyY-NMI2hUmjMG0fmF8dk4lwzokq6zo8DUg-RNxPofrNztwMoiZnM2DGAgU1bmTY-oZbk4LU7GkJ7XY2-7Y5tlhBRHVeAoUI9U56B7bCp3d6Q6wMN8QIpICSxrFY0xAwF9BLyGgNk8mYpZHB09rKWnnCuU0b4R~SCeFYC5hNKTGmiv5Wbrt~HE1fBxfe78gbzF0LFJN7LmHJG7K3RK4Sp6nTILNRLB-cz9JMp4Hyw__"
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/fRmVGBpxPNZVLvak.png"
               alt={t.home.consultation} 
               className="w-8 h-8"
             />
@@ -229,7 +229,7 @@ export default function Home() {
             aria-label={t.home.downloadApp}
           >
             <img 
-              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/aHURU3dAeYvX7KTbNkWA16-img-1_1771429918000_na1fn_ZG93bmxvYWQtYXBwLWljb24tdjQ.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L2FIVVJVM2RBZVl2WDdLVGJOa1dBMTYtaW1nLTFfMTc3MTQyOTkxODAwMF9uYTFmbl9aRzkzYm14dFlXUXRZWEJ3TFdsamIyNHRkalEucG5nP3gtb3NzLXByb2Nlc3M9aW1hZ2UvcmVzaXplLHdfMTkyMCxoXzE5MjAvZm9ybWF0LHdlYnAvcXVhbGl0eSxxXzgwIiwiQ29uZGl0aW9uIjp7IkRhdGVMZXNzVGhhbiI6eyJBV1M6RXBvY2hUaW1lIjoxNzk4NzYxNjAwfX19XX0_&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=c13tJ0qogSSiA5QS~wav6f~pzUGnoEcn05-YESo2yybmVtMxw5FP-Qz2XW0jSqgNuS2ysU5AYBuIXsm7uhSFYNcircmQdlxfKjZftXn-SW1iB-sFepLYlFhz3BTyxZs3cHeC5FrUc0j8IUZ8GbY4bRmBZbupI97KzD5YblXIZcXfBCGHcIKoYY5Kk7rLSJXRBPeaxCOAXnQrcgXWOwPdMuqOZAmXzBAAFa28lmlvp~mwh3gxY59AhHQBys8oOysG6tVah8KLvB~uJHmWTXjEE82Kpd-8JCoI0evgewrMCXJvOLoK0guB5AQnyqkJvTt4dG8LhveDJYAZbVpc9-jsKg__"
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/rVKaAzMHVINoMZse.png"
               alt={t.home.downloadApp} 
               className="w-8 h-8"
             />
