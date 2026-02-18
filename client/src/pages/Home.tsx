@@ -68,9 +68,9 @@ export default function Home() {
           <img 
             src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/Bc1EQgiPRRTckxsyqh4BBn_1771424462933_na1fn_eXVhbi1pY29uLXNsYXRl.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L0JjMUVRZ2lQUlJUY2t4c3lxaDRCQm5fMTc3MTQyNDQ2MjkzM19uYTFmbl9lWFZoYmkxcFkyOXVMWE5zWVhSbC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=kjC37bG0cQ83LXoU2te0t9JWQGQVSNy8F-q8Z~8LkZr1CV6zRYhvf40fWqhnDfAwFX2dXn0jf6U8ICkHzhNXCdCRbqfC~ETs0UuEEygAcz6DCuyY-NMI2hUmjMG0fmF8dk4lwzokq6zo8DUg-RNxPofrNztwMoiZnM2DGAgU1bmTY-oZbk4LU7GkJ7XY2-7Y5tlhBRHVeAoUI9U56B7bCp3d6Q6wMN8QIpICSxrFY0xAwF9BLyGgNk8mYpZHB09rKWnnCuU0b4R~SCeFYC5hNKTGmiv5Wbrt~HE1fBxfe78gbzF0LFJN7LmHJG7K3RK4Sp6nTILNRLB-cz9JMp4Hyw__"
             alt="诊费" 
-            className="w-8 h-8 md:w-11 md:h-11"
+            className="w-[22px] h-[22px] md:w-[31px] md:h-[31px]"
           />
-          <span className="text-[9px] md:text-[10px] font-medium text-foreground">诊费</span>
+          <span className="text-[9px] md:text-[10px] font-medium text-foreground">诊费随喜</span>
         </button>
       </div>
 
