@@ -1,7 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import NotFound from "@/pages/NotFound";
-import { Route, Switch } from "wouter";
+import { Route, Switch, Redirect } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./lib/i18n/language-context";
@@ -13,9 +12,8 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path="/game/:type/:size/:mode" component={Game} />
-      <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
+      {/* Redirect all other routes to home */}
+      <Route>{() => <Redirect to="/" />}</Route>
     </Switch>
   );
 }
