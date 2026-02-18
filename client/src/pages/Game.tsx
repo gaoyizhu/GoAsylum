@@ -81,6 +81,27 @@ export default function Game() {
   const [isEraser, setIsEraser] = useState(false);
   const [showGrid, setShowGrid] = useState(gameType !== 'canvas');
 
+  // 监听URL参数变化，当浏览器后退导致params变化时重新初始化游戏
+  useEffect(() => {
+    if (!params || !params.type) {
+      // 如果params无效，返回首页
+      setLocation('/', { replace: true });
+      return;
+    }
+    
+    // 重新初始化游戏状态
+    try {
+      if (gameType === 'canvas' || gameType === 'magnetic' || gameType === 'tricolor') {
+        setGameState((engine as any).createInitialState());
+      } else {
+        setGameState((engine as any).createInitialGameState());
+      }
+    } catch (error) {
+      console.error('Failed to initialize game state:', error);
+      setLocation('/', { replace: true });
+    }
+  }, [params?.type, params?.size, params?.mode]); // 依赖URL参数
+
   const lastMove = gameType === 'tricolor'
     ? gameState.lastMove
     : (gameState.moveHistory?.length > 0

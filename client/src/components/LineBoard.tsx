@@ -14,6 +14,15 @@ export function LineBoard({
   lastMove,
   disabled = false,
 }: LineBoardProps) {
+  // 添加空值保护，防止浏览器后退时board为null导致错误
+  if (!board || !Array.isArray(board) || board.length === 0) {
+    return (
+      <div className="flex justify-center items-center py-4 w-full">
+        <div className="text-muted-foreground">加载中...</div>
+      </div>
+    );
+  }
+  
   const BOARD_WIDTH = board.length; // 动态获取棋盘大小
   const [containerWidth, setContainerWidth] = useState(660);
   
