@@ -43,36 +43,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-background flex items-start justify-center p-6 relative">
-      {/* 右上角图标组 - 响应式：桌面端横排，移动端竖排+缩小 */}
-      <div className="fixed top-2 right-2 md:top-4 md:right-4 z-50 flex flex-col md:flex-row gap-1.5 md:gap-3">
-        {/* 院长信箱 */}
-        <button
-          onClick={() => alert('院长信箱功能开发中...')}
-          className="group flex flex-col items-center gap-0.5 hover:scale-105 transition-all duration-200"
-          aria-label="院长信箱"
-        >
-          <img 
-            src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/UmzOUCEIpUGALyXS8CZIdv_1771419452848_na1fn_bWFpbGJveC1pY29uLXRyYW5zcGFyZW50.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L1Vtek9VQ0VJcFVHQUx5WFM4Q1pJZHZfMTc3MTQxOTQ1Mjg0OF9uYTFmbl9iV0ZwYkdKdmVDMXBZMjl1TFhSeVlXNXpjR0Z5Wlc1MC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=m90I9tUkyemOh3pckcgsR40gvfi5--KNhnhwWc9TCJCCzABLWTifLO8DZVQLMeN4KSm-AL-ogc4~zOyzKunbPd2cwcKez9SooH7n5J6uzEE9pwkJgfgbVmtp5ZaRXFgCjOpzGeFn9MUdRmVrJmxvp9Z4HRH5VVGjr9EU342~VXdaVdlply9t6~IqibvZvZTel7jrXe2JY9X-OJVbEWc8okqVsjpX-ZeGp7xcVLtO1uYVgyph8g~Xuo3JlS00SnyAes0PDGCJVy4PjwAnYPlXMvAMBLbNBGUeBscixZaNqVYryOMsvqh-PUJWFhhjcVzGYQ0gNp7b~80XowH92D3PMg__"
-            alt="院长信箱" 
-            className="w-8 h-8 md:w-11 md:h-11"
-          />
-          <span className="text-[9px] md:text-[10px] font-medium text-foreground">院长信箱</span>
-        </button>
 
-        {/* 诊费 */}
-        <button
-          onClick={() => alert('诊费功能开发中...')}
-          className="group flex flex-col items-center gap-0.5 hover:scale-105 transition-all duration-200"
-          aria-label="诊费"
-        >
-          <img 
-            src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/Bc1EQgiPRRTckxsyqh4BBn_1771424462933_na1fn_eXVhbi1pY29uLXNsYXRl.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L0JjMUVRZ2lQUlJUY2t4c3lxaDRCQm5fMTc3MTQyNDQ2MjkzM19uYTFmbl9lWFZoYmkxcFkyOXVMWE5zWVhSbC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=kjC37bG0cQ83LXoU2te0t9JWQGQVSNy8F-q8Z~8LkZr1CV6zRYhvf40fWqhnDfAwFX2dXn0jf6U8ICkHzhNXCdCRbqfC~ETs0UuEEygAcz6DCuyY-NMI2hUmjMG0fmF8dk4lwzokq6zo8DUg-RNxPofrNztwMoiZnM2DGAgU1bmTY-oZbk4LU7GkJ7XY2-7Y5tlhBRHVeAoUI9U56B7bCp3d6Q6wMN8QIpICSxrFY0xAwF9BLyGgNk8mYpZHB09rKWnnCuU0b4R~SCeFYC5hNKTGmiv5Wbrt~HE1fBxfe78gbzF0LFJN7LmHJG7K3RK4Sp6nTILNRLB-cz9JMp4Hyw__"
-            alt="诊费" 
-            className="w-[22px] h-[22px] md:w-[31px] md:h-[31px]"
-          />
-          <span className="text-[9px] md:text-[10px] font-medium text-foreground">诊费随喜</span>
-        </button>
-      </div>
 
 
       <div className="flex flex-col items-center justify-start w-full max-w-md gap-5 pt-2 pb-24">
@@ -208,6 +179,37 @@ export default function Home() {
         >
           {t.home.startGame}
         </Button>
+
+        {/* 院长信箱和诊费随喜按钮 */}
+        <div className="flex flex-row gap-4 mt-4 w-full justify-center">
+          {/* 院长信箱 */}
+          <button
+            onClick={() => alert('院长信箱功能开发中...')}
+            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
+            aria-label="院长信箱"
+          >
+            <img 
+              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/UmzOUCEIpUGALyXS8CZIdv_1771419452848_na1fn_bWFpbGJveC1pY29uLXRyYW5zcGFyZW50.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L1Vtek9VQ0VJcFVHQUx5WFM4Q1pJZHZfMTc3MTQxOTQ1Mjg0OF9uYTFmbl9iV0ZwYkdKdmVDMXBZMjl1TFhSeVlXNXpjR0Z5Wlc1MC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=m90I9tUkyemOh3pckcgsR40gvfi5--KNhnhwWc9TCJCCzABLWTifLO8DZVQLMeN4KSm-AL-ogc4~zOyzKunbPd2cwcKez9SooH7n5J6uzEE9pwkJgfgbVmtp5ZaRXFgCjOpzGeFn9MUdRmVrJmxvp9Z4HRH5VVGjr9EU342~VXdaVdlply9t6~IqibvZvZTel7jrXe2JY9X-OJVbEWc8okqVsjpX-ZeGp7xcVLtO1uYVgyph8g~Xuo3JlS00SnyAes0PDGCJVy4PjwAnYPlXMvAMBLbNBGUeBscixZaNqVYryOMsvqh-PUJWFhhjcVzGYQ0gNp7b~80XowH92D3PMg__"
+              alt="院长信箱" 
+              className="w-10 h-10"
+            />
+            <span className="text-xs font-medium text-foreground">院长信箱</span>
+          </button>
+
+          {/* 诊费随喜 */}
+          <button
+            onClick={() => alert('诊费功能开发中...')}
+            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
+            aria-label="诊费随喜"
+          >
+            <img 
+              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/Bc1EQgiPRRTckxsyqh4BBn_1771424462933_na1fn_eXVhbi1pY29uLXNsYXRl.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L0JjMUVRZ2lQUlJUY2t4c3lxaDRCQm5fMTc3MTQyNDQ2MjkzM19uYTFmbl9lWFZoYmkxcFkyOXVMWE5zWVhSbC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=kjC37bG0cQ83LXoU2te0t9JWQGQVSNy8F-q8Z~8LkZr1CV6zRYhvf40fWqhnDfAwFX2dXn0jf6U8ICkHzhNXCdCRbqfC~ETs0UuEEygAcz6DCuyY-NMI2hUmjMG0fmF8dk4lwzokq6zo8DUg-RNxPofrNztwMoiZnM2DGAgU1bmTY-oZbk4LU7GkJ7XY2-7Y5tlhBRHVeAoUI9U56B7bCp3d6Q6wMN8QIpICSxrFY0xAwF9BLyGgNk8mYpZHB09rKWnnCuU0b4R~SCeFYC5hNKTGmiv5Wbrt~HE1fBxfe78gbzF0LFJN7LmHJG7K3RK4Sp6nTILNRLB-cz9JMp4Hyw__"
+              alt="诊费随喜" 
+              className="w-8 h-8"
+            />
+            <span className="text-xs font-medium text-foreground">诊费随喜</span>
+          </button>
+        </div>
 
 
       </div>
