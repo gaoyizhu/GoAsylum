@@ -28,6 +28,11 @@ export function GoBoard({
   deadStones = [],
   isMarkingDeadStones = false,
 }: GoBoardProps) {
+  // 空值检查：如果board为null或undefined，返回空div
+  if (!board || !Array.isArray(board)) {
+    return <div>Loading...</div>;
+  }
+  
   // 响应式尺寸：动态获取屏幕宽度
   const [containerWidth, setContainerWidth] = useState(560);
   
