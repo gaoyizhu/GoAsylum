@@ -180,7 +180,7 @@ export default function Home() {
           {t.home.startGame}
         </Button>
 
-        {/* 院长信箱和诊费随喜按钮 */}
+        {/* 院长信箱、诊费随喜和下载APP按钮 */}
         <div className="flex flex-row gap-4 mt-1 w-full justify-center items-end">
           {/* 院长信箱 */}
           <button
@@ -208,6 +208,20 @@ export default function Home() {
               className="w-8 h-8"
             />
             <span className="text-xs font-medium text-foreground">诊费随喜</span>
+          </button>
+
+          {/* 下载APP */}
+          <button
+            onClick={() => alert('下载APP功能开发中...')}
+            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
+            aria-label="下载APP"
+          >
+            <img 
+              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/MAY2ScgPbMJTwvY8PoYPl6_1771429185841_na1fn_ZG93bmxvYWQtYXBwLWljb24.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L01BWTJTY2dQYk1KVHd2WThQb1lQbDZfMTc3MTQyOTE4NTg0MV9uYTFmbl9aRzkzYm14dllXUXRZWEJ3TFdsamIyNC5wbmc~eC1vc3MtcHJvY2Vzcz1pbWFnZS9yZXNpemUsd18xOTIwLGhfMTkyMC9mb3JtYXQsd2VicC9xdWFsaXR5LHFfODAiLCJDb25kaXRpb24iOnsiRGF0ZUxlc3NUaGFuIjp7IkFXUzpFcG9jaFRpbWUiOjE3OTg3NjE2MDB9fX1dfQ__&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=aWn9zP1rHAN2KndiSIPeVOCjDZ4FSdrG91st2uMa9KciXmfirCjmMIFg5hoxgYe4aHGu0kDw-sRSJwDFajAHPxojqq~3zz8utIjqWS~z6Zn-IseE6LER4z5Zz0hmDYoBteDG0depJN98PpCw6nkqaadUaRxO2KK-Gu~gNSWljJQB7jOjgxBsIWKTqnpXCJKWrutQh7zf-ZxQuKDEsjtB3YWiRW2BmhR59yGdYFJqcnbeg4Y-d0vjZv8K55gDl1sMPMAxVpTZzdcIct3qlQfO1dncybAOQ46-PvtIccG6xslBt5w92bWO-WmmkBPwYKBwnRxIWRrGBWHyjRN0IIVY0Q__"
+              alt="下载APP" 
+              className="w-8 h-8"
+            />
+            <span className="text-xs font-medium text-foreground">下载APP</span>
           </button>
         </div>
 
