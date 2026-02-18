@@ -180,10 +180,10 @@ export const translations = {
       threePlayers: '3 Players',
       threePK: 'P v P v P',
       directorMailbox: 'Director\'s Mailbox',
-      consultation: 'Consultation Fee',
+      consultation: 'Donation',
       downloadApp: 'Download APP',
       directorMailboxDev: 'Director\'s Mailbox Under Development',
-      consultationDev: 'Consultation Fee Under Development',
+      consultationDev: 'Donation Under Development',
       appDev: 'APP Under Development',
     },
     // Game Screen
