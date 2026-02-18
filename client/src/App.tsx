@@ -6,8 +6,8 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import { LanguageProvider } from "./lib/i18n/language-context";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
-
 function Router() {
+  // make sure to consider if you need authentication for certain routes
   return (
     <Switch>
       <Route path={"/"} component={Home} />
