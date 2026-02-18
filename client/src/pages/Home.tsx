@@ -202,23 +202,6 @@ export default function Home() {
             <span className="text-xs font-medium text-foreground">{t.home.directorMailbox}</span>
           </button>
 
-          {/* 诊费随喜 */}
-          <button
-            onClick={() => {
-              setDialogMessage(t.home.consultationDev);
-              setDialogOpen(true);
-            }}
-            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
-            aria-label={t.home.consultation}
-          >
-            <img 
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/fRmVGBpxPNZVLvak.png"
-              alt={t.home.consultation} 
-              className="w-8 h-8"
-            />
-            <span className="text-xs font-medium text-foreground">{t.home.consultation}</span>
-          </button>
-
           {/* 下载APP */}
           <button
             onClick={() => {
@@ -234,6 +217,23 @@ export default function Home() {
               className="w-8 h-8"
             />
             <span className="text-xs font-medium text-foreground">{t.home.downloadApp}</span>
+          </button>
+
+          {/* 诊费随喜 */}
+          <button
+            onClick={() => {
+              setDialogMessage(t.home.consultationDev);
+              setDialogOpen(true);
+            }}
+            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
+            aria-label={t.home.consultation}
+          >
+            <img 
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/fRmVGBpxPNZVLvak.png"
+              alt={t.home.consultation} 
+              className="w-8 h-8"
+            />
+            <span className="text-xs font-medium text-foreground">{t.home.consultation}</span>
           </button>
         </div>
 
