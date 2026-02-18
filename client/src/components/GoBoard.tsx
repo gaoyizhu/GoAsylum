@@ -260,7 +260,7 @@ export function GoBoard({
           Array.from({ length: boardSize }).map((_, x) => {
             // 标记死棋状态下，只为有棋子的位置添加交互区域
             // 正常状态下，只为空位置添加交互区域
-            const hasStone = board[y][x] !== null;
+            const hasStone = board[y] && board[y][x] !== null;
             
             // 正常下棋：只能点击空位
             // 标记死棋：只能点击有棋子的位置

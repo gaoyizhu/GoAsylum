@@ -404,6 +404,15 @@ export default function Game() {
     return '';
   };
 
+  // 如果gameState或board未正确初始化，显示加载提示
+  if (!gameState || !gameState.board) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-muted-foreground text-lg">加载中...</div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background flex flex-col">
       {/* Top Bar */}
