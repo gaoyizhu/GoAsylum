@@ -177,8 +177,10 @@ export function GoBoard({
         )}
 
         {/* Draw stones */}
-        {board.map((row, y) =>
-          row.map((stone, x) => {
+        {board.map((row, y) => {
+          // 检查row是否为null，防止一根筋模式后退时的错误
+          if (!row || !Array.isArray(row)) return null;
+          return row.map((stone, x) => {
             if (stone === null) return null;
 
             const cx = padding + x * cellSize;
@@ -252,8 +254,8 @@ export function GoBoard({
                 )}
               </g>
             );
-          })
-        )}
+          });
+        })}
 
         {/* Interactive intersection points */}
         {Array.from({ length: boardSize }).map((_, y) =>
