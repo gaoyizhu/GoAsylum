@@ -191,12 +191,12 @@ export async function getAllMessages(page: number = 1, pageSize: number = 20) {
   const total = totalResult[0]?.count || 0;
   const totalPages = Math.ceil(total / pageSize);
 
-  // Get paginated messages
+  // Get paginated messages, with pinned messages first
   const offset = (page - 1) * pageSize;
   const result = await db
     .select()
     .from(messages)
-    .orderBy(desc(messages.createdAt))
+    .orderBy(desc(messages.isPinned), desc(messages.createdAt))
     .limit(pageSize)
     .offset(offset);
 
@@ -246,6 +246,31 @@ export async function deleteMessage(id: number): Promise<void> {
     await db.delete(messages).where(eq(messages.id, id));
   } catch (error) {
     console.error("[Database] Failed to delete message:", error);
+    throw error;
+  }
+}
+
+/**
+ * Toggle message pin status (admin only)
+ */
+export async function toggleMessagePin(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot toggle message pin: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    const message = await db.select().from(messages).where(eq(messages.id, id)).limit(1);
+    if (message.length === 0) {
+      throw new Error("Message not found");
+    }
+    
+    // Toggle isPinned: 0 -> 1 or 1 -> 0
+    const newPinnedStatus = message[0].isPinned === 1 ? 0 : 1;
+    await db.update(messages).set({ isPinned: newPinnedStatus }).where(eq(messages.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to toggle message pin:", error);
     throw error;
   }
 }

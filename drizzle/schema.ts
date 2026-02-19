@@ -57,6 +57,8 @@ export const messages = mysqlTable("messages", {
   content: text("content").notNull(),
   /** Number of likes */
   likes: int("likes").default(0).notNull(),
+  /** Whether the message is pinned (1 = pinned, 0 = not pinned) */
+  isPinned: int("isPinned").default(0).notNull(),
   /** Timestamp when message was posted */
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });

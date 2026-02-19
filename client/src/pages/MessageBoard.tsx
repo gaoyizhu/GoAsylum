@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Heart, Loader2, Trash2, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
+import { Heart, Loader2, Trash2, ArrowLeft, ChevronLeft, ChevronRight, Pin } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
@@ -276,10 +276,18 @@ export default function MessageBoard() {
                   <CardHeader>
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-2">
+                        {message.isPinned === 1 && (
+                          <Pin className="h-4 w-4 text-primary fill-primary" />
+                        )}
                         <span className="font-semibold text-lg">{message.nickname}</span>
                         {message.rank && (
                           <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
                             {message.rank}
+                          </span>
+                        )}
+                        {message.isPinned === 1 && (
+                          <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">
+                            置顶
                           </span>
                         )}
                       </div>

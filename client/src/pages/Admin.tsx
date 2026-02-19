@@ -12,7 +12,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Trash2, CheckCircle2, Mail, MessageSquare, ThumbsUp, TrendingUp } from "lucide-react";
+import { Trash2, CheckCircle2, Mail, MessageSquare, ThumbsUp, TrendingUp, Pin } from "lucide-react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
@@ -71,6 +71,16 @@ export default function Admin() {
     },
   });
 
+  const togglePinMutation = trpc.message.togglePin.useMutation({
+    onSuccess: () => {
+      utils.message.list.invalidate();
+      toast.success("置顶状态已更新");
+    },
+    onError: () => {
+      toast.error("操作失败，请重试");
+    },
+  });
+
   const handleMarkAsRead = (id: number) => {
     markAsReadMutation.mutate({ id });
   };
@@ -85,6 +95,10 @@ export default function Admin() {
     if (confirm("确定要删除这条留言吗？")) {
       deleteMessageMutation.mutate({ id });
     }
+  };
+
+  const handleTogglePin = (id: number) => {
+    togglePinMutation.mutate({ id });
   };
 
   const filteredFeedbacks = feedbacks?.filter(
@@ -309,14 +323,25 @@ export default function Admin() {
                           {new Date(message.createdAt).toLocaleString("zh-CN")}
                         </TableCell>
                         <TableCell className="text-right">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={() => handleDeleteMessage(message.id)}
-                            disabled={deleteMessageMutation.isPending}
-                          >
-                            <Trash2 className="w-4 h-4 text-destructive" />
-                          </Button>
+                          <div className="flex items-center justify-end gap-1">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleTogglePin(message.id)}
+                              disabled={togglePinMutation.isPending}
+                              title={message.isPinned === 1 ? "取消置顶" : "置顶留言"}
+                            >
+                              <Pin className={`w-4 h-4 ${message.isPinned === 1 ? 'text-primary fill-primary' : 'text-muted-foreground'}`} />
+                            </Button>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleDeleteMessage(message.id)}
+                              disabled={deleteMessageMutation.isPending}
+                            >
+                              <Trash2 className="w-4 h-4 text-destructive" />
+                            </Button>
+                          </div>
                         </TableCell>
                       </TableRow>
                     ))}
