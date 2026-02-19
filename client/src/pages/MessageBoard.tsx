@@ -165,30 +165,30 @@ export default function MessageBoard() {
   };
 
   return (
-    <div className="min-h-screen bg-background py-8 px-4">
+    <div className="min-h-screen bg-background py-4 px-3">
       <div className="max-w-4xl mx-auto">
         {/* 返回按钮 */}
         <Button
           variant="ghost"
           onClick={() => setLocation("/")}
-          className="mb-4 text-muted-foreground hover:text-foreground"
+          className="mb-3 text-muted-foreground hover:text-foreground"
         >
           <ArrowLeft className="w-4 h-4 mr-2" />
           {t.messageBoard.back || "返回"}
         </Button>
 
         {/* 页面标题 */}
-        <h1 className="text-3xl font-bold text-center mb-8 text-foreground">
+        <h1 className="text-2xl font-bold text-center mb-4 text-foreground">
           {t.messageBoard.title || "留言板"}
         </h1>
 
         {/* 发布留言表单 */}
-        <Card className="mb-8">
-          <CardHeader>
-            <h2 className="text-xl font-semibold">{t.messageBoard.postMessage || "发布留言"}</h2>
+        <Card className="mb-4">
+          <CardHeader className="pb-3">
+            <h2 className="text-lg font-semibold">{t.messageBoard.postMessage || "发布留言"}</h2>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <CardContent className="pt-0">
+            <form onSubmit={handleSubmit} className="space-y-3">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium mb-2">
@@ -254,8 +254,8 @@ export default function MessageBoard() {
         </Card>
 
         {/* 留言列表 */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold mb-4">
+        <div className="space-y-3">
+          <h2 className="text-lg font-semibold mb-3">
             {t.messageBoard.messageList || "留言列表"} ({total})
           </h2>
           
@@ -272,34 +272,34 @@ export default function MessageBoard() {
           ) : (
             <>
               {messages.map((message) => (
-                <Card key={message.id}>
-                  <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
+                <Card key={message.id} className="py-3">
+                  <CardHeader className="pb-2 pt-0 px-4">
+                    <div className="flex items-center justify-between gap-2">
+                      <div className="flex items-center gap-1.5 flex-wrap">
                         {message.isPinned === 1 && (
-                          <Pin className="h-4 w-4 text-primary fill-primary" />
+                          <Pin className="h-3 w-3 text-primary fill-primary" />
                         )}
-                        <span className="font-semibold text-lg">{message.nickname}</span>
+                        <span className="font-semibold text-sm">{message.nickname}</span>
                         {message.rank && (
-                          <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
+                          <span className="text-xs bg-primary/10 text-primary px-1.5 py-0.5 rounded">
                             {message.rank}
                           </span>
                         )}
                         {message.isPinned === 1 && (
-                          <span className="text-xs bg-primary text-primary-foreground px-2 py-0.5 rounded">
+                          <span className="text-[10px] bg-primary text-primary-foreground px-1.5 py-0.5 rounded">
                             置顶
                           </span>
                         )}
                       </div>
-                      <span className="text-sm text-muted-foreground">
+                      <span className="text-xs text-muted-foreground whitespace-nowrap">
                         {new Date(message.createdAt).toLocaleString()}
                       </span>
                     </div>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-foreground whitespace-pre-wrap">{message.content}</p>
+                  <CardContent className="pb-2 pt-2 px-4">
+                    <p className="text-sm text-foreground whitespace-pre-wrap leading-relaxed">{message.content}</p>
                   </CardContent>
-                  <CardFooter className="flex items-center justify-between">
+                  <CardFooter className="flex items-center justify-between pt-0 pb-0 px-4">
                     <Button
                       variant="ghost"
                       size="sm"
