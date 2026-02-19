@@ -44,3 +44,22 @@ export const feedbacks = mysqlTable("feedbacks", {
 
 export type Feedback = typeof feedbacks.$inferSelect;
 export type InsertFeedback = typeof feedbacks.$inferInsert;
+/**
+ * Messages table for storing message board posts
+ */
+export const messages = mysqlTable("messages", {
+  id: int("id").autoincrement().primaryKey(),
+  /** User's nickname (required, 2-20 characters) */
+  nickname: varchar("nickname", { length: 100 }).notNull(),
+  /** Optional rank/level (e.g., "业余1段", "业余5段") */
+  rank: varchar("rank", { length: 50 }),
+  /** Message content (required, 10-500 characters) */
+  content: text("content").notNull(),
+  /** Number of likes */
+  likes: int("likes").default(0).notNull(),
+  /** Timestamp when message was posted */
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type Message = typeof messages.$inferSelect;
+export type InsertMessage = typeof messages.$inferInsert;

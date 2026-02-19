@@ -3,7 +3,7 @@ import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
 import { publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { createFeedback, deleteFeedback, getAllFeedbacks, markFeedbackAsRead } from "./db";
+import { createFeedback, createMessage, deleteFeedback, deleteMessage, getAllFeedbacks, getAllMessages, likeMessage, markFeedbackAsRead } from "./db";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -50,6 +50,41 @@ export const appRouter = router({
       .input(z.object({ id: z.number() }))
       .mutation(async ({ input }) => {
         await deleteFeedback(input.id);
+        return { success: true };
+      }),
+  }),
+
+  // Message board router
+  message: router({
+    create: publicProcedure
+      .input(
+        z.object({
+          nickname: z.string().min(2, "昵称至少2个字符").max(20, "昵称不能超过20个字符"),
+          rank: z.string().max(50, "段位不能超过50个字符").optional(),
+          content: z.string().min(10, "留言内容至少10个字符").max(500, "留言内容不能超过500个字符"),
+        })
+      )
+      .mutation(async ({ input }) => {
+        await createMessage({
+          nickname: input.nickname,
+          rank: input.rank,
+          content: input.content,
+        });
+        return { success: true };
+      }),
+    list: publicProcedure.query(async () => {
+      return await getAllMessages();
+    }),
+    like: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await likeMessage(input.id);
+        return { success: true };
+      }),
+    delete: publicProcedure
+      .input(z.object({ id: z.number() }))
+      .mutation(async ({ input }) => {
+        await deleteMessage(input.id);
         return { success: true };
       }),
   }),

@@ -1,6 +1,6 @@
 import { desc, eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
-import { feedbacks, InsertFeedback, InsertUser, users } from "../drizzle/schema";
+import { feedbacks, InsertFeedback, InsertUser, messages, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
 
 let _db: ReturnType<typeof drizzle> | null = null;
@@ -153,6 +153,80 @@ export async function deleteFeedback(id: number): Promise<void> {
     await db.delete(feedbacks).where(eq(feedbacks.id, id));
   } catch (error) {
     console.error("[Database] Failed to delete feedback:", error);
+    throw error;
+  }
+}
+
+/**
+ * Insert a new message into the database
+ */
+export async function createMessage(message: { nickname: string; rank?: string; content: string }) {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot create message: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    const result = await db.insert(messages).values(message);
+    return result;
+  } catch (error) {
+    console.error("[Database] Failed to create message:", error);
+    throw error;
+  }
+}
+
+/**
+ * Get all messages ordered by creation time (newest first)
+ */
+export async function getAllMessages() {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot get messages: database not available");
+    return [];
+  }
+
+  const result = await db.select().from(messages).orderBy(desc(messages.createdAt));
+  return result;
+}
+
+/**
+ * Increment likes count for a message
+ */
+export async function likeMessage(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot like message: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    const message = await db.select().from(messages).where(eq(messages.id, id)).limit(1);
+    if (message.length === 0) {
+      throw new Error("Message not found");
+    }
+    
+    await db.update(messages).set({ likes: message[0].likes + 1 }).where(eq(messages.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to like message:", error);
+    throw error;
+  }
+}
+
+/**
+ * Delete a message by ID (admin only)
+ */
+export async function deleteMessage(id: number): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot delete message: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    await db.delete(messages).where(eq(messages.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to delete message:", error);
     throw error;
   }
 }

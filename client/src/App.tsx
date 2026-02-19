@@ -7,6 +7,7 @@ import { LanguageProvider } from "./lib/i18n/language-context";
 import Home from "./pages/Home";
 import Game from "./pages/Game";
 import Admin from "./pages/Admin";
+import MessageBoard from "./pages/MessageBoard";
 function Router() {
   // make sure to consider if you need authentication for certain routes
   return (
@@ -14,6 +15,7 @@ function Router() {
       <Route path={"/"} component={Home} />
       <Route path="/game/:type/:size/:mode" component={Game} />
       <Route path="/admin" component={Admin} />
+      <Route path="/message-board" component={MessageBoard} />
       {/* Redirect all other routes to home */}
       <Route>{() => <Redirect to="/" />}</Route>
     </Switch>

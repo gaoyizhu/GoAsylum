@@ -205,10 +205,7 @@ export default function Home() {
 
           {/* 留言板 */}
           <button
-            onClick={() => {
-              setDialogMessage(t.home.messageBoardDev);
-              setDialogOpen(true);
-            }}
+            onClick={() => setLocation('/message-board')}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
             aria-label={t.home.messageBoard}
           >
