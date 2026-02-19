@@ -10,6 +10,7 @@ import { useLanguage } from "@/lib/i18n/language-context";
 import type { Language } from "@/lib/i18n/translations";
 import { useLocation } from "wouter";
 import { FeedbackForm } from "@/components/FeedbackForm";
+import DonationDialog from "@/components/DonationDialog";
 
 
 type GameMode = 'ai' | 'pvp';
@@ -26,6 +27,7 @@ export default function Home() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState('');
   const [feedbackFormOpen, setFeedbackFormOpen] = useState(false);
+  const [donationDialogOpen, setDonationDialogOpen] = useState(false);
 
 
   const handleGameTypeChange = (type: GameType) => {
@@ -220,10 +222,7 @@ export default function Home() {
 
           {/* 诊费随喜 */}
           <button
-            onClick={() => {
-              setDialogMessage(t.home.consultationDev);
-              setDialogOpen(true);
-            }}
+            onClick={() => setDonationDialogOpen(true)}
             className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
             aria-label={t.home.consultation}
           >
@@ -261,6 +260,9 @@ export default function Home() {
 
       {/* 院长信箱反馈表单 */}
       <FeedbackForm open={feedbackFormOpen} onOpenChange={setFeedbackFormOpen} />
+
+      {/* 诊费随喜对话框 */}
+      <DonationDialog open={donationDialogOpen} onOpenChange={setDonationDialogOpen} />
     </div>
   );
 }

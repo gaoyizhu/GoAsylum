@@ -40,6 +40,17 @@ export const translations = {
       consultationDev: '诊费功能开发中',
       appDev: 'APP开发中',
     },
+    // 诊费随喜
+    donation: {
+      title: '诊费随喜',
+      description: '感谢您对围棋疯人院的支持！',
+      usage: '您的每一份随喜，都将用于服务器维护、开发更多有趣的围棋玩法、举办线上围棋活动。',
+      suggestedAmount: '建议金额（仅供参考）',
+      wechat: '微信支付',
+      alipay: '支付宝',
+      note: '支付时请备注您的昵称，我们会在感谢名单中致谢',
+      disclaimer: '随喜金额不限，心意最重要 ❤️',
+    },
     // 反馈表单
     feedback: {
       nickname: '昵称',
@@ -202,6 +213,17 @@ export const translations = {
       directorMailboxDev: 'Director\'s Mailbox Under Development',
       consultationDev: 'Donation Under Development',
       appDev: 'APP Under Development',
+    },
+    // Donation
+    donation: {
+      title: 'Donation',
+      description: 'Thank you for supporting Go Asylum!',
+      usage: 'Your donation will be used for server maintenance, developing more interesting Go variants, and hosting online Go events.',
+      suggestedAmount: 'Suggested Amount (Reference Only)',
+      wechat: 'WeChat Pay',
+      alipay: 'Alipay',
+      note: 'Please note your nickname when paying, we will thank you in the acknowledgment list',
+      disclaimer: 'Any amount is appreciated ❤️',
     },
     // Feedback Form
     feedback: {
