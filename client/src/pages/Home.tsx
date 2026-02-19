@@ -203,6 +203,23 @@ export default function Home() {
             <span className="text-xs font-medium text-foreground text-center w-16 leading-tight h-8 flex items-start justify-center">{t.home.directorMailbox}</span>
           </button>
 
+          {/* 留言板 */}
+          <button
+            onClick={() => {
+              setDialogMessage(t.home.messageBoardDev);
+              setDialogOpen(true);
+            }}
+            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
+            aria-label={t.home.messageBoard}
+          >
+            <img 
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/MEGVMvXXsgZRnAgQ.png"
+              alt={t.home.messageBoard} 
+              className="w-8 h-8"
+            />
+            <span className="text-xs font-medium text-foreground text-center w-16 leading-tight h-8 flex items-start justify-center">{t.home.messageBoard}</span>
+          </button>
+
           {/* 下载APP - 暂时隐藏 */}
           {/* <button
             onClick={() => {
