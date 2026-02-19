@@ -5,12 +5,14 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Heart, Loader2, Trash2 } from "lucide-react";
+import { Heart, Loader2, Trash2, ArrowLeft } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { toast } from "sonner";
+import { useLocation } from "wouter";
 
 export default function MessageBoard() {
   const { t } = useLanguage();
+  const [, setLocation] = useLocation();
 
   
   const [nickname, setNickname] = useState("");
@@ -103,6 +105,16 @@ export default function MessageBoard() {
   return (
     <div className="min-h-screen bg-background py-8 px-4">
       <div className="max-w-4xl mx-auto">
+        {/* 返回按钮 */}
+        <Button
+          variant="ghost"
+          onClick={() => setLocation("/")}
+          className="mb-4 text-muted-foreground hover:text-foreground"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2" />
+          {t.messageBoard.back || "返回"}
+        </Button>
+
         {/* 页面标题 */}
         <h1 className="text-3xl font-bold text-center mb-8 text-foreground">
           {t.messageBoard.title || "留言板"}

@@ -57,6 +57,7 @@ export const translations = {
     // 留言板
     messageBoard: {
       title: '留言板',
+      back: '返回',
       postMessage: '发布留言',
       nickname: '昵称',
       nicknamePlaceholder: '请输入您的昵称（2-20字符）',
@@ -257,6 +258,7 @@ export const translations = {
     // Message Board
     messageBoard: {
       title: 'Message Board',
+      back: 'Back',
       postMessage: 'Post Message',
       nickname: 'Nickname',
       nicknamePlaceholder: 'Enter your nickname (2-20 characters)',
