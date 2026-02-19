@@ -230,3 +230,30 @@ export async function deleteMessage(id: number): Promise<void> {
     throw error;
   }
 }
+
+// Get message board statistics
+export async function getMessageStats() {
+  const db = await getDb();
+  if (!db) {
+    throw new Error("Database not available");
+  }
+
+  const allMessages = await db.select().from(messages).execute();
+  
+  const totalMessages = allMessages.length;
+  const totalLikes = allMessages.reduce((sum, msg) => sum + msg.likes, 0);
+  
+  // Calculate today's messages
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const todayMessages = allMessages.filter(msg => {
+    const msgDate = new Date(msg.createdAt);
+    return msgDate >= today;
+  }).length;
+
+  return {
+    totalMessages,
+    totalLikes,
+    todayMessages,
+  };
+}
