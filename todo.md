@@ -133,3 +133,7 @@
 - [x] 添加中英文翻译
 - [x] 集成到主页路由
 - [x] 测试所有功能
+
+## Bug修复 - Select组件
+- [x] 修复MessageBoard.tsx中Select组件的空字符串value错误
+- [x] 测试修复后的留言板页面

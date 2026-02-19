@@ -14,7 +14,7 @@ export default function MessageBoard() {
 
   
   const [nickname, setNickname] = useState("");
-  const [rank, setRank] = useState("");
+  const [rank, setRank] = useState("none");
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -29,7 +29,7 @@ export default function MessageBoard() {
         description: t.messageBoard.submitSuccessDesc || "您的留言已发布",
       });
       setNickname("");
-      setRank("");
+      setRank("none");
       setContent("");
       refetch();
     },
@@ -65,7 +65,7 @@ export default function MessageBoard() {
     try {
       await createMutation.mutateAsync({
         nickname,
-        rank: rank || undefined,
+        rank: rank === "none" ? undefined : rank,
         content,
       });
     } finally {
@@ -95,7 +95,7 @@ export default function MessageBoard() {
   };
 
   const rankOptions = [
-    { value: "", label: t.messageBoard.noRank || "不选择" },
+    { value: "none", label: t.messageBoard.noRank || "不选择" },
     { value: "业余1段", label: "业余1段" },
     { value: "业余2段", label: "业余2段" },
     { value: "业余3段", label: "业余3段" },
