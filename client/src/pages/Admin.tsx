@@ -34,8 +34,9 @@ export default function Admin() {
   const { data: feedbacks, isLoading: feedbacksLoading } = trpc.feedback.list.useQuery();
   
   // Message queries
-  const { data: messages, isLoading: messagesLoading } = trpc.message.list.useQuery();
+  const { data: messageData, isLoading: messagesLoading } = trpc.message.list.useQuery();
   const { data: messageStats } = trpc.message.stats.useQuery();
+  const messages = messageData?.messages || [];
   
   // Feedback mutations
   const markAsReadMutation = trpc.feedback.markAsRead.useMutation({
@@ -93,7 +94,7 @@ export default function Admin() {
       (feedback.contact && feedback.contact.toLowerCase().includes(feedbackSearchTerm.toLowerCase()))
   );
 
-  const filteredMessages = messages?.filter(
+  const filteredMessages = messages.filter(
     (message) =>
       message.nickname.toLowerCase().includes(messageSearchTerm.toLowerCase()) ||
       message.content.toLowerCase().includes(messageSearchTerm.toLowerCase()) ||
