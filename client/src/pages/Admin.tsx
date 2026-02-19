@@ -34,7 +34,7 @@ export default function Admin() {
   const { data: feedbacks, isLoading: feedbacksLoading } = trpc.feedback.list.useQuery();
   
   // Message queries
-  const { data: messageData, isLoading: messagesLoading } = trpc.message.list.useQuery();
+  const { data: messageData, isLoading: messagesLoading } = trpc.message.list.useQuery({ page: 1, pageSize: 100 });
   const { data: messageStats } = trpc.message.stats.useQuery();
   const messages = messageData?.messages || [];
   
