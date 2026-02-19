@@ -272,7 +272,7 @@ export default function MessageBoard() {
           ) : (
             <>
               {messages.map((message) => (
-                <Card key={message.id} className="py-3">
+                <Card key={message.id} className="py-0.5">
                   <CardHeader className="pb-0 pt-0 px-4">
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-1.5 flex-wrap">
