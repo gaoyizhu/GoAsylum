@@ -24,8 +24,7 @@ export default function MessageBoard() {
   // 发布留言
   const createMutation = trpc.message.create.useMutation({
     onSuccess: () => {
-      toast({
-        title: t.messageBoard.submitSuccess || "发布成功",
+      toast.success(t.messageBoard.submitSuccess || "发布成功", {
         description: t.messageBoard.submitSuccessDesc || "您的留言已发布",
       });
       setNickname("");
@@ -34,10 +33,8 @@ export default function MessageBoard() {
       refetch();
     },
     onError: (error) => {
-      toast({
-        title: t.messageBoard.submitError || "发布失败",
+      toast.error(t.messageBoard.submitError || "发布失败", {
         description: error.message,
-        variant: "destructive",
       });
     },
   });
@@ -52,9 +49,7 @@ export default function MessageBoard() {
   // 删除（管理员功能）
   const deleteMutation = trpc.message.delete.useMutation({
     onSuccess: () => {
-      toast({
-        title: t.messageBoard.deleteSuccess || "删除成功",
-      });
+      toast.success(t.messageBoard.deleteSuccess || "删除成功");
       refetch();
     },
   });
@@ -77,10 +72,7 @@ export default function MessageBoard() {
     // 检查本地存储，防止重复点赞
     const likedMessages = JSON.parse(localStorage.getItem("likedMessages") || "[]");
     if (likedMessages.includes(id)) {
-      toast({
-        title: t.messageBoard.alreadyLiked || "您已经点过赞了",
-        variant: "default",
-      });
+      toast.info(t.messageBoard.alreadyLiked || "您已经点过赞了");
       return;
     }
     

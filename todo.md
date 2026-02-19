@@ -137,3 +137,7 @@
 ## Bug修复 - Select组件
 - [x] 修复MessageBoard.tsx中Select组件的空字符串value错误
 - [x] 测试修复后的留言板页面
+
+## Bug修复 - Toast调用
+- [x] 修复MessageBoard.tsx中toast函数的调用方式，使用sonner的正确API
+- [x] 测试所有toast提示是否正常显示
