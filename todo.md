@@ -217,3 +217,8 @@
 - [x] 减小字体大小
 - [x] 缩小模块间距和内边距
 - [x] 优化卡片布局使其更紧凑
+
+## 进一步压缩留言卡片内部间距
+- [x] 减小CardHeader和CardContent之间的间距
+- [x] 减小CardContent和CardFooter之间的间距
+- [x] 优化卡片整体padding
