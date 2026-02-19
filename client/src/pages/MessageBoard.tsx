@@ -297,7 +297,7 @@ export default function MessageBoard() {
                     </div>
                   </CardHeader>
                   <CardContent className="pb-0 pt-0 px-4">
-                    <p className="text-sm text-foreground whitespace-pre-wrap leading-snug">{message.content}</p>
+                    <p className="text-sm text-foreground whitespace-pre-wrap leading-none">{message.content}</p>
                   </CardContent>
                   <CardFooter className="flex items-center justify-between pt-0 pb-0 px-4">
                     <Button

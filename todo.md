@@ -239,3 +239,6 @@
 
 ## 减小Card整体padding
 - [x] 将Card的py-3改为py-0.5
+
+## 修改留言内容行高
+- [x] 将leading-snug改为leading-none
