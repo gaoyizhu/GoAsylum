@@ -213,7 +213,7 @@ export default function Home() {
             aria-label={t.home.messageBoard}
           >
             <img 
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/FVdcxqyXFZNIawPb.png"
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/UvRQBfRaqMJwDAhX.png"
               alt={t.home.messageBoard} 
               className="w-10 h-10"
             />
