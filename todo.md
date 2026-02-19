@@ -242,3 +242,8 @@
 
 ## 修改留言内容行高
 - [x] 将leading-snug改为leading-none
+
+## 检查并移除Card组件默认padding
+- [x] 检查CardHeader、CardContent、CardFooter的默认样式定义
+- [x] 彻底移除这些组件的默认padding（添加gap-0覆盖gap-6）
+- [x] 测试间距是否已完全消除
