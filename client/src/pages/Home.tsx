@@ -215,7 +215,7 @@ export default function Home() {
             <img 
               src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/FVdcxqyXFZNIawPb.png"
               alt={t.home.messageBoard} 
-              className="w-8 h-8"
+              className="w-10 h-10"
             />
             <span className="text-xs font-medium text-foreground text-center w-16 leading-tight h-8 flex items-start justify-center">{t.home.messageBoard}</span>
           </button>
