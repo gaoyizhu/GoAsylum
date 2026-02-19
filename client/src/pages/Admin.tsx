@@ -357,17 +357,15 @@ export default function Admin() {
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex items-center justify-end gap-1">
-                            {message.userId === user?.id && (
-                              <Button
-                                variant="ghost"
-                                size="sm"
-                                onClick={() => handleEditMessage(message)}
-                                disabled={updateMessageMutation.isPending}
-                                title="编辑留言"
-                              >
-                                <Pencil className="w-4 h-4 text-blue-600" />
-                              </Button>
-                            )}
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => handleEditMessage(message)}
+                              disabled={updateMessageMutation.isPending}
+                              title="编辑留言"
+                            >
+                              <Pencil className="w-4 h-4 text-blue-600" />
+                            </Button>
                             <Button
                               variant="ghost"
                               size="sm"

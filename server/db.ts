@@ -251,9 +251,9 @@ export async function deleteMessage(id: number): Promise<void> {
 }
 
 /**
- * Update message content (author only)
+ * Update message content (admin only)
  */
-export async function updateMessage(id: number, content: string, userId: number): Promise<void> {
+export async function updateMessage(id: number, content: string): Promise<void> {
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot update message: database not available");
@@ -264,11 +264,6 @@ export async function updateMessage(id: number, content: string, userId: number)
     const message = await db.select().from(messages).where(eq(messages.id, id)).limit(1);
     if (message.length === 0) {
       throw new Error("Message not found");
-    }
-    
-    // Verify the user is the author of the message
-    if (message[0].userId !== userId) {
-      throw new Error("You can only edit your own messages");
     }
     
     await db.update(messages).set({ 

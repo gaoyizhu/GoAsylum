@@ -1,7 +1,7 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
+import { adminProcedure, protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
 import { createFeedback, createMessage, deleteFeedback, deleteMessage, getAllFeedbacks, getAllMessages, getMessageStats, likeMessage, markFeedbackAsRead, toggleMessagePin, updateMessage } from "./db";
 
@@ -106,16 +106,13 @@ export const appRouter = router({
         await toggleMessagePin(input.id);
         return { success: true };
       }),
-    update: protectedProcedure
+    update: adminProcedure
       .input(z.object({ 
         id: z.number(),
         content: z.string().min(1, "留言内容不能为空").max(100, "留言内容不能超过100个字符")
       }))
-      .mutation(async ({ input, ctx }) => {
-        if (!ctx.user) {
-          throw new Error("Unauthorized");
-        }
-        await updateMessage(input.id, input.content, ctx.user.id);
+      .mutation(async ({ input }) => {
+        await updateMessage(input.id, input.content);
         return { success: true };
       }),
   }),
