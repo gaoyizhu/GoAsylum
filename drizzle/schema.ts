@@ -59,8 +59,12 @@ export const messages = mysqlTable("messages", {
   likes: int("likes").default(0).notNull(),
   /** Whether the message is pinned (1 = pinned, 0 = not pinned) */
   isPinned: int("isPinned").default(0).notNull(),
+  /** User ID of the message author (nullable for anonymous messages) */
+  userId: int("userId"),
   /** Timestamp when message was posted */
   createdAt: timestamp("createdAt").defaultNow().notNull(),
+  /** Timestamp when message was last edited (null if never edited) */
+  editedAt: timestamp("editedAt"),
 });
 
 export type Message = typeof messages.$inferSelect;

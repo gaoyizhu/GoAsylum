@@ -1,9 +1,9 @@
 import { COOKIE_NAME } from "@shared/const";
 import { getSessionCookieOptions } from "./_core/cookies";
 import { systemRouter } from "./_core/systemRouter";
-import { publicProcedure, router } from "./_core/trpc";
+import { protectedProcedure, publicProcedure, router } from "./_core/trpc";
 import { z } from "zod";
-import { createFeedback, createMessage, deleteFeedback, deleteMessage, getAllFeedbacks, getAllMessages, getMessageStats, likeMessage, markFeedbackAsRead, toggleMessagePin } from "./db";
+import { createFeedback, createMessage, deleteFeedback, deleteMessage, getAllFeedbacks, getAllMessages, getMessageStats, likeMessage, markFeedbackAsRead, toggleMessagePin, updateMessage } from "./db";
 
 export const appRouter = router({
     // if you need to use socket.io, read and register route in server/_core/index.ts, all api should start with '/api/' so that the gateway can route correctly
@@ -60,13 +60,16 @@ export const appRouter = router({
       .input(
         z.object({
           nickname: z.string().min(2, "昵称至少2个字符").max(20, "昵称不能超过20个字符"),
-          rank: z.string().max(50, "段位不能超过50个字符").optional(),          content: z.string().min(1, "留言内容不能为空").max(100, "留言内容不能超过100个字符"),        })
+          rank: z.string().max(50, "段位不能超过50个字符").optional(),
+          content: z.string().min(1, "留言内容不能为空").max(100, "留言内容不能超过100个字符"),
+        })
       )
-      .mutation(async ({ input }) => {
+      .mutation(async ({ input, ctx }) => {
         await createMessage({
           nickname: input.nickname,
           rank: input.rank,
           content: input.content,
+          userId: ctx.user?.id, // Add userId if user is logged in
         });
         return { success: true };
       }),
@@ -101,6 +104,18 @@ export const appRouter = router({
       .input(z.object({ id: z.number() }))
       .mutation(async ({ input }) => {
         await toggleMessagePin(input.id);
+        return { success: true };
+      }),
+    update: protectedProcedure
+      .input(z.object({ 
+        id: z.number(),
+        content: z.string().min(1, "留言内容不能为空").max(100, "留言内容不能超过100个字符")
+      }))
+      .mutation(async ({ input, ctx }) => {
+        if (!ctx.user) {
+          throw new Error("Unauthorized");
+        }
+        await updateMessage(input.id, input.content, ctx.user.id);
         return { success: true };
       }),
   }),

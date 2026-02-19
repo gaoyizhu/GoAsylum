@@ -291,9 +291,16 @@ export default function MessageBoard() {
                           </span>
                         )}
                       </div>
-                      <span className="text-sm text-muted-foreground">
-                        {new Date(message.createdAt).toLocaleString()}
-                      </span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-muted-foreground">
+                          {new Date(message.createdAt).toLocaleString()}
+                        </span>
+                        {message.editedAt && (
+                          <span className="text-xs text-muted-foreground italic">
+                            (已编辑)
+                          </span>
+                        )}
+                      </div>
                     </div>
                   </CardHeader>
                   <CardContent>

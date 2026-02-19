@@ -160,7 +160,7 @@ export async function deleteFeedback(id: number): Promise<void> {
 /**
  * Insert a new message into the database
  */
-export async function createMessage(message: { nickname: string; rank?: string; content: string }) {
+export async function createMessage(message: { nickname: string; rank?: string; content: string; userId?: number }) {
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot create message: database not available");
@@ -246,6 +246,37 @@ export async function deleteMessage(id: number): Promise<void> {
     await db.delete(messages).where(eq(messages.id, id));
   } catch (error) {
     console.error("[Database] Failed to delete message:", error);
+    throw error;
+  }
+}
+
+/**
+ * Update message content (author only)
+ */
+export async function updateMessage(id: number, content: string, userId: number): Promise<void> {
+  const db = await getDb();
+  if (!db) {
+    console.warn("[Database] Cannot update message: database not available");
+    throw new Error("Database not available");
+  }
+
+  try {
+    const message = await db.select().from(messages).where(eq(messages.id, id)).limit(1);
+    if (message.length === 0) {
+      throw new Error("Message not found");
+    }
+    
+    // Verify the user is the author of the message
+    if (message[0].userId !== userId) {
+      throw new Error("You can only edit your own messages");
+    }
+    
+    await db.update(messages).set({ 
+      content, 
+      editedAt: new Date() 
+    }).where(eq(messages.id, id));
+  } catch (error) {
+    console.error("[Database] Failed to update message:", error);
     throw error;
   }
 }

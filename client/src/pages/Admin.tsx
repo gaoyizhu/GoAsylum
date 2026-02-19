@@ -1,4 +1,5 @@
 import { trpc } from "@/lib/trpc";
+import { useAuth } from "@/_core/hooks/useAuth";
 import { Button } from "@/components/ui/button";
 import {
   Table,
@@ -12,7 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
-import { Trash2, CheckCircle2, Mail, MessageSquare, ThumbsUp, TrendingUp, Pin } from "lucide-react";
+import { Trash2, CheckCircle2, Mail, MessageSquare, ThumbsUp, TrendingUp, Pin, Pencil } from "lucide-react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import {
@@ -28,7 +29,10 @@ export default function Admin() {
   const [messageSearchTerm, setMessageSearchTerm] = useState("");
   const [selectedFeedback, setSelectedFeedback] = useState<any>(null);
   const [selectedMessage, setSelectedMessage] = useState<any>(null);
+  const [editingMessage, setEditingMessage] = useState<any>(null);
+  const [editContent, setEditContent] = useState("");
   const utils = trpc.useUtils();
+  const { user } = useAuth();
   
   // Feedback queries
   const { data: feedbacks, isLoading: feedbacksLoading } = trpc.feedback.list.useQuery();
@@ -81,6 +85,18 @@ export default function Admin() {
     },
   });
 
+  const updateMessageMutation = trpc.message.update.useMutation({
+    onSuccess: () => {
+      utils.message.list.invalidate();
+      setEditingMessage(null);
+      setEditContent("");
+      toast.success("留言编辑成功");
+    },
+    onError: (error) => {
+      toast.error(error.message || "编辑失败，请重试");
+    },
+  });
+
   const handleMarkAsRead = (id: number) => {
     markAsReadMutation.mutate({ id });
   };
@@ -99,6 +115,23 @@ export default function Admin() {
 
   const handleTogglePin = (id: number) => {
     togglePinMutation.mutate({ id });
+  };
+
+  const handleEditMessage = (message: any) => {
+    setEditingMessage(message);
+    setEditContent(message.content);
+  };
+
+  const handleSaveEdit = () => {
+    if (!editingMessage) return;
+    if (!editContent.trim()) {
+      toast.error("留言内容不能为空");
+      return;
+    }
+    updateMessageMutation.mutate({ 
+      id: editingMessage.id, 
+      content: editContent 
+    });
   };
 
   const filteredFeedbacks = feedbacks?.filter(
@@ -324,6 +357,17 @@ export default function Admin() {
                         </TableCell>
                         <TableCell className="text-right">
                           <div className="flex items-center justify-end gap-1">
+                            {message.userId === user?.id && (
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleEditMessage(message)}
+                                disabled={updateMessageMutation.isPending}
+                                title="编辑留言"
+                              >
+                                <Pencil className="w-4 h-4 text-blue-600" />
+                              </Button>
+                            )}
                             <Button
                               variant="ghost"
                               size="sm"
@@ -459,6 +503,46 @@ export default function Admin() {
                   </Button>
                   <Button variant="outline" onClick={() => setSelectedMessage(null)}>
                     关闭
+                  </Button>
+                </div>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
+
+        {/* 编辑留言对话框 */}
+        <Dialog open={!!editingMessage} onOpenChange={() => setEditingMessage(null)}>
+          <DialogContent className="max-w-2xl">
+            <DialogHeader>
+              <DialogTitle>编辑留言</DialogTitle>
+              <DialogDescription>
+                修改您的留言内容（1-100字符）
+              </DialogDescription>
+            </DialogHeader>
+            {editingMessage && (
+              <div className="space-y-4">
+                <div>
+                  <label className="text-sm font-medium text-muted-foreground">留言内容</label>
+                  <textarea
+                    className="w-full mt-2 p-3 border rounded-md min-h-[150px] focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={editContent}
+                    onChange={(e) => setEditContent(e.target.value)}
+                    maxLength={100}
+                    placeholder="请输入留言内容（1-100字符）"
+                  />
+                  <div className="text-sm text-muted-foreground mt-1 text-right">
+                    {editContent.length}/100
+                  </div>
+                </div>
+                <div className="flex gap-2 pt-4">
+                  <Button
+                    onClick={handleSaveEdit}
+                    disabled={updateMessageMutation.isPending || !editContent.trim()}
+                  >
+                    {updateMessageMutation.isPending ? "保存中..." : "保存"}
+                  </Button>
+                  <Button variant="outline" onClick={() => setEditingMessage(null)}>
+                    取消
                   </Button>
                 </div>
               </div>
