@@ -90,6 +90,18 @@ export default function MessageBoard() {
 
   const rankOptions = [
     { value: "none", label: t.messageBoard.noRank || "不选择" },
+    // 业余级位（10级到1级）
+    { value: "业余10级", label: "业余10级" },
+    { value: "业余9级", label: "业余9级" },
+    { value: "业余8级", label: "业余8级" },
+    { value: "业余7级", label: "业余7级" },
+    { value: "业余6级", label: "业余6级" },
+    { value: "业余5级", label: "业余5级" },
+    { value: "业余4级", label: "业余4级" },
+    { value: "业余3级", label: "业余3级" },
+    { value: "业余2级", label: "业余2级" },
+    { value: "业余1级", label: "业余1级" },
+    // 业余段位（1段到8段）
     { value: "业余1段", label: "业余1段" },
     { value: "业余2段", label: "业余2段" },
     { value: "业余3段", label: "业余3段" },
@@ -97,9 +109,9 @@ export default function MessageBoard() {
     { value: "业余5段", label: "业余5段" },
     { value: "业余6段", label: "业余6段" },
     { value: "业余7段", label: "业余7段" },
-    { value: "专业初段", label: "专业初段" },
-    { value: "专业二段", label: "专业二段" },
-    { value: "专业三段", label: "专业三段" },
+    { value: "业余8段", label: "业余8段" },
+    // 职业棋手
+    { value: "职业棋手", label: "职业棋手" },
   ];
 
   return (
