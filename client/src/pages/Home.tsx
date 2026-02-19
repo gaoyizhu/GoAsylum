@@ -187,22 +187,8 @@ export default function Home() {
           {t.home.startGame}
         </Button>
 
-        {/* 院长信箱、诊费随喜和下载APP按钮 */}
+        {/* 留言板、院长信箱和诊费随喜按钮 */}
         <div className="flex flex-row gap-4 mt-1 w-full justify-center items-end">
-          {/* 院长信箱 */}
-          <button
-            onClick={() => setFeedbackFormOpen(true)}
-            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
-            aria-label={t.home.directorMailbox}
-          >
-            <img 
-              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/r27CSWsjU3cTTcCXsh901N_1771426336585_na1fn_bWFpbGJveC1pY29uLWxhcmdlLXYy.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L3IyN0NTV3NqVTNjVFRjQ1hzaDkwMU5fMTc3MTQyNjMzNjU4NV9uYTFmbl9iV0ZwYkdKdmVDMXBZMjl1TFd4aGNtZGxMWFl5LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=ZUL77YLLQu9h1s8b6ZmPaHCa3COO~0hcZWiclPI7FZQZ~FHxwfsmAB-gxkat~yeOMFVBUvcczwVl6D53XWQ467sPcAq-3RXvfESloOQicFwmsJi6YS3a4pMvSXljFGMyP7CXBw1bNxoPyB4gdYwGGNRSIlG3WlzLzY1cwx4cs~L1NHSxHBKo48uGN0-BoVEGZkhKZcbrycjL1LjxKpKafJW8l~yj~PiktTY5TdE5pRW8viKgWuKD4Hys-32IbjholWsVuOtH7SpcS9xRciPKo2T7xhPE3RrqqFzPAtgR40xRrNil7B204mLixmjYRQtbsMdzQ7FGc1lw7eCZDQ392A__"
-              alt={t.home.directorMailbox} 
-              className="w-8 h-8"
-            />
-            <span className="text-xs font-medium text-foreground text-center w-16 leading-tight h-8 flex items-start justify-center">{t.home.directorMailbox}</span>
-          </button>
-
           {/* 留言板 */}
           <button
             onClick={() => setLocation('/message-board')}
@@ -215,6 +201,20 @@ export default function Home() {
               className="w-10 h-10"
             />
             <span className="text-xs font-medium text-foreground text-center w-16 leading-tight h-8 flex items-start justify-center">{t.home.messageBoard}</span>
+          </button>
+
+          {/* 院长信箱 */}
+          <button
+            onClick={() => setFeedbackFormOpen(true)}
+            className="group flex flex-col items-center gap-1 hover:scale-105 transition-all duration-200"
+            aria-label={t.home.directorMailbox}
+          >
+            <img 
+              src="https://private-us-east-1.manuscdn.com/sessionFile/oZItJG8Pi4pSg6byyTzLUB/sandbox/r27CSWsjU3cTTcCXsh901N_1771426336585_na1fn_bWFpbGJveC1pY29uLWxhcmdlLXYy.png?x-oss-process=image/resize,w_1920,h_1920/format,webp/quality,q_80&Expires=1798761600&Policy=eyJTdGF0ZW1lbnQiOlt7IlJlc291cmNlIjoiaHR0cHM6Ly9wcml2YXRlLXVzLWVhc3QtMS5tYW51c2Nkbi5jb20vc2Vzc2lvbkZpbGUvb1pJdEpHOFBpNHBTZzZieXlUekxVQi9zYW5kYm94L3IyN0NTV3NqVTNjVFRjQ1hzaDkwMU5fMTc3MTQyNjMzNjU4NV9uYTFmbl9iV0ZwYkdKdmVDMXBZMjl1TFd4aGNtZGxMWFl5LnBuZz94LW9zcy1wcm9jZXNzPWltYWdlL3Jlc2l6ZSx3XzE5MjAsaF8xOTIwL2Zvcm1hdCx3ZWJwL3F1YWxpdHkscV84MCIsIkNvbmRpdGlvbiI6eyJEYXRlTGVzc1RoYW4iOnsiQVdTOkVwb2NoVGltZSI6MTc5ODc2MTYwMH19fV19&Key-Pair-Id=K2HSFNDJXOU9YS&Signature=ZUL77YLLQu9h1s8b6ZmPaHCa3COO~0hcZWiclPI7FZQZ~FHxwfsmAB-gxkat~yeOMFVBUvcczwVl6D53XWQ467sPcAq-3RXvfESloOQicFwmsJi6YS3a4pMvSXljFGMyP7CXBw1bNxoPyB4gdYwGGNRSIlG3WlzLzY1cwx4cs~L1NHSxHBKo48uGN0-BoVEGZkhKZcbrycjL1LjxKpKafJW8l~yj~PiktTY5TdE5pRW8viKgWuKD4Hys-32IbjholWsVuOtH7SpcS9xRciPKo2T7xhPE3RrqqFzPAtgR40xRrNil7B204mLixmjYRQtbsMdzQ7FGc1lw7eCZDQ392A__"
+              alt={t.home.directorMailbox} 
+              className="w-8 h-8"
+            />
+            <span className="text-xs font-medium text-foreground text-center w-16 leading-tight h-8 flex items-start justify-center">{t.home.directorMailbox}</span>
           </button>
 
           {/* 下载APP - 暂时隐藏 */}
