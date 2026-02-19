@@ -247,3 +247,7 @@
 - [x] 检查CardHeader、CardContent、CardFooter的默认样式定义
 - [x] 彻底移除这些组件的默认padding（添加gap-0覆盖gap-6）
 - [x] 测试间距是否已完全消除
+
+## 调整留言卡片间距（增加舒适度）
+- [x] 在日期行上方添加4px空间（CardHeader添加pt-1）
+- [x] 增加文字行间距（leading-none改为leading-tight）

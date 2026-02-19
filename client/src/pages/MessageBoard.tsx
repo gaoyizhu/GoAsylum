@@ -273,7 +273,7 @@ export default function MessageBoard() {
             <>
               {messages.map((message) => (
                 <Card key={message.id} className="py-0.5 gap-0">
-                  <CardHeader className="pb-0 pt-0 px-4">
+                  <CardHeader className="pb-0 pt-1 px-4">
                     <div className="flex items-center justify-between gap-2">
                       <div className="flex items-center gap-1.5 flex-wrap">
                         {message.isPinned === 1 && (
@@ -297,7 +297,7 @@ export default function MessageBoard() {
                     </div>
                   </CardHeader>
                   <CardContent className="pb-0 pt-0 px-4">
-                    <p className="text-sm text-foreground whitespace-pre-wrap leading-none">{message.content}</p>
+                    <p className="text-sm text-foreground whitespace-pre-wrap leading-tight">{message.content}</p>
                   </CardContent>
                   <CardFooter className="flex items-center justify-between pt-0 pb-0 px-4">
                     <Button
