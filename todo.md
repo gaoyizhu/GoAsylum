@@ -80,3 +80,6 @@
 
 ## Bug修复
 - [x] 修复DonationDialog组件的无障碍访问错误，添加DialogTitle支持屏幕阅读器
+
+## UI文字调整
+- [x] 修改诊费随喜对话框底部按钮文字，从“取消/Cancel”改为“返回/Back”

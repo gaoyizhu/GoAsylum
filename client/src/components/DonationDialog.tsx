@@ -38,7 +38,7 @@ export default function DonationDialog({ open, onOpenChange }: DonationDialogPro
             onClick={() => onOpenChange(false)}
             className="bg-primary text-background px-12 py-3 text-lg font-bold rounded-xl hover:scale-105 transition-transform"
           >
-            {t.feedback.cancel}
+            {t.feedback.back}
           </Button>
         </div>
       </DialogContent>
