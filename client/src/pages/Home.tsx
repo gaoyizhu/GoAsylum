@@ -203,8 +203,8 @@ export default function Home() {
             <span className="text-xs font-medium text-foreground text-center w-16 leading-tight h-8 flex items-start justify-center">{t.home.directorMailbox}</span>
           </button>
 
-          {/* 下载APP */}
-          <button
+          {/* 下载APP - 暂时隐藏 */}
+          {/* <button
             onClick={() => {
               setDialogMessage(t.home.appDev);
               setDialogOpen(true);
@@ -218,7 +218,7 @@ export default function Home() {
               className="w-8 h-8"
             />
             <span className="text-xs font-medium text-foreground text-center w-16 leading-tight h-8 flex items-start justify-center">{t.home.downloadApp}</span>
-          </button>
+          </button> */}
 
           {/* 诊费随喜 */}
           <button
