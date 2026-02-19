@@ -50,6 +50,7 @@ export const translations = {
       alipay: '支付宝',
       note: '支付时请备注您的昵称，我们会在感谢名单中致谢',
       disclaimer: '随喜金额不限，心意最重要 ❤️',
+      reminder: '请在备注里留名，期待在未来的围棋江湖与你相遇～',
     },
     // 反馈表单
     feedback: {
@@ -225,6 +226,7 @@ export const translations = {
       alipay: 'Alipay',
       note: 'Please note your nickname when paying, we will thank you in the acknowledgment list',
       disclaimer: 'Any amount is appreciated ❤️',
+      reminder: 'Please leave your name in the note, looking forward to meeting you in the Go world~',
     },
     // Feedback Form
     feedback: {

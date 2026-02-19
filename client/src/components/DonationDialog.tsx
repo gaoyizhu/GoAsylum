@@ -32,6 +32,13 @@ export default function DonationDialog({ open, onOpenChange }: DonationDialogPro
           />
         </div>
 
+        {/* 提示文字 */}
+        <div className="flex justify-center px-6 pt-4 pb-2">
+          <p className="text-center text-base text-muted-foreground">
+            {t.donation.reminder}
+          </p>
+        </div>
+
         {/* 确认按钮 */}
         <div className="flex justify-center pb-6 px-6">
           <Button
