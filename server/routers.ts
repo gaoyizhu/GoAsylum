@@ -60,9 +60,7 @@ export const appRouter = router({
       .input(
         z.object({
           nickname: z.string().min(2, "昵称至少2个字符").max(20, "昵称不能超过20个字符"),
-          rank: z.string().max(50, "段位不能超过50个字符").optional(),
-          content: z.string().min(10, "留言内容至少10个字符").max(500, "留言内容不能超过500个字符"),
-        })
+          rank: z.string().max(50, "段位不能超过50个字符").optional(),          content: z.string().min(1, "留言内容不能为空").max(100, "留言内容不能超过100个字符"),        })
       )
       .mutation(async ({ input }) => {
         await createMessage({

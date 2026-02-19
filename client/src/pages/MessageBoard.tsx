@@ -228,15 +228,15 @@ export default function MessageBoard() {
                 <Textarea
                   value={content}
                   onChange={(e) => setContent(e.target.value)}
-                  placeholder={t.messageBoard.contentPlaceholder || "分享您的围棋心得、对局感悟...（10-500字符）"}
+                  placeholder={t.messageBoard.contentPlaceholder || "分享您的围棋心得、对局感悟...（1-100字符）"}
                   required
-                  minLength={10}
-                  maxLength={500}
+                  minLength={1}
+                  maxLength={100}
                   rows={5}
                   className="resize-none"
                 />
                 <div className="text-right text-sm text-muted-foreground mt-1">
-                  {content.length}/500
+                  {content.length}/100
                 </div>
               </div>
               <Button type="submit" disabled={isSubmitting} className="w-full">
