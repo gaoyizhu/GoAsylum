@@ -2,7 +2,8 @@
  * 诊费随喜对话框组件 - 围棋主题版
  */
 
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/lib/i18n/language-context";
 
@@ -17,6 +18,11 @@ export default function DonationDialog({ open, onOpenChange }: DonationDialogPro
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="bg-[#EBF0F3] text-foreground max-w-2xl p-0 border-0">
+        {/* 隐藏的标题，用于屏幕阅读器 */}
+        <VisuallyHidden>
+          <DialogTitle>{t.donation.title}</DialogTitle>
+        </VisuallyHidden>
+        
         {/* 主图片 */}
         <div className="relative w-full">
           <img 
