@@ -184,10 +184,7 @@ export default function MessageBoard() {
 
         {/* 发布留言表单 */}
         <Card className="mb-4">
-          <CardHeader className="pb-3">
-            <h2 className="text-lg font-semibold">{t.messageBoard.postMessage || "发布留言"}</h2>
-          </CardHeader>
-          <CardContent className="pt-0">
+          <CardContent className="pt-4">
             <form onSubmit={handleSubmit} className="space-y-3">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>

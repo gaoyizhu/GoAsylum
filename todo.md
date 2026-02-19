@@ -251,3 +251,6 @@
 ## 调整留言卡片间距（增加舒适度）
 - [x] 在日期行上方添加4px空间（CardHeader添加pt-1）
 - [x] 增加文字行间距（leading-none改为leading-tight）
+
+## 移除留言板"发布留言"标题
+- [x] 删除MessageBoard.tsx中的发布留言标题
