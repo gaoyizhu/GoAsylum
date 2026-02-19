@@ -222,3 +222,7 @@
 - [x] 减小CardHeader和CardContent之间的间距
 - [x] 减小CardContent和CardFooter之间的间距
 - [x] 优化卡片整体padding
+
+## 大幅缩小留言卡片垂直间距
+- [x] 将CardHeader的pb设为0，消除标题与内容间的空隙
+- [x] 将CardContent的pt和pb都设为0，消除内容与点赞按钮间的空隙
