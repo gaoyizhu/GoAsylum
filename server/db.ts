@@ -1,4 +1,4 @@
-import { desc, eq } from "drizzle-orm";
+import { count, desc, eq, sql } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/mysql2";
 import { feedbacks, InsertFeedback, InsertUser, messages, users } from "../drizzle/schema";
 import { ENV } from './_core/env';
@@ -177,17 +177,36 @@ export async function createMessage(message: { nickname: string; rank?: string; 
 }
 
 /**
- * Get all messages ordered by creation time (newest first)
+ * Get all messages ordered by creation time (newest first) with pagination
  */
-export async function getAllMessages() {
+export async function getAllMessages(page: number = 1, pageSize: number = 20) {
   const db = await getDb();
   if (!db) {
     console.warn("[Database] Cannot get messages: database not available");
-    return [];
+    return { messages: [], total: 0, page, pageSize, totalPages: 0 };
   }
 
-  const result = await db.select().from(messages).orderBy(desc(messages.createdAt));
-  return result;
+  // Get total count
+  const totalResult = await db.select({ count: count() }).from(messages);
+  const total = totalResult[0]?.count || 0;
+  const totalPages = Math.ceil(total / pageSize);
+
+  // Get paginated messages
+  const offset = (page - 1) * pageSize;
+  const result = await db
+    .select()
+    .from(messages)
+    .orderBy(desc(messages.createdAt))
+    .limit(pageSize)
+    .offset(offset);
+
+  return {
+    messages: result,
+    total,
+    page,
+    pageSize,
+    totalPages,
+  };
 }
 
 /**

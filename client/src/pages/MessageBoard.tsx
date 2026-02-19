@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
-import { Heart, Loader2, Trash2, ArrowLeft } from "lucide-react";
+import { Heart, Loader2, Trash2, ArrowLeft, ChevronLeft, ChevronRight } from "lucide-react";
 import { useLanguage } from "@/lib/i18n/language-context";
 import { toast } from "sonner";
 import { useLocation } from "wouter";
@@ -14,14 +14,22 @@ export default function MessageBoard() {
   const { t } = useLanguage();
   const [, setLocation] = useLocation();
 
-  
   const [nickname, setNickname] = useState("");
   const [rank, setRank] = useState("none");
   const [content, setContent] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 20;
 
-  // 获取留言列表
-  const { data: messages = [], refetch, isLoading } = trpc.message.list.useQuery();
+  // 获取留言列表（带分页）
+  const { data: messageData, refetch, isLoading } = trpc.message.list.useQuery({
+    page: currentPage,
+    pageSize,
+  });
+
+  const messages = messageData?.messages || [];
+  const totalPages = messageData?.totalPages || 0;
+  const total = messageData?.total || 0;
   
   // 发布留言
   const createMutation = trpc.message.create.useMutation({
@@ -32,6 +40,7 @@ export default function MessageBoard() {
       setNickname("");
       setRank("none");
       setContent("");
+      setCurrentPage(1); // 回到第一页
       refetch();
     },
     onError: (error) => {
@@ -88,8 +97,13 @@ export default function MessageBoard() {
     }
   };
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   const rankOptions = [
-    { value: "none", label: t.messageBoard.noRank || "不选择" },
+    { value: "none", label: t.messageBoard.noRank || "保密" },
     // 业余级位（10级到1级）
     { value: "业余10级", label: "业余10级" },
     { value: "业余9级", label: "业余9级" },
@@ -113,6 +127,42 @@ export default function MessageBoard() {
     // 职业棋手
     { value: "职业棋手", label: "职业棋手" },
   ];
+
+  // 生成页码数组
+  const getPageNumbers = () => {
+    const pages: (number | string)[] = [];
+    
+    if (totalPages <= 7) {
+      // 如果总页数小于等于7，显示所有页码
+      for (let i = 1; i <= totalPages; i++) {
+        pages.push(i);
+      }
+    } else {
+      // 总是显示第一页
+      pages.push(1);
+      
+      if (currentPage > 3) {
+        pages.push('...');
+      }
+      
+      // 显示当前页附近的页码
+      const start = Math.max(2, currentPage - 1);
+      const end = Math.min(totalPages - 1, currentPage + 1);
+      
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+      
+      if (currentPage < totalPages - 2) {
+        pages.push('...');
+      }
+      
+      // 总是显示最后一页
+      pages.push(totalPages);
+    }
+    
+    return pages;
+  };
 
   return (
     <div className="min-h-screen bg-background py-8 px-4">
@@ -206,7 +256,7 @@ export default function MessageBoard() {
         {/* 留言列表 */}
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold mb-4">
-            {t.messageBoard.messageList || "留言列表"} ({messages.length})
+            {t.messageBoard.messageList || "留言列表"} ({total})
           </h2>
           
           {isLoading ? (
@@ -220,50 +270,93 @@ export default function MessageBoard() {
               </CardContent>
             </Card>
           ) : (
-            messages.map((message) => (
-              <Card key={message.id}>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-2">
-                      <span className="font-semibold text-lg">{message.nickname}</span>
-                      {message.rank && (
-                        <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
-                          {message.rank}
-                        </span>
-                      )}
+            <>
+              {messages.map((message) => (
+                <Card key={message.id}>
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="font-semibold text-lg">{message.nickname}</span>
+                        {message.rank && (
+                          <span className="text-sm bg-primary/10 text-primary px-2 py-1 rounded">
+                            {message.rank}
+                          </span>
+                        )}
+                      </div>
+                      <span className="text-sm text-muted-foreground">
+                        {new Date(message.createdAt).toLocaleString()}
+                      </span>
                     </div>
-                    <span className="text-sm text-muted-foreground">
-                      {new Date(message.createdAt).toLocaleString()}
-                    </span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-foreground whitespace-pre-wrap">{message.content}</p>
-                </CardContent>
-                <CardFooter className="flex items-center justify-between">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => handleLike(message.id)}
-                    disabled={likeMutation.isPending}
-                  >
-                    <Heart className="h-4 w-4 mr-1" />
-                    {message.likes}
-                  </Button>
-                  {/* 管理员删除按钮 - 暂时隐藏，可以后续添加权限判断 */}
-                  {false && (
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-foreground whitespace-pre-wrap">{message.content}</p>
+                  </CardContent>
+                  <CardFooter className="flex items-center justify-between">
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => handleDelete(message.id)}
-                      disabled={deleteMutation.isPending}
+                      onClick={() => handleLike(message.id)}
+                      disabled={likeMutation.isPending}
                     >
-                      <Trash2 className="h-4 w-4" />
+                      <Heart className="h-4 w-4 mr-1" />
+                      {message.likes}
                     </Button>
-                  )}
-                </CardFooter>
-              </Card>
-            ))
+                    {/* 管理员删除按钮 - 暂时隐藏，可以后续添加权限判断 */}
+                    {false && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => handleDelete(message.id)}
+                        disabled={deleteMutation.isPending}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    )}
+                  </CardFooter>
+                </Card>
+              ))}
+
+              {/* 分页导航 */}
+              {totalPages > 1 && (
+                <div className="flex items-center justify-center gap-2 mt-8">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                  </Button>
+                  
+                  {getPageNumbers().map((page, index) => (
+                    page === '...' ? (
+                      <span key={`ellipsis-${index}`} className="px-2 text-muted-foreground">
+                        ...
+                      </span>
+                    ) : (
+                      <Button
+                        key={page}
+                        variant={currentPage === page ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => handlePageChange(page as number)}
+                        className="min-w-[40px]"
+                      >
+                        {page}
+                      </Button>
+                    )
+                  ))}
+                  
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>

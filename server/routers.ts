@@ -72,9 +72,18 @@ export const appRouter = router({
         });
         return { success: true };
       }),
-    list: publicProcedure.query(async () => {
-      return await getAllMessages();
-    }),
+    list: publicProcedure
+      .input(
+        z.object({
+          page: z.number().min(1).default(1),
+          pageSize: z.number().min(1).max(100).default(20),
+        }).optional()
+      )
+      .query(async ({ input }) => {
+        const page = input?.page || 1;
+        const pageSize = input?.pageSize || 20;
+        return await getAllMessages(page, pageSize);
+      }),
     like: publicProcedure
       .input(z.object({ id: z.number() }))
       .mutation(async ({ input }) => {
