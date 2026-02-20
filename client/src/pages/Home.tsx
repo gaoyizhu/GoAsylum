@@ -210,7 +210,7 @@ export default function Home() {
             aria-label={t.home.directorMailbox}
           >
             <img 
-              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/MSFmOHSnxsmGkNNS.jpg"
+              src="https://files.manuscdn.com/user_upload_by_module/session_file/310519663279187867/RVoxAJXnFnRDhaaa.jpg"
               alt={t.home.directorMailbox} 
               className="w-10 h-10"
             />
