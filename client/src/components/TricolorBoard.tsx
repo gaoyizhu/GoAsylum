@@ -95,24 +95,51 @@ export function TricolorBoard({
           ))}
         </g>
 
-        {/* Star points for 13x13 */}
-        {[3, 9].map(x =>
-          [3, 9].map(y => (
+        {/* Star points for 9x9 */}
+        {boardSize === 9 && (
+          <>
+            {[2, 6].map(x =>
+              [2, 6].map(y => (
+                <circle
+                  key={`star-${x}-${y}`}
+                  cx={padding + x * cellSize}
+                  cy={padding + y * cellSize}
+                  r={3}
+                  fill="#8B4513"
+                />
+              ))
+            )}
             <circle
-              key={`star-${x}-${y}`}
-              cx={padding + x * cellSize}
-              cy={padding + y * cellSize}
+              cx={padding + 4 * cellSize}
+              cy={padding + 4 * cellSize}
               r={3}
               fill="#8B4513"
             />
-          ))
+          </>
         )}
-        <circle
-          cx={padding + 6 * cellSize}
-          cy={padding + 6 * cellSize}
-          r={3}
-          fill="#8B4513"
-        />
+        
+        {/* Star points for 13x13 */}
+        {boardSize === 13 && (
+          <>
+            {[3, 9].map(x =>
+              [3, 9].map(y => (
+                <circle
+                  key={`star-${x}-${y}`}
+                  cx={padding + x * cellSize}
+                  cy={padding + y * cellSize}
+                  r={3}
+                  fill="#8B4513"
+                />
+              ))
+            )}
+            <circle
+              cx={padding + 6 * cellSize}
+              cy={padding + 6 * cellSize}
+              r={3}
+              fill="#8B4513"
+            />
+          </>
+        )}
 
         {/* Draw stones */}
         {board.map((row, y) =>
