@@ -283,3 +283,7 @@
 - [x] 上传最新的院长信箱图标到S3
 - [x] 更新主页代码中的图标链接
 - [x] 验证图标显示效果
+
+## 优化项目体积 - 删除ComponentShowcase
+- [x] 删除ComponentShowcase.tsx文件
+- [x] 验证项目运行正常
